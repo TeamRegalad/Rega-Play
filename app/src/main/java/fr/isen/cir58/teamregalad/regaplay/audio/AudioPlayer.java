@@ -6,28 +6,28 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import fr.isen.cir58.teamregalad.regaplay.MainActivity;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 
 /**
  * Created by thomas on 22/10/15.
  */
-public class AudioManager {
-    private static AudioManager ourInstance = new AudioManager();
+public class AudioPlayer {
+    private static AudioPlayer ourInstance = new AudioPlayer();
     private static MediaPlayer mediaPlayer = new MediaPlayer();
 
-    public static AudioManager getInstance() {
+    public static AudioPlayer getInstance() {
         return ourInstance;
     }
 
-    private AudioManager() {
+    private AudioPlayer() {
         mediaPlayer.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC);
     }
     public void playTrack(Uri trackPath){
         try{
             mediaPlayer.setDataSource(RegaPlayApplication.getContext(), trackPath);
-            mediaPlayer.prepare();
+            mediaPlayer.prepareAsync();
             mediaPlayer.start();
+
         } catch (IOException e){
             Log.e("ERROR", e.getMessage());
         }

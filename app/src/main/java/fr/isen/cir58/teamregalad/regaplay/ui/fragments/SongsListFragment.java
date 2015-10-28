@@ -13,7 +13,11 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 /**
  * Created by aymeric on 10/26/15.
  */
-public class SongsListFragment extends ListFragment {
+public class SongsListFragment extends Fragment {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.songs_list_fragment, container, false);

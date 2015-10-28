@@ -26,7 +26,7 @@ public class AudioActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regaplay_lists);
+        setContentView(R.layout.regaplay_lists_activity);
 
         songsList = MetaDataFetcher.getAudioFilesFromMediaStore(getContentResolver());
 

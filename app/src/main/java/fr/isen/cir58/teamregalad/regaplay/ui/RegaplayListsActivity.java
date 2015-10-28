@@ -14,7 +14,7 @@ public class RegaplayListsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regaplay_lists);
+        setContentView(R.layout.regaplay_lists_activity);
 
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.regaplay_lists_activity_toolbar);

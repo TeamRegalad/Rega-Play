@@ -11,7 +11,7 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 /**
  * Created by aymeric on 10/26/15.
  */
-public class SongsListFragment extends Fragment {
+public class SongsListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.songs_list_fragment, container, false);

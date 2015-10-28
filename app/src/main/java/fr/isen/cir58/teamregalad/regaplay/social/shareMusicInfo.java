@@ -1,4 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.Social;
+package fr.isen.cir58.teamregalad.regaplay.social;
 
 import android.app.Activity;
 import android.content.Intent;

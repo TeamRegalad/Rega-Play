@@ -44,9 +44,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         songsList = MetaDataFetcher.getAudioFilesFromMediaStore(getContentResolver());
 
-        for (Song song : songsList) {
-            Log.d("Song", song.toString());
-        }
 
         findViewById(R.id.playButton).setOnClickListener(this);
         findViewById(R.id.stopButton).setOnClickListener(this);

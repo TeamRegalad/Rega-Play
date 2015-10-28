@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 /**
  * Created by aymeric on 10/28/15.
  */
-public class ListFragment extends Fragment {
+public abstract class ListFragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RecyclerView.Adapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;

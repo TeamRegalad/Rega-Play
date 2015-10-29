@@ -16,6 +16,20 @@ public class Song {
     private String album;
     private int year;
     private int duration;
+    private String genre;
+
+    public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration, String genre) {
+        this.ID = ID;
+        this.title = title;
+        this.path = path;
+        this.artistID = artistID;
+        this.artist = artist;
+        this.albumID = albumID;
+        this.album = album;
+        this.year = year;
+        this.duration = duration;
+        this.genre = genre;
+    }
 
     public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration) {
         this.ID = ID;
@@ -27,6 +41,7 @@ public class Song {
         this.album = album;
         this.year = year;
         this.duration = duration;
+        this.genre = "";
     }
 
     public int getID() {
@@ -101,13 +116,22 @@ public class Song {
         this.duration = duration;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     @Override
     public String toString() {
         return title + " (ID " + String.valueOf(ID) + ") " + "\n" +
                 artist + " (ID " + String.valueOf(artistID) + ") " + "\n" +
                 album + " (ID " + String.valueOf(albumID) + ") " + "\n" +
-                year  + "\n" +
+                year + "\n" +
                 duration + "\n" +
-                path ;
+                genre + "\n " +
+                path;
     }
 }

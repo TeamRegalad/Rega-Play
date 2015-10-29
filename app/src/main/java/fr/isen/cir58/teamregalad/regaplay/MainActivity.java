@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,7 +21,10 @@ import android.text.Selection;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +53,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.stopButton).setOnClickListener(this);
         findViewById(R.id.previousButton).setOnClickListener(this);
         findViewById(R.id.nextButton).setOnClickListener(this);
-
 
     }
 
@@ -101,6 +104,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 songPicked();
                 Button b = (Button) v;
+                /*Bitmap bitmap = songsList.get(audioService.getSongsPosition()).getAlbumArt();
+                if(bitmap != null){
+                    ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
+                }*/
+                Log.d("test",songsList.get(audioService.getSongsPosition()).getAlbumArtPath());
+                Picasso.with(RegaPlayApplication.getContext()).load(new File(songsList.get(audioService.getSongsPosition()).getAlbumArtPath())).into(((ImageView) findViewById(R.id.imageView)));
+
 
                 if (b.getText() == "Play") {
                     if (audioService.pauseSong()) {
@@ -120,6 +130,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     audioService.setSong(audioService.getSongsPosition() - 1);
                     audioService.playSong();
                     ((TextView) findViewById(R.id.track)).setText(songsList.get(audioService.getSongsPosition()).getTitle() + " - " + songsList.get(audioService.getSongsPosition()).getArtist());
+                    //Picasso.with(RegaPlayApplication.getContext()).load(songsList.get(audioService.getSongsPosition()).getAlbumArtURI()).into(((ImageView) findViewById(R.id.imageView)));
                 }
                 break;
 
@@ -128,6 +139,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     audioService.setSong(audioService.getSongsPosition() + 1);
                     audioService.playSong();
                     ((TextView) findViewById(R.id.track)).setText(songsList.get(audioService.getSongsPosition()).getTitle() + " - " + songsList.get(audioService.getSongsPosition()).getArtist());
+                    //Picasso.with(RegaPlayApplication.getContext()).load(songsList.get(audioService.getSongsPosition()).getAlbumArtURI()).into(((ImageView) findViewById(R.id.imageView)));
                 }
                 break;
         }

@@ -1,5 +1,6 @@
 package fr.isen.cir58.teamregalad.regaplay.audio;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 /**
@@ -17,8 +18,10 @@ public class Song {
     private int year;
     private int duration;
     private String genre;
+    private Bitmap albumArt;
+    private String albumArtPath;
 
-    public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration, String genre) {
+    public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration, String genre, String albumArtPath) {
         this.ID = ID;
         this.title = title;
         this.path = path;
@@ -29,6 +32,8 @@ public class Song {
         this.year = year;
         this.duration = duration;
         this.genre = genre;
+        this.albumArtPath = albumArtPath;
+        this.albumArt = null;
     }
 
     public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration) {
@@ -42,6 +47,8 @@ public class Song {
         this.year = year;
         this.duration = duration;
         this.genre = "";
+        this.albumArtPath = "";
+        this.albumArt = null;
     }
 
     public int getID() {
@@ -122,6 +129,22 @@ public class Song {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getAlbumArtPath() {
+        return albumArtPath;
+    }
+
+    public void setAlbumArtPath(String albumArtPath) {
+        this.albumArtPath = albumArtPath;
+    }
+
+    public Bitmap getAlbumArt() {
+        return albumArt;
+    }
+
+    public void setAlbumArt(Bitmap albumArt) {
+        this.albumArt = albumArt;
     }
 
     @Override

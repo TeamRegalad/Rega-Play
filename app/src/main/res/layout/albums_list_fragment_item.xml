@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:text="@string/albums_list_fragment_item_album_name_placeholder"
             android:id="@+id/albums_list_fragment_item_album_name"
-            android:layout_alignBottom="@+id/albums_list_fragment_item_album_cover"
-            android:layout_toEndOf="@+id/albums_list_fragment_item_album_cover" />
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/albums_list_fragment_item_album_cover"
+            android:layout_marginStart="31dp" />
     </RelativeLayout>
 </LinearLayout>

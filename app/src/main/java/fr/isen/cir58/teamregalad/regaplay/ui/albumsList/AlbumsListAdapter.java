@@ -2,6 +2,7 @@ package fr.isen.cir58.teamregalad.regaplay.ui.albumsList;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
         }
 
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
-            Picasso.with(RegaPlayApplication.getContext()).load(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART))).into(viewHolder.albumCover);
+            Picasso.with(RegaPlayApplication.getContext()).load(Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART)))).into(viewHolder.albumCover);
         }
     }
 

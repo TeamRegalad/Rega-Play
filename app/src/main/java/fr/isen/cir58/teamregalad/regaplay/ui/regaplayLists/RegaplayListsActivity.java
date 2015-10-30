@@ -1,4 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.ui;
+package fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.ui.adapters.RegaplayListsAdapter;
 
 public class RegaplayListsActivity extends AppCompatActivity {
 

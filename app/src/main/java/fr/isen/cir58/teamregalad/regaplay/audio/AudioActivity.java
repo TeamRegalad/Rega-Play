@@ -1,4 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.ui;
+package fr.isen.cir58.teamregalad.regaplay.audio;
 
 import android.app.Activity;
 import android.content.ComponentName;

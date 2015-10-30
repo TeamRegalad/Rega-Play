@@ -1,18 +1,18 @@
-package fr.isen.cir58.teamregalad.regaplay.ui.adapters;
+package fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-import fr.isen.cir58.teamregalad.regaplay.ui.fragments.AlbumsListFragment;
-import fr.isen.cir58.teamregalad.regaplay.ui.fragments.ArtistsListFragment;
-import fr.isen.cir58.teamregalad.regaplay.ui.fragments.GenresListFragment;
-import fr.isen.cir58.teamregalad.regaplay.ui.fragments.SongsListFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.albumsList.AlbumsListFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.genresList.GenresListFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.songsList.SongsListFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.artistsList.ArtistsListFragment;
 
 /**
  * Created by aymeric on 10/28/15.
  */
-public class RegaplayListsAdapter extends FragmentPagerAdapter {
+public class RegaplayListsAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
     public RegaplayListsAdapter(FragmentManager fm, int NumOfTabs) {

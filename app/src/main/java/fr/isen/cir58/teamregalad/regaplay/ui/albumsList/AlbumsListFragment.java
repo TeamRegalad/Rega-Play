@@ -1,4 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.ui.fragments;
+package fr.isen.cir58.teamregalad.regaplay.ui.albumsList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,16 +13,16 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 /**
  * Created by aymeric on 10/26/15.
  */
-public class GenresListFragment extends Fragment {
+public class AlbumsListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.genres_list_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.albums_list_fragment, container, false);
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.genres_list_fragment_recycler_view);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.albums_list_fragment_recycler_view);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 

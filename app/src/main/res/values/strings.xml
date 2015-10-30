@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RegaPlay</string>
+    <string name="artist_list_fragment_item_text_placeholder">Artist Name</string>
 </resources>

@@ -34,14 +34,14 @@ public class MediaStoreContract implements BaseColumns {
     public static final String ARTIST_SELCTION_BY_NUMBER_OF_TRACKS = ARTIST_NUMBER_OF_TRACKS + "=?";
 
     // Sort order
-    public static final String ARIST_ORDER_BY_ARTIST_ASC = ARTIST_ARTIST + " ASC";
-    public static final String ARIST_ORDER_BY_ARTIST_KEY_ASC = ARTIST_ARTIST_KEY + " ASC";
-    public static final String ARIST_ORDER_BY_NUMBER_OF_ALBUMS_ASC = ARTIST_NUMBER_OF_ALBUMS + " ASC";
-    public static final String ARIST_ORDER_BY_NUMBER_OF_TRACKS_ASC = ARTIST_NUMBER_OF_TRACKS + " ASC";
-    public static final String ARIST_ORDER_BY_ARTIST_DESC = ARTIST_ARTIST + " DESC";
-    public static final String ARIST_ORDER_BY_ARTIST_KEY_DESC = ARTIST_ARTIST_KEY + " DESC";
-    public static final String ARIST_ORDER_BY_NUMBER_OF_ALBUMS_DESC = ARTIST_NUMBER_OF_ALBUMS + " DESC";
-    public static final String ARIST_ORDER_BY_NUMBER_OF_TRACKS_DESC = ARTIST_NUMBER_OF_TRACKS + " DESC";
+    public static final String ARTIST_ORDER_BY_ARTIST_ASC = ARTIST_ARTIST + " ASC";
+    public static final String ARTIST_ORDER_BY_ARTIST_KEY_ASC = ARTIST_ARTIST_KEY + " ASC";
+    public static final String ARTIST_ORDER_BY_NUMBER_OF_ALBUMS_ASC = ARTIST_NUMBER_OF_ALBUMS + " ASC";
+    public static final String ARTIST_ORDER_BY_NUMBER_OF_TRACKS_ASC = ARTIST_NUMBER_OF_TRACKS + " ASC";
+    public static final String ARTIST_ORDER_BY_ARTIST_DESC = ARTIST_ARTIST + " DESC";
+    public static final String ARTIST_ORDER_BY_ARTIST_KEY_DESC = ARTIST_ARTIST_KEY + " DESC";
+    public static final String ARTIST_ORDER_BY_NUMBER_OF_ALBUMS_DESC = ARTIST_NUMBER_OF_ALBUMS + " DESC";
+    public static final String ARTIST_ORDER_BY_NUMBER_OF_TRACKS_DESC = ARTIST_NUMBER_OF_TRACKS + " DESC";
 
 
 }

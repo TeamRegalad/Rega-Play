@@ -1,8 +1,7 @@
-package fr.isen.cir58.teamregalad.regaplay.ui.adapters.artists;
+package fr.isen.cir58.teamregalad.regaplay.ui.artistsList;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +20,13 @@ public class ArtistsListAdapter extends CursorRecyclerViewAdapter<ArtistsListVie
 
     @Override
     public ArtistsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d(this.getClass().toString(), "onCreateViewHolder");
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.artists_list_fragment_item, parent, false);
         return new ArtistsListViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ArtistsListViewHolder viewHolder, Cursor cursor) {
-        Log.d(this.getClass().toString(), "TEST");
-
         if (cursor.getColumnIndex(MediaStoreContract.ARTIST_ARTIST) >= 0) {
-            Log.d(this.getClass().toString(), cursor.getString(cursor.getColumnIndex(MediaStoreContract.ARTIST_ARTIST)));
             viewHolder.mName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ARTIST_ARTIST)));
         }
     }

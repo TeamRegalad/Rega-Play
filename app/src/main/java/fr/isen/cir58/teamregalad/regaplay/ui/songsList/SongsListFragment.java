@@ -1,4 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.ui.fragments;
+package fr.isen.cir58.teamregalad.regaplay.ui.songsList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

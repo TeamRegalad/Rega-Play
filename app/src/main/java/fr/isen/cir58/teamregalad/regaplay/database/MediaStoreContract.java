@@ -111,4 +111,33 @@ public class MediaStoreContract implements BaseColumns {
     public static final String ALBUMS_ORDER_BY_LAST_YEAR_DESC = ALBUMS_LAST_YEAR + " DESC";
     public static final String ALBUMS_ORDER_BY_NUMBER_OF_SONGS_DESC = ALBUMS_NUMBER_OF_SONGS + " DESC";
 
+    /*
+    *
+    * GENRES fields and usages
+    *
+     */
+
+    // Field names
+    public static final String GENRES_ID = "_id";
+    public static final String GENRES_NAME = "name";
+
+    // Table name
+    public static final Uri TABLE_GENRES = MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI;
+
+    // Projections
+    public static final String[] GENRES_PROJECTION_FULL = new String[]{
+            GENRES_ID,
+            GENRES_NAME
+    };
+
+    // Selections
+    public static final String GENRES_SELCTION_BY_ID = GENRES_ID + "=?";
+    public static final String GENRES_SELCTION_BY_NAME = GENRES_NAME + "=?";
+
+    // Sort order
+    public static final String GENRES_ORDER_BY_ID_ASC = GENRES_ID + " ASC";
+    public static final String GENRES_ORDER_BY_NAME_ASC = GENRES_NAME + " ASC";
+    public static final String GENRES_ORDER_BY_ID_DESC = GENRES_ID + " DESC";
+    public static final String GENRES_ORDER_BY_NAME_DESC = GENRES_NAME + " DESC";
+
 }

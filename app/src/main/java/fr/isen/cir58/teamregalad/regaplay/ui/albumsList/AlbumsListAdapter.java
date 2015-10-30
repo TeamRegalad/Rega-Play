@@ -30,6 +30,10 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
             viewHolder.albumName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM)));
         }
 
+        if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ARTIST) >= 0) {
+            viewHolder.artistName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ARTIST)));
+        }
+
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
             String albumArtPath = cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART));
             if (albumArtPath != null) {

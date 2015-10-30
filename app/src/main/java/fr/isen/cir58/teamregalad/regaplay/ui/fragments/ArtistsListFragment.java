@@ -1,8 +1,11 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,15 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.ui.adapters.ArtistsListAdapter;
+import fr.isen.cir58.teamregalad.regaplay.audio.utils.MediaStoreContract;
+import fr.isen.cir58.teamregalad.regaplay.ui.adapters.artists.ArtistsListAdapter;
 
 /**
  * Created by aymeric on 10/26/15.
  */
-public class ArtistsListFragment extends Fragment {
+public class ArtistsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ArtistsListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
@@ -26,12 +29,41 @@ public class ArtistsListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.artists_list_fragment, container, false);
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.artists_list_fragment_recycler_view);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //mAdapter = new ArtistsListAdapter();
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        final CursorLoader cursorLoader = new CursorLoader(getContext());
+        cursorLoader.setUri(MediaStoreContract.TABLE_ARTISTS);
+        cursorLoader.setProjection(MediaStoreContract.ARTIST_PROJECTION_FULL);
+        cursorLoader.setSelection(null);
+        cursorLoader.setSelectionArgs(null);
+        cursorLoader.setSortOrder(MediaStoreContract.ARIST_ORDER_BY_ARTIST_ASC);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter = new ArtistsListAdapter(getContext(), data);
         mRecyclerView.setAdapter(mAdapter);
 
-        return rootView;
+        if (mAdapter != null) {
+            mAdapter.changeCursor(data);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

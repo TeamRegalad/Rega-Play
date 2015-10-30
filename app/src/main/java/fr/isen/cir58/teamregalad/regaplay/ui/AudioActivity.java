@@ -12,7 +12,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.audio.MetaDataFetcher;
+import fr.isen.cir58.teamregalad.regaplay.audio.utils.MetaDataFetcher;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 

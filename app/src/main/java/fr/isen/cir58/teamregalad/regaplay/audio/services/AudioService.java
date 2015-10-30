@@ -47,6 +47,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     public void setSongsList(ArrayList<Song> songs) {
         songsList = songs;
     }
+
     public void setSong(int songIndex){
         songsPosition = songIndex;
     }

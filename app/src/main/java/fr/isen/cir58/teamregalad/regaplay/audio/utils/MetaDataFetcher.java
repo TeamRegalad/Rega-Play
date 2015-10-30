@@ -1,14 +1,14 @@
-package fr.isen.cir58.teamregalad.regaplay.audio;
+package fr.isen.cir58.teamregalad.regaplay.audio.utils;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
+import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 
 /**
  * Created by Thomas Fossati on 26/10/2015.
@@ -137,5 +137,4 @@ public class MetaDataFetcher {
         }
         return songsList;
     }
-
 }

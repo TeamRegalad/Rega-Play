@@ -7,18 +7,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="41dp"
         android:id="@+id/artists_list_fragment_item_relative_layout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="artist_name"
-            android:id="@+id/artists_list_fragment_item_text_view"
+            android:text="@string/artists_list_fragment_item_artist_name_placeholder"
+            android:id="@+id/artists_list_fragment_item_artist_name"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
+            android:layout_marginStart="50dp"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignParentStart="true"
+            android:singleLine="false" />
     </RelativeLayout>
 </LinearLayout>

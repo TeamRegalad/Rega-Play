@@ -1,7 +1,5 @@
 package fr.isen.cir58.teamregalad.regaplay.audio;
 
-import android.net.Uri;
-
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */

@@ -14,9 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.audio.utils.MediaStoreContract;
+import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
-import fr.isen.cir58.teamregalad.regaplay.ui.artistsList.ArtistsListAdapter;
 
 /**
  * Created by aymeric on 10/26/15.
@@ -49,10 +48,10 @@ public class ArtistsListFragment extends Fragment implements LoaderManager.Loade
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         final CursorLoader cursorLoader = new CursorLoader(getContext());
         cursorLoader.setUri(MediaStoreContract.TABLE_ARTISTS);
-        cursorLoader.setProjection(MediaStoreContract.ARTIST_PROJECTION_FULL);
+        cursorLoader.setProjection(MediaStoreContract.ARTISTS_PROJECTION_FULL);
         cursorLoader.setSelection(null);
         cursorLoader.setSelectionArgs(null);
-        cursorLoader.setSortOrder(MediaStoreContract.ARTIST_ORDER_BY_ARTIST_ASC);
+        cursorLoader.setSortOrder(MediaStoreContract.ARTISTS_ORDER_BY_ARTIST_ASC);
         return cursorLoader;
     }
 

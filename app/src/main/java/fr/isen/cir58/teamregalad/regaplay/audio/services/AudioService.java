@@ -1,20 +1,18 @@
 package fr.isen.cir58.teamregalad.regaplay.audio.services;
 
 import android.app.Service;
-import android.content.Intent;
-import android.media.MediaPlayer;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
-
-import java.util.ArrayList;
-
 import android.content.ContentUris;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.IBinder;
 import android.os.PowerManager;
+import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 
@@ -48,14 +46,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         songsList = songs;
     }
 
-    public void setSong(int songIndex){
+    public void setSong(int songIndex) {
         songsPosition = songIndex;
-    }
-
-    public class AudioBinder extends Binder {
-        public AudioService getService() {
-            return AudioService.this;
-        }
     }
 
     @Nullable
@@ -65,35 +57,36 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     @Override
-    public boolean onUnbind(Intent intent){
+    public boolean onUnbind(Intent intent) {
         mediaPlayer.stop();
         mediaPlayer.release();
         return false;
     }
 
-    public void playSong(){
+    public void playSong() {
         mediaPlayer.reset();
         Song playSong = songsList.get(songsPosition);
         long currentSong = playSong.getID();
-        Uri trackUri = ContentUris.withAppendedId( android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,currentSong);
-        try{
+        Uri trackUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, currentSong);
+        try {
             mediaPlayer.setDataSource(getApplicationContext(), trackUri);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Log.e("ADUIO SERVICE", "Error setting data source", e);
         }
         mediaPlayer.prepareAsync();
 
     }
-    public boolean pauseSong(){
-        if(mediaPlayer.isPlaying()){
+
+    public boolean pauseSong() {
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             return true;
         }
         return false;
     }
-    public boolean resumeSong(){
-        if(!mediaPlayer.isPlaying()){
+
+    public boolean resumeSong() {
+        if (!mediaPlayer.isPlaying()) {
             mediaPlayer.start();
             return true;
         }
@@ -103,7 +96,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     public int getSongsPosition() {
         return songsPosition;
     }
-    public void stopSong(){
+
+    public void stopSong() {
         mediaPlayer.stop();
     }
 
@@ -120,5 +114,11 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
+    }
+
+    public class AudioBinder extends Binder {
+        public AudioService getService() {
+            return AudioService.this;
+        }
     }
 }

@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.audio.utils.MediaStoreContract;
+import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
 
 /**
  * Created by aymeric on 10/28/15.
  */
+
 public class ArtistsListAdapter extends CursorRecyclerViewAdapter<ArtistsListViewHolder> {
     public ArtistsListAdapter(Context context, Cursor cursor) {
         super(context, cursor);
@@ -26,8 +27,8 @@ public class ArtistsListAdapter extends CursorRecyclerViewAdapter<ArtistsListVie
 
     @Override
     public void onBindViewHolder(ArtistsListViewHolder viewHolder, Cursor cursor) {
-        if (cursor.getColumnIndex(MediaStoreContract.ARTIST_ARTIST) >= 0) {
-            viewHolder.mName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ARTIST_ARTIST)));
+        if (cursor.getColumnIndex(MediaStoreContract.ARTISTS_ARTIST) >= 0) {
+            viewHolder.artistName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ARTISTS_ARTIST)));
         }
     }
 }

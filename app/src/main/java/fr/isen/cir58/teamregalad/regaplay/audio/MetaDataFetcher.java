@@ -1,7 +1,6 @@
-package fr.isen.cir58.teamregalad.regaplay.audio.utils;
+package fr.isen.cir58.teamregalad.regaplay.audio;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;

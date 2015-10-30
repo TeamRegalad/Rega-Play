@@ -5,9 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import fr.isen.cir58.teamregalad.regaplay.ui.albumsList.AlbumsListFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.artistsList.ArtistsListFragment;
 import fr.isen.cir58.teamregalad.regaplay.ui.genresList.GenresListFragment;
 import fr.isen.cir58.teamregalad.regaplay.ui.songsList.SongsListFragment;
-import fr.isen.cir58.teamregalad.regaplay.ui.artistsList.ArtistsListFragment;
 
 /**
  * Created by aymeric on 10/28/15.

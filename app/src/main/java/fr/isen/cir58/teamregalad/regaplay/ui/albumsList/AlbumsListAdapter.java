@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
@@ -29,7 +31,10 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
         }
 
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
-            Picasso.with(RegaPlayApplication.getContext()).load(Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART)))).into(viewHolder.albumCover);
+            String albumArtPath = cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART));
+            if(albumArtPath != null){
+                Picasso.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
+            }
         }
     }
 

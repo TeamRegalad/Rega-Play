@@ -108,8 +108,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(bitmap != null){
                     ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
                 }*/
-                Log.d("test",songsList.get(audioService.getSongsPosition()).getAlbumArtPath());
-                Picasso.with(RegaPlayApplication.getContext()).load(new File(songsList.get(audioService.getSongsPosition()).getAlbumArtPath())).into(((ImageView) findViewById(R.id.imageView)));
+                File file = new File(songsList.get(audioService.getSongsPosition()).getAlbumArtPath());
+                Log.d("test", String.valueOf(file.exists()));
+                Picasso.with(RegaPlayApplication.getContext()).load(file).into(((ImageView) findViewById(R.id.imageView)));
 
 
                 if (b.getText() == "Play") {

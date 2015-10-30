@@ -19,7 +19,7 @@ public class Song {
     private int duration;
     private String genre;
     private Bitmap albumArt;
-    private String albumArtPath;
+    private static String albumArtPath;
 
     public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration, String genre, String albumArtPath) {
         this.ID = ID;

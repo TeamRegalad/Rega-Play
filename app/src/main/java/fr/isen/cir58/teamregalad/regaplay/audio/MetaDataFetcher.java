@@ -59,12 +59,19 @@ public class MetaDataFetcher {
         int ARTIST_ID_Column = mediaCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID);
         int ARTIST_Column = mediaCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
 
+        Cursor coverCursor;
+        String[] coverProjection = {
+                MediaStore.Audio.Albums.ALBUM_ART,
+                MediaStore.Audio.Albums._ID
+        };
 
+        int albumID = 0;
         while (mediaCursor.moveToNext()) {
+            albumID = mediaCursor.getInt(ALBUM_ID_Column);
 
-            int albumID = mediaCursor.getInt(ALBUM_ID_Column);
             final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
             Uri uri = ContentUris.withAppendedId(albumArtUri, albumID);
+
 
 
             Song song = new Song(mediaCursor.getInt(_ID_Column),
@@ -88,6 +95,19 @@ public class MetaDataFetcher {
 
             songsList.add(song);
         }
+        String coverPath = "";
+        String coverSelection = MediaStore.Audio.Albums._ID + "=?";
+        coverCursor = contentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, coverProjection, coverSelection, new String[]{String.valueOf(albumID)}, null);
+
+        int COVER_PATH_Column = coverCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
+
+        coverCursor.moveToNext();
+        coverPath = coverCursor.getString(COVER_PATH_Column);
+        songsList.get(0).setAlbumArtPath(coverPath);
+
+
+
+        coverCursor.close();
         return songsList;
     }
 

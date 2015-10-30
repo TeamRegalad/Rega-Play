@@ -32,8 +32,8 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
 
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
             String albumArtPath = cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART));
-            if(albumArtPath != null){
-                Picasso.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).resize(100,100).into(viewHolder.albumCover);
+            if (albumArtPath != null) {
+                Picasso.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
             }
         }
     }

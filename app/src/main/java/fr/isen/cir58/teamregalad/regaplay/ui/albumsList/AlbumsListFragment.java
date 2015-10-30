@@ -2,7 +2,6 @@ package fr.isen.cir58.teamregalad.regaplay.ui.albumsList;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;

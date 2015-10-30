@@ -7,8 +7,6 @@ import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
-import fr.isen.cir58.teamregalad.regaplay.audio.Song;
-
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */

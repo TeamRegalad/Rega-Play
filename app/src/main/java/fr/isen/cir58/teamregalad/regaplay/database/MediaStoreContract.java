@@ -87,7 +87,7 @@ public class MediaStoreContract implements BaseColumns {
     public static final String ALBUMS_SELECTION_BY_ID = ALBUMS_ID + "=?";
     public static final String ALBUMS_SELECTION_BY_ALBUM = ALBUMS_ALBUM + "=?";
     public static final String ALBUMS_SELECTION_BY_ALBUM_ART = ALBUMS_ALBUM_ART + "=?";
-    public static final String ALBUMS_SELCETION_BY_ALBUM_KEY = ALBUMS_ALBUM_KEY + "=?";
+    public static final String ALBUMS_SELECTION_BY_ALBUM_KEY = ALBUMS_ALBUM_KEY + "=?";
     public static final String ALBUMS_SELECTION_BY_ARTIST = ALBUMS_ARTIST + "=?";
     public static final String ALBUMS_SELECTION_BY_FIRST_YEAR = ALBUMS_FIRST_YEAR + "=?";
     public static final String ALBUMS_SELECTION_BY_LAST_YEAR = ALBUMS_LAST_YEAR + "=?";

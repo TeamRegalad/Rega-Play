@@ -6,8 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
+import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
 
 /**
@@ -28,7 +34,9 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
             viewHolder.artistName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ARTIST)));
         }
 
-        // TODO Fetch album art
+        if (cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY) >= 0) {
+            Picasso.with(RegaPlayApplication.getContext()).load(new File(MediaStoreHelper.getAlbumArt(RegaPlayApplication.getContext(), cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY))))).into(viewHolder.songCover);
+        }
     }
 
     @Override

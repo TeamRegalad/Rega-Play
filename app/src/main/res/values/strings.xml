@@ -4,4 +4,6 @@
     <string name="albums_list_fragment_item_album_name_placeholder">Album Name</string>
     <string name="albums_list_fragment_item_artist_name_placeholder">Artist Name</string>
     <string name="genres_list_fragment_item_genre_name_placeholder">Genre Name</string>
+    <string name="songs_list_fragment_item_artist_name">Artist Name</string>
+    <string name="songs_list_fragment_item_song_name">Song Name</string>
 </resources>

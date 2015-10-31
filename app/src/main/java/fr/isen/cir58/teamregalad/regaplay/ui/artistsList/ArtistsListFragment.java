@@ -32,6 +32,10 @@ public class ArtistsListFragment extends Fragment implements LoaderManager.Loade
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.artists_list_fragment_recycler_view);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new ArtistsListAdapter(getActivity(), null);
+        mRecyclerView.setAdapter(mAdapter);
+
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 

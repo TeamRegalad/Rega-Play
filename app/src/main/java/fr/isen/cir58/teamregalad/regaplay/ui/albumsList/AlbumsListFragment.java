@@ -32,6 +32,10 @@ public class AlbumsListFragment extends Fragment implements LoaderManager.Loader
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.albums_list_fragment_recycler_view);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new AlbumsListAdapter(getActivity(), null);
+        mRecyclerView.setAdapter(mAdapter);
+
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 

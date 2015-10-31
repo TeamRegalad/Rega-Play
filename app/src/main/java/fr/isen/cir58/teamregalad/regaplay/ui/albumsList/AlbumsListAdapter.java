@@ -2,7 +2,6 @@ package fr.isen.cir58.teamregalad.regaplay.ui.albumsList;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

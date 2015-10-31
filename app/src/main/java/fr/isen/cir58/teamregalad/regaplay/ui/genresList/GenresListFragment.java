@@ -20,7 +20,7 @@ import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 /**
  * Created by aymeric on 10/26/15.
  */
-public class GenresListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class GenresListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;

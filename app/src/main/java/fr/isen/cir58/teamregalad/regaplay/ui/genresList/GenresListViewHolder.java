@@ -9,7 +9,7 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 /**
  * Created by aymeric on 10/30/15.
  */
-public class GenresListViewHolder extends RecyclerView.ViewHolder{
+public class GenresListViewHolder extends RecyclerView.ViewHolder {
     public TextView genreName;
 
     public GenresListViewHolder(View itemView) {

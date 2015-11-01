@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioServiceAymeric;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
@@ -16,12 +15,12 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 public class SongClickedReceiver extends BroadcastReceiver {
     private long id;
     private SongClickedListener mlistener;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         id = intent.getExtras().getLong(Constants.Audio.ACTION_SONG_CLICKED_ID);
         String path = MediaStoreHelper.getSongPathById(RegaPlayApplication.getContext(), id);
         Log.d(this.getClass().toString(), path);
-
 
         if(mlistener != null){
             mlistener.onSongClicked(id);
@@ -35,5 +34,6 @@ public class SongClickedReceiver extends BroadcastReceiver {
     }
     public void setListener(SongClickedListener listener){
         mlistener = listener;
+
     }
 }

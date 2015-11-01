@@ -12,24 +12,17 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.util.ArrayList;
-
-import fr.isen.cir58.teamregalad.regaplay.audio.Song;
-
 /**
- * Created by Thomas Fossati on 26/10/2015.
+ * Created by aymeric on 11/1/15.
  */
-public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
+public class AudioServiceAymeric extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     private final IBinder audioBind = new AudioBinder();
     private MediaPlayer mediaPlayer;
-    private ArrayList<Song> songsList;
-    private int songsPosition;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        songsPosition = 0;
         mediaPlayer = new MediaPlayer();
         initAudioPlayer();
     }
@@ -40,14 +33,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         mediaPlayer.setOnPreparedListener(this);
         mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
-    }
-
-    public void setSongsList(ArrayList<Song> songs) {
-        songsList = songs;
-    }
-
-    public void setSong(int songIndex) {
-        songsPosition = songIndex;
     }
 
     @Nullable
@@ -63,15 +48,14 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         return false;
     }
 
-    public void playSong() {
+    public void playSong(Long id) {
         mediaPlayer.reset();
-        Song playSong = songsList.get(songsPosition);
-        long currentSong = playSong.getID();
+        long currentSong = id;
         Uri trackUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, currentSong);
         try {
             mediaPlayer.setDataSource(getApplicationContext(), trackUri);
         } catch (Exception e) {
-            Log.e("ADUIO SERVICE", "Error setting data source", e);
+            Log.e("AUDIO SERVICE", "Error setting data source", e);
         }
         mediaPlayer.prepareAsync();
 
@@ -91,10 +75,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             return true;
         }
         return false;
-    }
-
-    public int getSongsPosition() {
-        return songsPosition;
     }
 
     public void stopSong() {
@@ -117,8 +97,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public class AudioBinder extends Binder {
-        public AudioService getService() {
-            return AudioService.this;
+        public AudioServiceAymeric getService() {
+            return AudioServiceAymeric.this;
         }
     }
 }

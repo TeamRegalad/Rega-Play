@@ -34,6 +34,10 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
             viewHolder.artistName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ARTIST)));
         }
 
+        if (cursor.getColumnIndex(MediaStoreContract.SONGS_ID) >= 0) {
+            viewHolder.id = cursor.getLong(cursor.getColumnIndex(MediaStoreContract.SONGS_ID));
+        }
+
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY) >= 0) {
             Picasso.with(RegaPlayApplication.getContext()).load(new File(MediaStoreHelper.getAlbumArt(RegaPlayApplication.getContext(), cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY))))).into(viewHolder.songCover);
         }
@@ -42,6 +46,8 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
     @Override
     public SongsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songs_list_fragment_item, parent, false);
-        return new SongsListViewHolder(itemView);
+        SongsListViewHolder songsListViewHolder = new SongsListViewHolder(itemView);
+        itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder));
+        return songsListViewHolder;
     }
 }

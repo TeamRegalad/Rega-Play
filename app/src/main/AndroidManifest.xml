@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <service android:name=".audio.services.AudioService"
+        <service android:name=".audio.services.AudioServiceThomas"
             android:label="@string/app_name"
             android:exported="true">
         </service>

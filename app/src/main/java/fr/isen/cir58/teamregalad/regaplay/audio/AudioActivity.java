@@ -12,10 +12,10 @@ import android.view.View;
 import java.util.ArrayList;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
+import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioServiceThomas;
 
 public class AudioActivity extends Activity {
-    private AudioService audioService;
+    private AudioServiceThomas audioService;
     private Intent playIntent;
     private boolean audioBound = false;
     private ArrayList<Song> songsList;
@@ -23,7 +23,7 @@ public class AudioActivity extends Activity {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            AudioService.AudioBinder binder = (AudioService.AudioBinder) service;
+            AudioServiceThomas.AudioBinder binder = (AudioServiceThomas.AudioBinder) service;
             audioService = binder.getService();
             audioService.setSongsList(songsList);
             audioBound = true;
@@ -48,7 +48,7 @@ public class AudioActivity extends Activity {
     protected void onStart() {
         super.onStart();
         if (playIntent == null) {
-            playIntent = new Intent(this, AudioService.class);
+            playIntent = new Intent(this, AudioServiceThomas.class);
             bindService(playIntent, audioConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
         }

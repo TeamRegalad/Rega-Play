@@ -1,5 +1,6 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -7,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
+import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 public class RegaplayListsActivity extends AppCompatActivity {
+    private SongClickedReceiver songClickedReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +54,21 @@ public class RegaplayListsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        songClickedReceiver = new SongClickedReceiver();
+        registerReceiver(songClickedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(songClickedReceiver);
+        songClickedReceiver = null;
     }
 }

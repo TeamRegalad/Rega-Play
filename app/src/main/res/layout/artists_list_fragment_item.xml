@@ -9,8 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         android:id="@+id/artists_list_fragment_item_relative_layout">
 
         <TextView

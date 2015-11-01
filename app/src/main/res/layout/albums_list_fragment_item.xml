@@ -10,8 +10,6 @@
         android:layout_height="70dp"
         android:id="@+id/albums_list_fragment_item_relative_layout"
         android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_weight="0.06">
 
         <ImageView

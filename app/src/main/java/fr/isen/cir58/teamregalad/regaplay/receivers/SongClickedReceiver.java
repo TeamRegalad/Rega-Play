@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioServiceAymeric;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
@@ -19,8 +18,5 @@ public class SongClickedReceiver extends BroadcastReceiver {
         Long id = intent.getExtras().getLong(Constants.Audio.ACTION_SONG_CLICKED_ID);
         String path = MediaStoreHelper.getSongPathById(RegaPlayApplication.getContext(), id);
         Log.d(this.getClass().toString(), path);
-
-        AudioServiceAymeric audioServiceAymeric = new AudioServiceAymeric();
-        audioServiceAymeric.playSong(id);
     }
 }

@@ -48,6 +48,7 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songs_list_fragment_item, parent, false);
         SongsListViewHolder songsListViewHolder = new SongsListViewHolder(itemView);
         itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder));
+
         return songsListViewHolder;
     }
 }

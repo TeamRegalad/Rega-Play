@@ -14,13 +14,26 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  * Created by aymeric on 11/1/15.
  */
 public class SongClickedReceiver extends BroadcastReceiver {
+    private long id;
+    private SongClickedListener mlistener;
     @Override
     public void onReceive(Context context, Intent intent) {
-        Long id = intent.getExtras().getLong(Constants.Audio.ACTION_SONG_CLICKED_ID);
+        id = intent.getExtras().getLong(Constants.Audio.ACTION_SONG_CLICKED_ID);
         String path = MediaStoreHelper.getSongPathById(RegaPlayApplication.getContext(), id);
         Log.d(this.getClass().toString(), path);
 
-        AudioServiceAymeric audioServiceAymeric = new AudioServiceAymeric();
-        audioServiceAymeric.playSong(id);
+
+        if(mlistener != null){
+            mlistener.onSongClicked(id);
+        }
+
+
+
+    }
+    public interface SongClickedListener{
+        public void onSongClicked(long id);
+    }
+    public void setListener(SongClickedListener listener){
+        mlistener = listener;
     }
 }

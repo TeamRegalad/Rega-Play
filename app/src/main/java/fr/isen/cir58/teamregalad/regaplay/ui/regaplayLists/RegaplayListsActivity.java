@@ -98,6 +98,9 @@ public class RegaplayListsActivity extends AppCompatActivity implements SongClic
         songClickedReceiver = new SongClickedReceiver();
         registerReceiver(songClickedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED));
         songClickedReceiver.setListener(this);
+        if(audioService != null){
+            audioService.resumeSong();
+        }
     }
 
     @Override
@@ -106,11 +109,18 @@ public class RegaplayListsActivity extends AppCompatActivity implements SongClic
 
         unregisterReceiver(songClickedReceiver);
         songClickedReceiver = null;
+        audioService.pauseSong();
     }
 
     @Override
     public void onSongClicked(long id) {
         audioService.setSong(id);
         audioService.playSong();
+    }
+    @Override
+    protected void onDestroy() {
+        stopService(playIntent);
+        audioService = null;
+        super.onDestroy();
     }
 }

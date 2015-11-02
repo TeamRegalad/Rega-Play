@@ -80,7 +80,7 @@ public class MetaDataFetcher {
                     mediaCursor.getString(ALBUM_Column),
                     mediaCursor.getInt(YEAR_Column),
                     mediaCursor.getInt(DURATION_Column));
-            song.setAlbumArtPath(uri.getPath());
+            //song.setAlbumArtPath(uri.getPath());
             Bitmap bitmap = null;
 
                 /*try {
@@ -100,7 +100,7 @@ public class MetaDataFetcher {
 
         coverCursor.moveToNext();
         coverPath = coverCursor.getString(COVER_PATH_Column);
-        songsList.get(0).setAlbumArtPath(coverPath);
+        //songsList.get(0).setAlbumArtPath(coverPath);
 
 
 
@@ -192,7 +192,7 @@ public class MetaDataFetcher {
                     mediaCursor.getString(ALBUM_Column),
                     mediaCursor.getInt(YEAR_Column),
                     mediaCursor.getInt(DURATION_Column),
-                    genre,coverPath);
+                    genre);
             songsList.add(song);
         }
         return songsList;

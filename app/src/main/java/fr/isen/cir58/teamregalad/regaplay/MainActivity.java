@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import fr.isen.cir58.teamregalad.regaplay.audio.MetaDataFetcher;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
+import fr.isen.cir58.teamregalad.regaplay.social.LastFMAPI;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     private AudioService audioService;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         songsList = MetaDataFetcher.getAudioFilesFromMediaStore(getContentResolver());
 
+        new LastFMAPI().getArtistInfo("Korn");
 
         findViewById(R.id.playButton).setOnClickListener(this);
         findViewById(R.id.stopButton).setOnClickListener(this);
@@ -108,9 +110,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(bitmap != null){
                     ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
                 }*/
-                File file = new File(songsList.get(audioService.getSongsPosition()).getAlbumArtPath());
-                Log.d("test", String.valueOf(file.exists()));
-                Picasso.with(RegaPlayApplication.getContext()).load(file).into(((ImageView) findViewById(R.id.imageView)));
+                //File file = new File(songsList.get(audioService.getSongsPosition()).getAlbumArtPath());
+                //Log.d("test", String.valueOf(file.exists()));
+                //Picasso.with(RegaPlayApplication.getContext()).load(file).into(((ImageView) findViewById(R.id.imageView)));
 
 
                 if (b.getText() == "Play") {

@@ -14,6 +14,7 @@ public class SongsListViewHolder extends RecyclerView.ViewHolder {
     public TextView songName;
     public TextView artistName;
     public ImageView songCover;
+    public Long id;
 
     public SongsListViewHolder(View itemView) {
         super(itemView);

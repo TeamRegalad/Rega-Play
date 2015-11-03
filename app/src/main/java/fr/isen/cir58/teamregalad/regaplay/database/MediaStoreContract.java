@@ -156,6 +156,7 @@ public class MediaStoreContract implements BaseColumns {
     public static final String SONGS_ARTIST_KEY = "artist_key";
     public static final String SONGS_BOOKMARK = "bookmark";
     public static final String SONGS_COMPOSER = "composer";
+    public static final String SONGS_DATA = "_data";
     public static final String SONGS_DURATION = "duration";
     public static final String SONGS_IS_ALARM = "is_alarm";
     public static final String SONGS_IS_MUSIC = "is_music";
@@ -181,6 +182,7 @@ public class MediaStoreContract implements BaseColumns {
             SONGS_ARTIST_KEY,
             SONGS_BOOKMARK,
             SONGS_COMPOSER,
+            SONGS_DATA,
             SONGS_DURATION,
             SONGS_IS_ALARM,
             SONGS_IS_MUSIC,

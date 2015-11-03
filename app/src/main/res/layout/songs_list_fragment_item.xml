@@ -7,6 +7,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="70dp"
+        android:background="?android:attr/selectableItemBackground"
         android:id="@+id/songs_list_fragment_item_relative_layout">
 
         <ImageView
@@ -31,7 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/songs_list_fragment_item_song_name"
-                android:text="@string/songs_list_fragment_item_song_name" />
+                android:text="@string/songs_list_fragment_item_song_name"
+                android:textColor="@android:color/primary_text_light" />
 
             <TextView
                 android:layout_width="wrap_content"

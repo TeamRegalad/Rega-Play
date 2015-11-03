@@ -9,6 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:id="@+id/albums_list_fragment_item_relative_layout"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_weight="0.06">
 
         <ImageView
@@ -36,7 +37,8 @@
                 android:id="@+id/albums_list_fragment_item_album_name"
                 android:layout_alignTop="@+id/albums_list_fragment_item_album_cover"
                 android:layout_toEndOf="@+id/albums_list_fragment_item_album_cover"
-                android:layout_weight="0.08" />
+                android:layout_weight="0.08"
+                android:textColor="@android:color/primary_text_light" />
 
             <TextView
                 android:layout_width="wrap_content"

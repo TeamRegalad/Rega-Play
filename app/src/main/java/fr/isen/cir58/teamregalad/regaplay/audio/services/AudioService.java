@@ -24,12 +24,12 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     private final IBinder audioBind = new AudioBinder();
     private MediaPlayer mediaPlayer;
     private ArrayList<Song> songsList;
-    private int songsPosition;
+    private long songId;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        songsPosition = 0;
+        songId = 0;
         mediaPlayer = new MediaPlayer();
         initAudioPlayer();
     }
@@ -46,8 +46,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         songsList = songs;
     }
 
-    public void setSong(int songIndex) {
-        songsPosition = songIndex;
+    public void setSong(long songId) {
+        this.songId = songId;
     }
 
     @Nullable
@@ -65,9 +65,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
     public void playSong() {
         mediaPlayer.reset();
-        Song playSong = songsList.get(songsPosition);
-        long currentSong = playSong.getID();
-        Uri trackUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, currentSong);
+        Uri trackUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
         try {
             mediaPlayer.setDataSource(getApplicationContext(), trackUri);
         } catch (Exception e) {
@@ -93,8 +91,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         return false;
     }
 
-    public int getSongsPosition() {
-        return songsPosition;
+    public long getSongId() {
+        return songId;
     }
 
     public void stopSong() {

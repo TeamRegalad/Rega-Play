@@ -7,12 +7,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 
 /**
  * Created by Thomas Fossati on 26/10/2015.
@@ -70,7 +73,6 @@ public class MetaDataFetcher {
             Uri uri = ContentUris.withAppendedId(albumArtUri, albumID);
 
 
-
             Song song = new Song(mediaCursor.getInt(_ID_Column),
                     mediaCursor.getString(TRACK_Column),
                     mediaCursor.getString(DATA_Column),
@@ -101,7 +103,6 @@ public class MetaDataFetcher {
         coverCursor.moveToNext();
         coverPath = coverCursor.getString(COVER_PATH_Column);
         //songsList.get(0).setAlbumArtPath(coverPath);
-
 
 
         coverCursor.close();
@@ -196,5 +197,39 @@ public class MetaDataFetcher {
             songsList.add(song);
         }
         return songsList;
+    }
+
+    public static void getAlbumsFromArtist(String artistName, ContentResolver contentResolver) {
+
+        String selection = MediaStore.Audio.Albums.ARTIST + " = " + artistName;
+
+        String[] projection = {
+                MediaStore.Audio.Albums.ALBUM,
+                MediaStore.Audio.Albums.ALBUM_ID,
+                MediaStore.Audio.Albums.ARTIST,
+                MediaStore.Audio.Albums.NUMBER_OF_SONGS
+        };
+        Cursor artistCursor = contentResolver.query(
+                MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                MediaStoreContract.ALBUMS_PROJECTION_FULL,
+                MediaStoreContract.ALBUMS_SELCTION_BY_ARTIST,
+                new String[]{artistName},
+                MediaStoreContract.ALBUMS_ORDER_BY_ALBUM_ASC);
+        int ALBUM_Column = artistCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM);
+        int _ID_Column = artistCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ID);
+        int ARTIST_Column = artistCursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST);
+        int NBSONGS_Column = artistCursor.getColumnIndex(MediaStore.Audio.Albums.NUMBER_OF_SONGS);
+
+        while (artistCursor.moveToNext()) {
+            if (artistCursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM) >= 0) {
+                Log.d("ArtistQuery", artistCursor.getString(artistCursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM)));
+            }
+
+            if (artistCursor.getColumnIndex(MediaStoreContract.ALBUMS_ARTIST) >= 0) {
+                Log.d("ArtistQuery", artistCursor.getString(artistCursor.getColumnIndex(MediaStoreContract.ALBUMS_ARTIST)));
+            }
+
+            
+        }
     }
 }

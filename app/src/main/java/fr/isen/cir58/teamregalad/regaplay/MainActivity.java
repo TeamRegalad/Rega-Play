@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import fr.isen.cir58.teamregalad.regaplay.audio.MetaDataFetcher;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
-import fr.isen.cir58.teamregalad.regaplay.social.lastfm.LastFMAPI;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     private AudioService audioService;
@@ -30,8 +29,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         songsList = MetaDataFetcher.getAudioFilesFromMediaStore(getContentResolver());
-
-        new LastFMAPI().getArtistInfo("Korn");
 
         findViewById(R.id.playButton).setOnClickListener(this);
         findViewById(R.id.stopButton).setOnClickListener(this);
@@ -83,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
+        /*switch (v.getId()) {
             case R.id.playButton:
 
                 songPicked();
@@ -91,7 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 /*Bitmap bitmap = songsList.get(audioService.getSongsPosition()).getAlbumArt();
                 if(bitmap != null){
                     ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
-                }*/
+                }
                 //File file = new File(songsList.get(audioService.getSongsPosition()).getAlbumArtPath());
                 //Log.d("test", String.valueOf(file.exists()));
                 //Picasso.with(RegaPlayApplication.getContext()).load(file).into(((ImageView) findViewById(R.id.imageView)));
@@ -111,23 +108,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 audioService.stopSong();
                 break;
             case R.id.previousButton:
-                if (audioService.getSongsPosition() > -1) {
-                    audioService.setSong(audioService.getSongsPosition() - 1);
+                if (audioService.getSongId() > -1) {
+                    audioService.setSong(audioService.getSongId() - 1);
                     audioService.playSong();
-                    ((TextView) findViewById(R.id.track)).setText(songsList.get(audioService.getSongsPosition()).getTitle() + " - " + songsList.get(audioService.getSongsPosition()).getArtist());
+                    ((TextView) findViewById(R.id.track)).setText(songsList.get(audioService.getSongId()).getTitle() + " - " + songsList.get(audioService.getSongsPosition()).getArtist());
                     //Picasso.with(RegaPlayApplication.getContext()).load(songsList.get(audioService.getSongsPosition()).getAlbumArtURI()).into(((ImageView) findViewById(R.id.imageView)));
                 }
                 break;
 
             case R.id.nextButton:
-                if (audioService.getSongsPosition() < songsList.size()) {
-                    audioService.setSong(audioService.getSongsPosition() + 1);
+                if (audioService.getSongId() < songsList.size()) {
+                    audioService.setSong(audioService.getSongId() + 1);
                     audioService.playSong();
-                    ((TextView) findViewById(R.id.track)).setText(songsList.get(audioService.getSongsPosition()).getTitle() + " - " + songsList.get(audioService.getSongsPosition()).getArtist());
+                    ((TextView) findViewById(R.id.track)).setText(songsList.get(audioService.getSongId()).getTitle() + " - " + songsList.get(audioService.getSongsPosition()).getArtist());
                     //Picasso.with(RegaPlayApplication.getContext()).load(songsList.get(audioService.getSongsPosition()).getAlbumArtURI()).into(((ImageView) findViewById(R.id.imageView)));
                 }
                 break;
-        }
+        }*/
 
     }
 }

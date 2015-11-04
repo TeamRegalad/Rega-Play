@@ -1,11 +1,16 @@
 package fr.isen.cir58.teamregalad.regaplay.social;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
+
+import java.util.List;
 
 /**
  * Created by Paul on 10/26/2015.
@@ -55,6 +60,48 @@ public class shareMusicInfo {
             Toast.makeText(context, "Twitter is not installed on this device", Toast.LENGTH_SHORT).show();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://twitter.com/intent/tweet?text=%s", musicInfo)));
             activity.startActivity(browserIntent);
+        }
+    }
+
+    public static void sendOnFacebook(Activity activity, String musicInfo) // WIP
+    {
+        String urlToShare = "http://stackoverflow.com/questions/7545254";
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        // intent.putExtra(Intent.EXTRA_SUBJECT, "Foo bar"); // NB: has no effect!
+        intent.putExtra(Intent.EXTRA_TEXT, urlToShare);
+
+        // See if official Facebook app is found
+        boolean facebookAppFound = false;
+        List<ResolveInfo> matches = activity.getPackageManager().queryIntentActivities(intent, 0);
+        for (ResolveInfo info : matches) {
+            if (info.activityInfo.packageName.toLowerCase().startsWith("com.facebook.katana")) {
+                intent.setPackage(info.activityInfo.packageName);
+                facebookAppFound = true;
+                break;
+            }
+        }
+
+        // As fallback, launch sharer.php in a browser
+        if (!facebookAppFound) {
+            String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlToShare;
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
+        }
+
+        activity.startActivity(intent);
+    }
+
+    public static void sendOnGooglePlus(Activity activity, String musicInfo)
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, musicInfo);
+        intent.setPackage("com.google.android.apps.plus");
+
+        try {
+            activity.startActivity(intent);
+        } catch (android.content.ActivityNotFoundException e) {
+            Toast.makeText(activity.getApplicationContext(), "Google+ is not installed on this device", Toast.LENGTH_SHORT).show();
         }
     }
 }

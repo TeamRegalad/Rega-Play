@@ -212,7 +212,7 @@ public class MetaDataFetcher {
         Cursor artistCursor = contentResolver.query(
                 MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
                 MediaStoreContract.ALBUMS_PROJECTION_FULL,
-                MediaStoreContract.ALBUMS_SELCTION_BY_ARTIST,
+                MediaStoreContract.ALBUMS_SELECTION_BY_ARTIST,
                 new String[]{artistName},
                 MediaStoreContract.ALBUMS_ORDER_BY_ALBUM_ASC);
         int ALBUM_Column = artistCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM);
@@ -229,7 +229,7 @@ public class MetaDataFetcher {
                 Log.d("ArtistQuery", artistCursor.getString(artistCursor.getColumnIndex(MediaStoreContract.ALBUMS_ARTIST)));
             }
 
-            
+
         }
     }
 }

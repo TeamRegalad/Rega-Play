@@ -2,7 +2,6 @@ package fr.isen.cir58.teamregalad.regaplay.ui.artistLists.songsList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.View;
 

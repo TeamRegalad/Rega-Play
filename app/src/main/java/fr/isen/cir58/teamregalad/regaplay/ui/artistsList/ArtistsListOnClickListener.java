@@ -1,12 +1,10 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.artistsList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.ArtistListsActivity;
 
 

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 
@@ -42,7 +42,7 @@ public class ArtistSongsListAdapter extends CursorRecyclerViewAdapter<ArtistSong
             String albumArtPath = MediaStoreHelper.getAlbumArt(RegaPlayApplication.getContext(), cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY)));
             if (albumArtPath != null) {
                 File file = new File(albumArtPath);
-                Picasso.with(RegaPlayApplication.getContext()).load(file).into(viewHolder.songCover);
+                Glide.with(RegaPlayApplication.getContext()).load(file).into(viewHolder.songCover);
             } else {
                 Log.e("SongListAdapter", "Error album art path is null.");
             }

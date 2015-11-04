@@ -20,20 +20,24 @@ import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.audio.MetaDataFetcher;
+import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
+import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
 
 /**
  * Created by Thomas Fossati on 03/11/2015.
  */
-public class ArtistListsActivity extends AppCompatActivity implements LastFMApiAsyncTaskListner{
+public class ArtistListsActivity extends AudioActivity implements LastFMApiAsyncTaskListner {
 
-    private String artistName = "Iron Maiden"; // Debug purposes
+    private String artistName;
+    private Artist artist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.artist_lists_activity);
+        artistName = this.getIntent().getExtras().getString("ArtistName");
 
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.artist_lists_activity_toolbar);
@@ -43,7 +47,7 @@ public class ArtistListsActivity extends AppCompatActivity implements LastFMApiA
         ViewCompat.setTransitionName(findViewById(R.id.artist_lists_activity_appbar), "Name");
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.artist_lists_activity_collapsing_toolbar);
-        collapsingToolbarLayout.setTitle("Artist");
+        collapsingToolbarLayout.setTitle(artistName);
 
         // Getting Artist infos from lastfm
         new ArtistInfosAsyncTask(this).execute(artistName);
@@ -84,13 +88,17 @@ public class ArtistListsActivity extends AppCompatActivity implements LastFMApiA
         return artistName;
     }
 
+    public Artist getArtist() {
+        return artist;
+    }
+
     @Override
     public void onArtistRetrieved(Artist artist) {
-        ImageView artistPicture = (ImageView) findViewById(R.id.artist_lists_activity_picture);
-        Picasso.with(RegaPlayApplication.getContext()).load(artist.getImageURL(ImageSize.MEGA)).resize(800, 600).into(artistPicture);
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.artist_lists_activity_collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(artist.getName());
-
+        if (artist != null) {
+            this.artist = artist;
+            ImageView artistPicture = (ImageView) findViewById(R.id.artist_lists_activity_picture);
+            Picasso.with(RegaPlayApplication.getContext()).load(artist.getImageURL(ImageSize.MEGA)).resize(800, 600).into(artistPicture);
+        }
 
 
     }
@@ -98,5 +106,10 @@ public class ArtistListsActivity extends AppCompatActivity implements LastFMApiA
     @Override
     public void onAlbumRetrieved(Album album) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

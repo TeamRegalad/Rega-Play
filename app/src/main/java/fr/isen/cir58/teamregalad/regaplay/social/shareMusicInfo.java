@@ -65,7 +65,7 @@ public class shareMusicInfo {
 
     public static void sendOnFacebook(Activity activity, String musicInfo) // WIP
     {
-        String urlToShare = "http://stackoverflow.com/questions/7545254";
+        String urlToShare = "https://www.facebook.com/";
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         // intent.putExtra(Intent.EXTRA_SUBJECT, "Foo bar");

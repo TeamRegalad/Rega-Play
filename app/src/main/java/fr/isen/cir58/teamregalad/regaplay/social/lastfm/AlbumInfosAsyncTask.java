@@ -3,7 +3,6 @@ package fr.isen.cir58.teamregalad.regaplay.social.lastfm;
 import android.os.AsyncTask;
 
 import de.umass.lastfm.Album;
-import de.umass.lastfm.Caller;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
 
 /**

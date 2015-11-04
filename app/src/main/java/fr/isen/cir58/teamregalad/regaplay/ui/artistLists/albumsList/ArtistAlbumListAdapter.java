@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 
@@ -14,7 +14,6 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
-import fr.isen.cir58.teamregalad.regaplay.ui.albumsList.AlbumsListViewHolder;
 
 /**
  * Created by Thomas Fossati on 04/11/2015.
@@ -33,7 +32,7 @@ public class ArtistAlbumListAdapter extends CursorRecyclerViewAdapter<ArtisitAlb
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
             String albumArtPath = cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART));
             if (albumArtPath != null) {
-                Picasso.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
+                Glide.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
             }
         }
     }

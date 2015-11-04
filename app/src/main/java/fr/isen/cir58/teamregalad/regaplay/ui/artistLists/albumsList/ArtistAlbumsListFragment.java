@@ -9,23 +9,13 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-
-import de.umass.lastfm.Album;
-import de.umass.lastfm.Artist;
-import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
-import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
-import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
 import fr.isen.cir58.teamregalad.regaplay.ui.albumsList.AlbumsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.ArtistListsActivity;
 

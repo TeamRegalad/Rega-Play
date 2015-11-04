@@ -3,24 +3,18 @@ package fr.isen.cir58.teamregalad.regaplay.ui.artistLists;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import de.umass.lastfm.Album;
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
 import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
@@ -97,7 +91,7 @@ public class ArtistListsActivity extends AudioActivity implements LastFMApiAsync
         if (artist != null) {
             this.artist = artist;
             ImageView artistPicture = (ImageView) findViewById(R.id.artist_lists_activity_picture);
-            Picasso.with(RegaPlayApplication.getContext()).load(artist.getImageURL(ImageSize.MEGA)).resize(800, 600).into(artistPicture);
+            Glide.with(RegaPlayApplication.getContext()).load(artist.getImageURL(ImageSize.MEGA)).into(artistPicture);
         }
 
 

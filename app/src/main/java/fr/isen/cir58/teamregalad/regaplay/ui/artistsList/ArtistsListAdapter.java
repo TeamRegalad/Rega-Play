@@ -1,6 +1,5 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.artistsList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;

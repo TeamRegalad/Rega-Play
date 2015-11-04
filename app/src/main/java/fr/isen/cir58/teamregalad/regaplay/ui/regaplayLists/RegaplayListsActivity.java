@@ -1,22 +1,13 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
-import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 public class RegaplayListsActivity extends AudioActivity implements SongClickedReceiver.SongClickedListener {
 

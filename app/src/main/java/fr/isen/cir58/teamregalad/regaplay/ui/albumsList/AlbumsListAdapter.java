@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
-
 import java.io.File;
 
 import fr.isen.cir58.teamregalad.regaplay.R;

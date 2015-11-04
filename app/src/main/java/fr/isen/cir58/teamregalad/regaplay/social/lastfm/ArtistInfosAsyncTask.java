@@ -21,7 +21,6 @@ public class ArtistInfosAsyncTask extends AsyncTask<String,Integer,Artist> {
     @Override
     protected Artist doInBackground(String... params) {
         String artistName = params[0];
-        Caller.getInstance().setCache(null);
         Artist artist = Artist.getInfo(artistName, LastFmUtils.PUBLIC_KEY);
         return artist;
     }

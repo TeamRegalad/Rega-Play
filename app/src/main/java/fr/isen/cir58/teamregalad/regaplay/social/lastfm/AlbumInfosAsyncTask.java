@@ -20,7 +20,6 @@ public class AlbumInfosAsyncTask extends AsyncTask<String,Integer,Album> {
     protected Album doInBackground(String... params) {
         String artistName = params[0];
         String albumName = params[1];
-        Caller.getInstance().setCache(null);
         Album album = Album.getInfo(artistName, albumName, LastFmUtils.PUBLIC_KEY);
         return album;
     }

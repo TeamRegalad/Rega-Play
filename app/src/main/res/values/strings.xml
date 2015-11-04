@@ -20,5 +20,6 @@ Quam ob rem circumspecta cautela observatum est deinceps et cum edita montium pe
     <string name="genres_list_fragment_item_genre_name_placeholder">Genre Name</string>
     <string name="songs_list_fragment_item_artist_name">Artist Name</string>
     <string name="songs_list_fragment_item_song_name">Song Name</string>
+    <string name="artist_infos_list_fragment_bio">Biography</string>
 
 </resources>

@@ -51,7 +51,7 @@
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 android:src="@drawable/perdu"
-                android:background="#002fff" />
+                android:background="@color/colorPrimary" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/artist_lists_activity_toolbar"

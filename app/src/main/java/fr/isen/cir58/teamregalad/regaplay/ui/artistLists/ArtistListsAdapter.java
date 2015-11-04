@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.albumsList.ArtistAlbumsListFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.infosList.ArtistInfosListFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.songsList.ArtistSongsListFragment;
 
 /**
  * Created by Thomas Fossati on 03/11/2015.
@@ -26,7 +28,7 @@ public class ArtistListsAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new ArtistSongsListFragment();
             case 2:
-                return new ArtistInfosFragment();
+                return new ArtistInfosListFragment();
             default:
                 return null;
         }

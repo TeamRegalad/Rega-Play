@@ -3,6 +3,8 @@ package fr.isen.cir58.teamregalad.regaplay.ui.artistLists;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.albumsList.ArtistAlbumsListFragment;
+
 /**
  * Created by Thomas Fossati on 03/11/2015.
  */

@@ -8,6 +8,9 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -17,6 +20,7 @@ import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
+import fr.isen.cir58.teamregalad.regaplay.audio.MetaDataFetcher;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
 
@@ -24,25 +28,25 @@ import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsync
  * Created by Thomas Fossati on 03/11/2015.
  */
 public class ArtistListsActivity extends AppCompatActivity implements LastFMApiAsyncTaskListner{
+
+    private String artistName = "Iron Maiden"; // Debug purposes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.artist_lists_activity);
 
-
-
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.artist_lists_activity_toolbar);
         setSupportActionBar(toolbar);
 
+
         ViewCompat.setTransitionName(findViewById(R.id.artist_lists_activity_appbar), "Name");
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.artist_lists_activity_collapsing_toolbar);
-        collapsingToolbarLayout.setTitle("Test");
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        collapsingToolbarLayout.setTitle("Artist");
 
         // Getting Artist infos from lastfm
-        new ArtistInfosAsyncTask(this).execute("Textures");
+        new ArtistInfosAsyncTask(this).execute(artistName);
 
         // Adding Tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.artist_lists_activity_tabs);
@@ -76,13 +80,18 @@ public class ArtistListsActivity extends AppCompatActivity implements LastFMApiA
         });
     }
 
+    public String getArtistName() {
+        return artistName;
+    }
+
     @Override
     public void onArtistRetrieved(Artist artist) {
-        /*ImageView artistPicture = (ImageView) findViewById(R.id.artist_lists_activity_picture);
-        Picasso.with(RegaPlayApplication.getContext()).load(artist.getImageURL(ImageSize.MEDIUM)).into(artistPicture);
+        ImageView artistPicture = (ImageView) findViewById(R.id.artist_lists_activity_picture);
+        Picasso.with(RegaPlayApplication.getContext()).load(artist.getImageURL(ImageSize.MEGA)).resize(800, 600).into(artistPicture);
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.artist_lists_activity_collapsing_toolbar);
         collapsingToolbarLayout.setTitle(artist.getName());
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));*/
+
+
 
     }
 

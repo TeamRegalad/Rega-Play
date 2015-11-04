@@ -1,10 +1,9 @@
 package fr.isen.cir58.teamregalad.regaplay.social.lastfm;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import de.umass.lastfm.Artist;
-import de.umass.lastfm.Caller;
-import fr.isen.cir58.teamregalad.regaplay.social.lastfm.LastFMAPI;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
 
 /**
@@ -21,7 +20,13 @@ public class ArtistInfosAsyncTask extends AsyncTask<String,Integer,Artist> {
     @Override
     protected Artist doInBackground(String... params) {
         String artistName = params[0];
-        Artist artist = Artist.getInfo(artistName, LastFmUtils.PUBLIC_KEY);
+        Artist artist = null;
+        try{
+            artist = Artist.getInfo(artistName, LastFmUtils.PUBLIC_KEY);
+        }catch (Exception e){
+            Log.e("ArtistInfosAsyncTask",e.getMessage());
+
+        }
         return artist;
     }
 

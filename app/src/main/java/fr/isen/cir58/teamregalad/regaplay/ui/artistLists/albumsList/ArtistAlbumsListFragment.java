@@ -63,7 +63,7 @@ public class ArtistAlbumsListFragment extends Fragment  implements LoaderManager
         final CursorLoader cursorLoader = new CursorLoader(getContext());
         cursorLoader.setUri(MediaStoreContract.TABLE_ALBUMS);
         cursorLoader.setProjection(MediaStoreContract.ALBUMS_PROJECTION_FULL);
-        cursorLoader.setSelection(MediaStoreContract.ALBUMS_SELCTION_BY_ARTIST);
+        cursorLoader.setSelection(MediaStoreContract.ALBUMS_SELECTION_BY_ARTIST);
         cursorLoader.setSelectionArgs(new String[]{artistName});
         cursorLoader.setSortOrder(MediaStoreContract.ALBUMS_ORDER_BY_ALBUM_ASC);
         return cursorLoader;

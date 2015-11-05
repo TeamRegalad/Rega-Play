@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 
@@ -38,8 +38,8 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
             String albumArtPath = cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART));
             if (albumArtPath != null) {
-                Picasso.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
-                viewHolder.albumCover.setTag(albumArtPath);
+                viewHolder.coverPath = albumArtPath;
+                Glide.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
             }
         }
     }
@@ -48,7 +48,7 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
     public AlbumsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.albums_list_fragment_item, parent, false);
         AlbumsListViewHolder albumsListViewHolder = new AlbumsListViewHolder(itemView);
-        itemView.setOnClickListener(new AlbumsListOnClickListener(albumsListViewHolder,context));
-        return new AlbumsListViewHolder(itemView);
+        itemView.setOnClickListener(new AlbumsListOnClickListener(albumsListViewHolder, context));
+        return albumsListViewHolder;
     }
 }

@@ -25,7 +25,7 @@ public class ArtistAlbumsListOnClickListener implements View.OnClickListener{
         Intent intent = new Intent(context, AlbumListActivity.class);
         Bundle extras = new Bundle();
         extras.putString("AlbumName", artistAlbumsListViewHolder.albumName.getText().toString());
-        extras.putString("AlbumCover",(String)artistAlbumsListViewHolder.albumCover.getTag());
+        extras.putString("AlbumCover",artistAlbumsListViewHolder.coverPath);
         intent.putExtras(extras);
         context.startActivity(intent);
 

@@ -3,6 +3,7 @@ package fr.isen.cir58.teamregalad.regaplay.ui.albumsList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import fr.isen.cir58.teamregalad.regaplay.ui.albumList.AlbumListActivity;
@@ -24,7 +25,7 @@ public class AlbumsListOnClickListener implements View.OnClickListener{
         Intent intent = new Intent(context, AlbumListActivity.class);
         Bundle extras = new Bundle();
         extras.putString("AlbumName", albumsListViewHolder.albumName.getText().toString());
-        extras.putString("AlbumCover",(String)albumsListViewHolder.albumCover.getTag());
+        extras.putString("AlbumCover",albumsListViewHolder.coverPath);
         intent.putExtras(extras);
         context.startActivity(intent);
 

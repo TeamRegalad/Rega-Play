@@ -13,6 +13,7 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 public class ArtistAlbumsListViewHolder extends RecyclerView.ViewHolder {
     public TextView albumName;
     public ImageView albumCover;
+    public String coverPath;
 
     public ArtistAlbumsListViewHolder(View itemView) {
         super(itemView);

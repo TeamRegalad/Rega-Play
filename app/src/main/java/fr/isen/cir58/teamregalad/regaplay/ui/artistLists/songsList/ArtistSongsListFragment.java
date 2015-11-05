@@ -17,6 +17,7 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.ArtistListsActivity;
+import fr.isen.cir58.teamregalad.regaplay.ui.songsList.SongsListAdapter;
 
 /**
  * Created by Thomas Fossati on 04/11/2015.
@@ -35,9 +36,6 @@ public class ArtistSongsListFragment extends Fragment implements LoaderManager.L
             mRecyclerView = (RecyclerView) rootView.findViewById(R.id.songs_list_fragment_recycler_view);
             mLayoutManager = new LinearLayoutManager(getActivity());
             mRecyclerView.setLayoutManager(mLayoutManager);
-
-            mAdapter = new ArtistSongsListAdapter(getActivity(), null);
-            mRecyclerView.setAdapter(mAdapter);
 
             mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -65,7 +63,7 @@ public class ArtistSongsListFragment extends Fragment implements LoaderManager.L
 
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            mAdapter = new ArtistSongsListAdapter(getActivity(), data);
+            mAdapter = new SongsListAdapter(getActivity(), data);
             mRecyclerView.setAdapter(mAdapter);
         }
 

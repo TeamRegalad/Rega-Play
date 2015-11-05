@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
-import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.songsList.ArtistSongsListAdapter;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.
@@ -36,9 +35,6 @@ public class AlbumSongsFragment extends Fragment implements LoaderManager.Loader
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-
-        mAdapter = new ArtistSongsListAdapter(getActivity(), null);
-        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

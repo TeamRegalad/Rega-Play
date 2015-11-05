@@ -23,55 +23,55 @@ import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.ArtistListsActivity;
  */
 
 public class ArtistSongsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private String artistName;
+        private RecyclerView mRecyclerView;
+        private RecyclerView.Adapter mAdapter;
+        private RecyclerView.LayoutManager mLayoutManager;
+        private String artistName;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.songs_list_fragment, container, false);
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.songs_list_fragment, container, false);
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.songs_list_fragment_recycler_view);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView = (RecyclerView) rootView.findViewById(R.id.songs_list_fragment_recycler_view);
+            mLayoutManager = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new ArtistSongsListAdapter(getActivity(), null);
-        mRecyclerView.setAdapter(mAdapter);
+            mAdapter = new ArtistSongsListAdapter(getActivity(), null);
+            mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        artistName = ((ArtistListsActivity) getActivity()).getArtistName();
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            artistName = ((ArtistListsActivity) getActivity()).getArtistName();
 
-        return rootView;
-    }
+            return rootView;
+        }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getLoaderManager().initLoader(0, null, this);
-    }
+        @Override
+        public void onStart() {
+            super.onStart();
+            getLoaderManager().initLoader(0, null, this);
+        }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        final CursorLoader cursorLoader = new CursorLoader(getContext());
-        cursorLoader.setUri(MediaStoreContract.TABLE_SONGS);
-        cursorLoader.setProjection(MediaStoreContract.SONGS_PROJECTION_FULL);
-        cursorLoader.setSelection(MediaStoreContract.SONGS_SELECTION_BY_ARTIST);
-        cursorLoader.setSelectionArgs(new String[]{artistName});
-        cursorLoader.setSortOrder(MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC);
-        return cursorLoader;
-    }
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            final CursorLoader cursorLoader = new CursorLoader(getContext());
+            cursorLoader.setUri(MediaStoreContract.TABLE_SONGS);
+            cursorLoader.setProjection(MediaStoreContract.SONGS_PROJECTION_FULL);
+            cursorLoader.setSelection(MediaStoreContract.SONGS_SELECTION_BY_ARTIST);
+            cursorLoader.setSelectionArgs(new String[]{artistName});
+            cursorLoader.setSortOrder(MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC);
+            return cursorLoader;
+        }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mAdapter = new ArtistSongsListAdapter(getActivity(), data);
-        mRecyclerView.setAdapter(mAdapter);
-    }
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            mAdapter = new ArtistSongsListAdapter(getActivity(), data);
+            mRecyclerView.setAdapter(mAdapter);
+        }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
 
-    }
+        }
 }
 

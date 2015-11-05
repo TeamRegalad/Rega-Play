@@ -1,5 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.ui.artistLists.songsList;
-
+package fr.isen.cir58.teamregalad.regaplay.ui.albumList;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -19,16 +18,15 @@ import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
 
 /**
- * Created by Thomas Fossati on 04/11/2015.
+ * Created by Thomas Fossati on 05/11/2015.
  */
-
-public class ArtistSongsListAdapter extends CursorRecyclerViewAdapter<ArtistSongsListViewHolder> {
-    public ArtistSongsListAdapter(Context context, Cursor cursor) {
+public class AlbumSongsAdapter extends CursorRecyclerViewAdapter<AlbumSongsViewHolder> {
+    public AlbumSongsAdapter(Context context, Cursor cursor) {
         super(context, cursor);
     }
 
     @Override
-    public void onBindViewHolder(ArtistSongsListViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(AlbumSongsViewHolder viewHolder, Cursor cursor) {
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_TITLE) >= 0) {
             viewHolder.songName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_TITLE)));
 
@@ -44,18 +42,17 @@ public class ArtistSongsListAdapter extends CursorRecyclerViewAdapter<ArtistSong
                 File file = new File(albumArtPath);
                 Glide.with(RegaPlayApplication.getContext()).load(file).into(viewHolder.songCover);
             } else {
-                Log.e("ArtistSongsListAdapter", "Error album art path is null.");
+                Log.e("AlbumSongsAdapter", "Error album art path is null.");
             }
         }
     }
 
     @Override
-    public ArtistSongsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_songs_list_fragment_item, parent, false);
-        ArtistSongsListViewHolder artistSongsListViewHolder = new ArtistSongsListViewHolder(itemView);
-        itemView.setOnClickListener(new ArtistSongsListOnClickListener(artistSongsListViewHolder));
+    public AlbumSongsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_list_fragment_item, parent, false);
+        AlbumSongsViewHolder albumSongsViewHolder = new AlbumSongsViewHolder(itemView);
+        itemView.setOnClickListener(new AlbumSongsOnClickListener(albumSongsViewHolder));
 
-        return artistSongsListViewHolder;
+        return albumSongsViewHolder;
     }
 }
-

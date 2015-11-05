@@ -26,6 +26,9 @@
         <activity android:name=".ui.artistLists.ArtistListsActivity">
 
         </activity>
+        <activity android:name=".ui.albumList.AlbumListActivity">
+
+        </activity>
         <activity android:name=".ui.regaplayLists.RegaplayListsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

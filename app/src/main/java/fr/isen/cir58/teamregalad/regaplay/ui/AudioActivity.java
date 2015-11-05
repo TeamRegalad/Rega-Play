@@ -60,10 +60,10 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     @Override
     protected void onPause() {
         super.onPause();
-
+        audioService.pauseSong();
         unregisterReceiver(songClickedReceiver);
         songClickedReceiver = null;
-        audioService.pauseSong();
+
     }
 
     @Override

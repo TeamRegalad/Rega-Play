@@ -10,11 +10,11 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 /**
  * Created by Thomas Fossati on 04/11/2015.
  */
-public class ArtisitAlbumsListViewHolder extends RecyclerView.ViewHolder {
+public class ArtistAlbumsListViewHolder extends RecyclerView.ViewHolder {
     public TextView albumName;
     public ImageView albumCover;
 
-    public ArtisitAlbumsListViewHolder(View itemView) {
+    public ArtistAlbumsListViewHolder(View itemView) {
         super(itemView);
         albumName = (TextView) itemView.findViewById(R.id.artist_albums_list_fragment_item_album_name);
         albumCover = (ImageView) itemView.findViewById(R.id.artist_albums_list_fragment_item_album_cover);

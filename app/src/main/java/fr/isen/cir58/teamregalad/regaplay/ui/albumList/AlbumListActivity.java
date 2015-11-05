@@ -2,24 +2,17 @@ package fr.isen.cir58.teamregalad.regaplay.ui.albumList;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import java.io.File;
 
-import de.umass.lastfm.Album;
-import de.umass.lastfm.Artist;
-import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
-import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.ArtistListsAdapter;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.

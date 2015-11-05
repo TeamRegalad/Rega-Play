@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -15,8 +14,6 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
-import fr.isen.cir58.teamregalad.regaplay.ui.albumsList.AlbumsListOnClickListener;
-import fr.isen.cir58.teamregalad.regaplay.ui.albumsList.AlbumsListViewHolder;
 
 /**
  * Created by aymeric on 10/30/15.

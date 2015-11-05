@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -18,13 +18,13 @@ import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
 /**
  * Created by Thomas Fossati on 04/11/2015.
  */
-public class ArtistAlbumListAdapter extends CursorRecyclerViewAdapter<ArtisitAlbumsListViewHolder> {
-    public ArtistAlbumListAdapter(Context context, Cursor cursor) {
+public class ArtistAlbumsListAdapter extends CursorRecyclerViewAdapter<ArtistAlbumsListViewHolder> {
+    public ArtistAlbumsListAdapter(Context context, Cursor cursor) {
         super(context, cursor);
     }
 
     @Override
-    public void onBindViewHolder(ArtisitAlbumsListViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(ArtistAlbumsListViewHolder viewHolder, Cursor cursor) {
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM) >= 0) {
             viewHolder.albumName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM)));
         }
@@ -32,14 +32,15 @@ public class ArtistAlbumListAdapter extends CursorRecyclerViewAdapter<ArtisitAlb
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
             String albumArtPath = cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART));
             if (albumArtPath != null) {
-                Glide.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
+                viewHolder.albumCover.setTag(albumArtPath);
+                Picasso.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
             }
         }
     }
 
     @Override
-    public ArtisitAlbumsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArtistAlbumsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_albums_list_fragment_item, parent, false);
-        return new ArtisitAlbumsListViewHolder(itemView);
+        return new ArtistAlbumsListViewHolder(itemView);
     }
 }

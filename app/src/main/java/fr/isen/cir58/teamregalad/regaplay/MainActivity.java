@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,28 +17,34 @@ import java.util.ArrayList;
 import fr.isen.cir58.teamregalad.regaplay.audio.MetaDataFetcher;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
+import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private AudioService audioService;
     private Intent playIntent;
     private boolean audioBound = false;
     private ArrayList<Song> songsList;
-
+    private PlayerFragment playerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        songsList = MetaDataFetcher.getAudioFilesFromMediaStore(getContentResolver());
 
         findViewById(R.id.playButton).setOnClickListener(this);
         findViewById(R.id.stopButton).setOnClickListener(this);
         findViewById(R.id.previousButton).setOnClickListener(this);
         findViewById(R.id.nextButton).setOnClickListener(this);
 
+        this.playerFragment = new PlayerFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.activity_main_root, playerFragment);
+        transaction.commit();
+
+
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         if (playIntent == null) {
@@ -74,7 +82,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         stopService(playIntent);
         audioService = null;
         super.onDestroy();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {

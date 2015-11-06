@@ -16,10 +16,11 @@ public class ArtistsListOnClickListener implements View.OnClickListener {
     private ArtistsListViewHolder artistsListViewHolder;
     private Context context;
 
-    public ArtistsListOnClickListener(ArtistsListViewHolder artistsListViewHolder,Context context) {
+    public ArtistsListOnClickListener(ArtistsListViewHolder artistsListViewHolder, Context context) {
         this.artistsListViewHolder = artistsListViewHolder;
         this.context = context;
     }
+
     @Override
     public void onClick(View v) {
 

@@ -64,7 +64,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         songClickedReceiver = new SongClickedReceiver();
         registerReceiver(songClickedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED));
         songClickedReceiver.setListener(this);
-        if(audioService != null){
+        if (audioService != null) {
             audioService.resumeSong();
         }
     }
@@ -93,6 +93,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         audioService.playSong();
         //asyncTask by mimic
     }
+
     public void pauseSong(){
         audioService.resumeSong();
     }
@@ -106,7 +107,6 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         //TODO
     }
 
-    @Override
     protected void onDestroy() {
         stopService(playIntent);
         unbindService(audioConnection);

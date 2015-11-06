@@ -21,7 +21,7 @@ import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 /**
  * Created by Thomas Fossati on 05/11/2015.
  */
-public class AlbumSongsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class AlbumSongsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;

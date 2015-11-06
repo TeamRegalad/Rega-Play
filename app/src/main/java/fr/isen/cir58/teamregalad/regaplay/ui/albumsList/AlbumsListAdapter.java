@@ -20,6 +20,7 @@ import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
  */
 public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewHolder> {
     private Context context;
+
     public AlbumsListAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         this.context = context;

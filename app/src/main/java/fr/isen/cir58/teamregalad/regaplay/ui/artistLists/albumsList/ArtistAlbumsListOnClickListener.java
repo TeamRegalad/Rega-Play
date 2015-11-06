@@ -10,22 +10,22 @@ import fr.isen.cir58.teamregalad.regaplay.ui.albumList.AlbumListActivity;
 /**
  * Created by Thomas Fossati on 05/11/2015.
  */
-public class ArtistAlbumsListOnClickListener implements View.OnClickListener{
+public class ArtistAlbumsListOnClickListener implements View.OnClickListener {
     private ArtistAlbumsListViewHolder artistAlbumsListViewHolder;
     private Context context;
 
-    public ArtistAlbumsListOnClickListener(ArtistAlbumsListViewHolder artistAlbumsListViewHolder,Context context) {
+    public ArtistAlbumsListOnClickListener(ArtistAlbumsListViewHolder artistAlbumsListViewHolder, Context context) {
         this.artistAlbumsListViewHolder = artistAlbumsListViewHolder;
         this.context = context;
     }
-    
+
     @Override
     public void onClick(View v) {
 
         Intent intent = new Intent(context, AlbumListActivity.class);
         Bundle extras = new Bundle();
         extras.putString("AlbumName", artistAlbumsListViewHolder.albumName.getText().toString());
-        extras.putString("AlbumCover",artistAlbumsListViewHolder.coverPath);
+        extras.putString("AlbumCover", artistAlbumsListViewHolder.coverPath);
         intent.putExtras(extras);
         context.startActivity(intent);
 

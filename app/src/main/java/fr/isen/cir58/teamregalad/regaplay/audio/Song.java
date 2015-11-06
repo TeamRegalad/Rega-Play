@@ -15,6 +15,7 @@ public class Song {
     private int year;
     private int duration;
     private String genre;
+    private String coverPath;
 
     public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration, String genre) {
         this.ID = ID;
@@ -120,6 +121,14 @@ public class Song {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getCoverPath() {
+        return coverPath;
+    }
+
+    public void setCoverPath(String coverPath) {
+        this.coverPath = coverPath;
     }
 
     @Override

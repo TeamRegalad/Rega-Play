@@ -24,12 +24,11 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     private final IBinder audioBind = new AudioBinder();
     private MediaPlayer mediaPlayer;
     private ArrayList<Song> songsList;
-    private long songId;
+    private Uri songUri;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        songId = 0;
         mediaPlayer = new MediaPlayer();
         initAudioPlayer();
     }
@@ -47,7 +46,11 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void setSong(long songId) {
-        this.songId = songId;
+        this.songUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
+    }
+
+    public void setSong(String path) {
+        this.songUri = Uri.parse(path);
     }
 
     @Nullable
@@ -64,15 +67,17 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void playSong() {
-        mediaPlayer.reset();
-        Uri trackUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
-        try {
-            mediaPlayer.setDataSource(getApplicationContext(), trackUri);
-        } catch (Exception e) {
-            Log.e("ADUIO SERVICE", "Error setting data source", e);
-        }
-        mediaPlayer.prepareAsync();
+        if (songUri != null) {
 
+
+            mediaPlayer.reset();
+            try {
+                mediaPlayer.setDataSource(getApplicationContext(), songUri);
+            } catch (Exception e) {
+                Log.e("ADUIO SERVICE", "Error setting data source", e);
+            }
+            mediaPlayer.prepareAsync();
+        }
     }
 
     public boolean pauseSong() {
@@ -90,9 +95,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         }
         return false;
     }
-
-    public long getSongId() {
-        return songId;
+    public boolean isSongPlaying(){
+        return mediaPlayer.isPlaying();
     }
 
     public void stopSong() {

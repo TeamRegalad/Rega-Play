@@ -5,11 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
+import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
@@ -17,10 +22,11 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  */
 public class AudioActivity extends AppCompatActivity implements SongClickedReceiver.SongClickedListener {
     private SongClickedReceiver songClickedReceiver;
-
+    protected PlayerFragment playerFragment;
     private AudioService audioService;
     private Intent playIntent;
     private boolean audioBound = false;
+    private Song currentSong;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
@@ -35,6 +41,11 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
             audioBound = false;
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void onStart() {
@@ -71,9 +82,34 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     public void onSongClicked(long id) {
         audioService.setSong(id);
         audioService.playSong();
+        //async task by mimic
+        currentSong = new Song( 0,"title", "path", 10,"artist", 0, "album", 1990,  1000, "genre");
+        playerFragment.setNewSong(currentSong);
     }
 
-    @Override
+
+    public void onSongClicked(String path) {
+        audioService.setSong(path);
+        audioService.playSong();
+        //asyncTask by mimic
+    }
+
+    public void pauseSong(){
+        audioService.resumeSong();
+    }
+    public void playSong(){
+        audioService.playSong();
+    }
+    public void previousSong(){
+        //TODO
+    }
+    public void nextSong(){
+        //TODO
+    }
+    public void stopSong(){
+        audioService.stopSong();
+    }
+
     protected void onDestroy() {
         stopService(playIntent);
         unbindService(audioConnection);
@@ -81,4 +117,14 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         super.onDestroy();
     }
 
+    protected void commitPlayerFragment(int containerViewId){
+        this.playerFragment = new PlayerFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(containerViewId, playerFragment);
+        transaction.commit();
+    }
+
+    public AudioService getAudioService() {
+        return audioService;
+    }
 }

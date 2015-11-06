@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.previousButton).setOnClickListener(this);
         findViewById(R.id.nextButton).setOnClickListener(this);
 
-        this.playerFragment = new PlayerFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.activity_main_root, playerFragment);
-        transaction.commit();
 
 
     }

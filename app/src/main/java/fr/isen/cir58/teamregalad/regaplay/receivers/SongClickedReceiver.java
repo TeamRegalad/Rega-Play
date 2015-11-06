@@ -36,8 +36,4 @@ public class SongClickedReceiver extends BroadcastReceiver {
         mlistener = listener;
 
     }
-
-    public interface SongClickedListener {
-        public void onSongClicked(long id);
-    }
 }

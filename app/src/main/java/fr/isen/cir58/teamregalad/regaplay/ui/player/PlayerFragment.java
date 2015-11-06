@@ -36,6 +36,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     private Button buttonPause;
     private Button buttonNext;
     private Button buttonPlay;
+    private Button buttonStop;
     private Button buttonExtendedMP;
     private TextView textViewSongName;
     private ImageView imageviewCover;
@@ -51,15 +52,16 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          rootView = inflater.inflate(R.layout.player_fragment, container, false);
         getViews();
-
+        rootView.setVisibility(View.GONE);
         return rootView;
     }
 
     private void getViews() {
         buttonBack = (Button) rootView.findViewById(R.id.player_button_previous);
         buttonPause = (Button) rootView.findViewById(R.id.player_button_pause);
-        buttonNext = (Button) rootView.findViewById(R.id.btnNext);
-        buttonPlay = (Button) rootView.findViewById(R.id.btnPlay);
+        buttonNext = (Button) rootView.findViewById(R.id.player_button_next);
+        buttonPlay = (Button) rootView.findViewById(R.id.player_button_play);
+        buttonStop = (Button) rootView.findViewById(R.id.player_button_stop);
         buttonExtendedMP =(Button) rootView.findViewById(R.id.player_button_extended_musicplayer);
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_linearlayout);
@@ -67,7 +69,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
         textViewSongName.setSelected(true);
-        textViewAlbumName.setSelected(true);
+
         setOnclickListeners();
     }
     public void changeButton() {
@@ -86,12 +88,11 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         buttonPause.setOnClickListener(this);
         buttonPlay.setOnClickListener(this);
         buttonNext.setOnClickListener(this);
+        buttonStop.setOnClickListener(this);
         buttonExtendedMP.setOnClickListener(this);
     }
     public void setNewSong(Song song){
         textViewSongName.setText(song.getTitle());
-        textViewAlbumName.setText(song.getAlbum());
-        textViewArtistName.setText(song.getArtist());
 
         if (song.getCoverPath() != null) {
             File file = new File(song.getCoverPath());
@@ -99,7 +100,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         } else {
             Log.w("PlayerFragment", "warning album art path is null.");
         }
-        textDuration.setText(song.getDuration());
+        //textDuration.setText(song.getDuration());
 
         changeButton();
         rootView.setVisibility(View.VISIBLE);
@@ -125,6 +126,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.player_button_stop:
                 ((AudioActivity)getActivity()).stopSong();
+                rootView.setVisibility(View.GONE);
                 break;
 
         }

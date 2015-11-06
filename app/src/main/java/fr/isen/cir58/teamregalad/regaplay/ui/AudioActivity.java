@@ -106,11 +106,14 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     public void nextSong(){
         //TODO
     }
+    public void stopSong(){
+        audioService.stopSong();
+    }
 
     protected void onDestroy() {
         stopService(playIntent);
         unbindService(audioConnection);
-        audioService = null;it
+        audioService = null;
         super.onDestroy();
     }
 

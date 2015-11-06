@@ -22,7 +22,7 @@ public class ArtistInfosListFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.artist_infos_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.artist_view_infos_fragment, container, false);
 
         /*mRecyclerView = (RecyclerView) rootView.findViewById(R.id.artist_infos_list_fragment_recycler_view);
         mLayoutManager = new LinearLayoutManager(getActivity());

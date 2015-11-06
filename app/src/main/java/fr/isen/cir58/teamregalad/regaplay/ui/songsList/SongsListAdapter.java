@@ -13,6 +13,7 @@ import java.io.File;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
+import fr.isen.cir58.teamregalad.regaplay.async.setAlbumArtAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
@@ -41,15 +42,9 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
         }
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY) >= 0) {
+            String albumKey = cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY));
 
-            String albumArtPath = MediaStoreHelper.getAlbumArt(RegaPlayApplication.getContext(), cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY)));
-            if(albumArtPath != null){
-                File file = new File(albumArtPath);
-                Glide.with(RegaPlayApplication.getContext()).load(file).into(viewHolder.songCover);
-            }
-            else{
-                Log.e("SongListAdapter","Error album art path is null.");
-            }
+            new setAlbumArtAsyncTask(albumKey, viewHolder.songCover).execute();
         }
     }
 

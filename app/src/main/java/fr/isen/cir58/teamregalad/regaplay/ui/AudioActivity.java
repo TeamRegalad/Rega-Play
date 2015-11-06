@@ -35,6 +35,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
             audioBound = false;
         }
     };
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -52,7 +53,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         songClickedReceiver = new SongClickedReceiver();
         registerReceiver(songClickedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED));
         songClickedReceiver.setListener(this);
-        if(audioService != null){
+        if (audioService != null) {
             audioService.resumeSong();
         }
     }
@@ -71,6 +72,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         audioService.setSong(id);
         audioService.playSong();
     }
+
     @Override
     protected void onDestroy() {
         stopService(playIntent);

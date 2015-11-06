@@ -22,7 +22,7 @@ import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.ArtistListsActivity;
 /**
  * Created by Thomas Fossati on 03/11/2015.
  */
-public class ArtistAlbumsListFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ArtistAlbumsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView mRecyclerView;
     private AlbumsListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;

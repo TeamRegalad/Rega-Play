@@ -15,7 +15,7 @@ import fr.isen.cir58.teamregalad.regaplay.ui.artistLists.ArtistListsActivity;
 /**
  * Created by Thomas Fossati on 04/11/2015.
  */
-public class ArtistInfosListFragment extends Fragment{
+public class ArtistInfosListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private Artist artist;
@@ -31,13 +31,12 @@ public class ArtistInfosListFragment extends Fragment{
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());*/
         artist = ((ArtistListsActivity) getActivity()).getArtist();
 
-        if(artist != null){
+        if (artist != null) {
 
             TextView mTextView = (TextView) rootView.findViewById(R.id.artist_infos_list_fragment_bio);
             mTextView.setText(artist.getWikiText());
             //mRecyclerView.setAdapter(new ArtistInfosListAdapter(getActivity(),artist));
         }
-
 
 
         return rootView;

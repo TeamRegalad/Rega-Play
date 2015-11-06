@@ -15,11 +15,11 @@ import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 /**
  * Created by aymeric on 11/6/15.
  */
-public class setAlbumArtAsyncTask extends AsyncTask<String, Void, String> {
+public class SetAlbumArtAsyncTask extends AsyncTask<String, Void, String> {
     private ImageView cover;
     private String albumKey;
 
-    public setAlbumArtAsyncTask(String albumKey, ImageView cover) {
+    public SetAlbumArtAsyncTask(String albumKey, ImageView cover) {
         this.albumKey = albumKey;
         this.cover = cover;
     }

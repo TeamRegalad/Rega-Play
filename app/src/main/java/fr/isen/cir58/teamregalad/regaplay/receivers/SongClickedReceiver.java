@@ -22,18 +22,19 @@ public class SongClickedReceiver extends BroadcastReceiver {
         String path = MediaStoreHelper.getSongPathById(RegaPlayApplication.getContext(), id);
         Log.d(this.getClass().toString(), path);
 
-        if(mlistener != null){
+        if (mlistener != null) {
             mlistener.onSongClicked(id);
         }
 
 
+    }
 
-    }
-    public interface SongClickedListener{
-        public void onSongClicked(long id);
-    }
-    public void setListener(SongClickedListener listener){
+    public void setListener(SongClickedListener listener) {
         mlistener = listener;
 
+    }
+
+    public interface SongClickedListener {
+        public void onSongClicked(long id);
     }
 }

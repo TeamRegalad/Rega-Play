@@ -10,7 +10,7 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 /**
  * Created by Thomas Fossati on 05/11/2015.
  */
-public class AlbumSongsViewHolder extends RecyclerView.ViewHolder{
+public class AlbumSongsViewHolder extends RecyclerView.ViewHolder {
     public TextView songName;
     public ImageView songCover;
     public Long id;

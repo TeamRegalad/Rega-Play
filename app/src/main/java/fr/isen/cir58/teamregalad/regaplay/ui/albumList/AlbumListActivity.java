@@ -45,6 +45,8 @@ public class AlbumListActivity extends AudioActivity{
         transaction.add(R.id.album_list_activity_relative_layout, albumSongsFragment);
         transaction.commit();
 
+        commitPlayerFragment(R.id.album_list_activity_root);
+
     }
 
     public String getAlbumName() {

@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
+import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
@@ -17,7 +21,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  */
 public class AudioActivity extends AppCompatActivity implements SongClickedReceiver.SongClickedListener {
     private SongClickedReceiver songClickedReceiver;
-
+    protected PlayerFragment playerFragment;
     private AudioService audioService;
     private Intent playIntent;
     private boolean audioBound = false;
@@ -35,6 +39,12 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
             audioBound = false;
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -77,6 +87,13 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         unbindService(audioConnection);
         audioService = null;
         super.onDestroy();
+    }
+
+    protected void commitPlayerFragment(int containerViewId){
+        this.playerFragment = new PlayerFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(containerViewId, playerFragment);
+        transaction.commit();
     }
 
 }

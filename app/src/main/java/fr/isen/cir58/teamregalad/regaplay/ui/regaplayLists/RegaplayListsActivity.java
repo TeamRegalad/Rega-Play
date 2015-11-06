@@ -2,15 +2,17 @@ package fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
+import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 
 public class RegaplayListsActivity extends AudioActivity implements SongClickedReceiver.SongClickedListener {
-
+    private PlayerFragment playerFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,7 @@ public class RegaplayListsActivity extends AudioActivity implements SongClickedR
             }
         });
 
+        commitPlayerFragment(R.id.regaplay_lists_activity_root_layout);
 
     }
 

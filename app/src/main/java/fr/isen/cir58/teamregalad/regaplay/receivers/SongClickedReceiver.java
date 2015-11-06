@@ -31,6 +31,7 @@ public class SongClickedReceiver extends BroadcastReceiver {
     }
     public interface SongClickedListener{
         public void onSongClicked(long id);
+        public void onSongClicked(String path);
     }
     public void setListener(SongClickedListener listener){
         mlistener = listener;

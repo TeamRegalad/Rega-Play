@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
@@ -25,6 +26,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     private AudioService audioService;
     private Intent playIntent;
     private boolean audioBound = false;
+    private Song currentSong;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
@@ -80,12 +82,35 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     public void onSongClicked(long id) {
         audioService.setSong(id);
         audioService.playSong();
+        //async task by mimic
+        currentSong = new Song( 0,"title", "path", 10,"artist", 0, "album", 1990,  1000, "genre");
+        playerFragment.setNewSong(currentSong);
     }
+
+
+    public void onSongClicked(String path) {
+        audioService.setSong(path);
+        audioService.playSong();
+        //asyncTask by mimic
+    }
+    public void pauseSong(){
+        audioService.resumeSong();
+    }
+    public void playSong(){
+        audioService.playSong();
+    }
+    public void previousSong(){
+        //TODO
+    }
+    public void nextSong(){
+        //TODO
+    }
+
     @Override
     protected void onDestroy() {
         stopService(playIntent);
         unbindService(audioConnection);
-        audioService = null;
+        audioService = null;it
         super.onDestroy();
     }
 
@@ -96,4 +121,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         transaction.commit();
     }
 
+    public AudioService getAudioService() {
+        return audioService;
+    }
 }

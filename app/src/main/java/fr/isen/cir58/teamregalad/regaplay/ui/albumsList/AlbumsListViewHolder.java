@@ -14,6 +14,7 @@ public class AlbumsListViewHolder extends RecyclerView.ViewHolder {
     public TextView albumName;
     public TextView artistName;
     public ImageView albumCover;
+    public String coverPath;
 
     public AlbumsListViewHolder(View itemView) {
         super(itemView);

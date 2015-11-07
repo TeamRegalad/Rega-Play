@@ -1,4 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.ui.songsList;
+package fr.isen.cir58.teamregalad.regaplay.ui.albumList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,20 +9,21 @@ import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
- * Created by aymeric on 11/1/15.
+ * Created by Thomas Fossati on 05/11/2015.
  */
-public class SongsListOnClickListener implements View.OnClickListener {
-    private SongsListViewHolder songsListViewHolder;
+public class AlbumSongsOnClickListener implements View.OnClickListener {
+    private AlbumSongsViewHolder albumSongsViewHolder;
 
-    public SongsListOnClickListener(SongsListViewHolder songsListViewHolder) {
-        this.songsListViewHolder = songsListViewHolder;
+    public AlbumSongsOnClickListener(AlbumSongsViewHolder albumSongsViewHolder) {
+        this.albumSongsViewHolder = albumSongsViewHolder;
     }
 
     @Override
     public void onClick(View view) {
+        Log.d(this.getClass().toString(), "TEST");
         Intent intent = new Intent(Constants.Audio.ACTION_SONG_CLICKED);
         Bundle extras = new Bundle();
-        extras.putLong(Constants.Audio.ACTION_SONG_CLICKED_ID, songsListViewHolder.id);
+        extras.putLong(Constants.Audio.ACTION_SONG_CLICKED_ID, albumSongsViewHolder.id);
         intent.putExtras(extras);
         RegaPlayApplication.getContext().sendBroadcast(intent);
     }

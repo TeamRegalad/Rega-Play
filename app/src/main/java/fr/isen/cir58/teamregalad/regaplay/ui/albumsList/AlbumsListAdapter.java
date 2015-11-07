@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
-
 import java.io.File;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
@@ -20,8 +19,11 @@ import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
  * Created by aymeric on 10/30/15.
  */
 public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewHolder> {
+    private Context context;
+
     public AlbumsListAdapter(Context context, Cursor cursor) {
         super(context, cursor);
+        this.context = context;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
         if (cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART) >= 0) {
             String albumArtPath = cursor.getString(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ALBUM_ART));
             if (albumArtPath != null) {
+                viewHolder.coverPath = albumArtPath;
                 Glide.with(RegaPlayApplication.getContext()).load(new File(albumArtPath)).into(viewHolder.albumCover);
             }
         }
@@ -45,6 +48,8 @@ public class AlbumsListAdapter extends CursorRecyclerViewAdapter<AlbumsListViewH
     @Override
     public AlbumsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.albums_list_fragment_item, parent, false);
-        return new AlbumsListViewHolder(itemView);
+        AlbumsListViewHolder albumsListViewHolder = new AlbumsListViewHolder(itemView);
+        itemView.setOnClickListener(new AlbumsListOnClickListener(albumsListViewHolder, context));
+        return albumsListViewHolder;
     }
 }

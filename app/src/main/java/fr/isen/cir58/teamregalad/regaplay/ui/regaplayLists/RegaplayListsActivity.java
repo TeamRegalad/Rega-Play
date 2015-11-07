@@ -1,43 +1,18 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
-import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
+import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
+import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 
-public class RegaplayListsActivity extends AppCompatActivity implements SongClickedReceiver.SongClickedListener {
-    private SongClickedReceiver songClickedReceiver;
-
-    private AudioService audioService;
-    private Intent playIntent;
-    private boolean audioBound = false;
-    private ServiceConnection audioConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            AudioService.AudioBinder binder = (AudioService.AudioBinder) service;
-            audioService = binder.getService();
-            audioBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            audioBound = false;
-        }
-    };
-
+public class RegaplayListsActivity extends AudioActivity implements SongClickedReceiver.SongClickedListener {
+    private PlayerFragment playerFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,48 +54,8 @@ public class RegaplayListsActivity extends AppCompatActivity implements SongClic
             }
         });
 
+        commitPlayerFragment(R.id.regaplay_lists_activity_root_layout);
 
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (playIntent == null) {
-            playIntent = new Intent(this, AudioService.class);
-            bindService(playIntent, audioConnection, Context.BIND_AUTO_CREATE);
-            startService(playIntent);
-        }
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        songClickedReceiver = new SongClickedReceiver();
-        registerReceiver(songClickedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED));
-        songClickedReceiver.setListener(this);
-        if(audioService != null){
-            audioService.resumeSong();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        unregisterReceiver(songClickedReceiver);
-        songClickedReceiver = null;
-        audioService.pauseSong();
-    }
-
-    @Override
-    public void onSongClicked(long id) {
-        audioService.setSong(id);
-        audioService.playSong();
-    }
-    @Override
-    protected void onDestroy() {
-        stopService(playIntent);
-        audioService = null;
-        super.onDestroy();
-    }
 }

@@ -15,13 +15,18 @@ import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
  */
 
 public class ArtistsListAdapter extends CursorRecyclerViewAdapter<ArtistsListViewHolder> {
+    private Context context;
+
     public ArtistsListAdapter(Context context, Cursor cursor) {
         super(context, cursor);
+        this.context = context;
     }
 
     @Override
     public ArtistsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.artists_list_fragment_item, parent, false);
+        ArtistsListViewHolder artistsListViewHolder = new ArtistsListViewHolder(itemView);
+        itemView.setOnClickListener(new ArtistsListOnClickListener(artistsListViewHolder, context));
         return new ArtistsListViewHolder(itemView);
     }
 

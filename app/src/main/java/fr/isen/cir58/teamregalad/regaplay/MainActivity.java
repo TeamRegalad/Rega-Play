@@ -17,14 +17,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AudioService audioService;
     private Intent playIntent;
     private boolean audioBound = false;
-    private ArrayList<Song> songsList;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             AudioService.AudioBinder binder = (AudioService.AudioBinder) service;
             audioService = binder.getService();
-            audioService.setSongsList(songsList);
             audioBound = true;
         }
 

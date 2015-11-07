@@ -1,17 +1,21 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
+import fr.isen.cir58.teamregalad.regaplay.ui.listFile.ListFileActivity;
 import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 
-public class RegaplayListsActivity extends AudioActivity implements SongClickedReceiver.SongClickedListener {
+public class RegaplayListsActivity extends AudioActivity implements SongClickedReceiver.SongClickedListener,View.OnClickListener{
     private PlayerFragment playerFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,9 @@ public class RegaplayListsActivity extends AudioActivity implements SongClickedR
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.regaplay_lists_activity_toolbar);
         setSupportActionBar(toolbar);
+
+        //Adding Filebutton
+        findViewById(R.id.burgerMenuButton).setOnClickListener(this);
 
         // Adding Tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.regaplay_lists_activity_tabs);
@@ -58,4 +65,10 @@ public class RegaplayListsActivity extends AudioActivity implements SongClickedR
 
     }
 
+    @Override
+    public void onClick(View v) {
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.regaplay_lists_activity_pager);
+        Intent fileIntent = new Intent(this, ListFileActivity.class);
+        RegaplayListsActivity.this.startActivity(fileIntent);
+    }
 }

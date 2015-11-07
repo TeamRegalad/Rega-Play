@@ -1,23 +1,17 @@
 package fr.isen.cir58.teamregalad.regaplay;
 
-import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fr.isen.cir58.teamregalad.regaplay.audio.MetaDataFetcher;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
-import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private AudioService audioService;

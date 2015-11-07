@@ -32,6 +32,29 @@ public class MediaStoreHelper implements BaseColumns {
 
         return path;
     }
+    public static String getGenre(Context context, long songID) {
+        String genre = null;
+
+        Uri table = MediaStoreContract.TABLE_GENRES;
+        String[] projection = new String[]{MediaStoreContract.GENRES_NAME};
+        String selection = MediaStoreContract.GENRES_SELECTION_BY_ID;
+        String[] selectionArgs = new String[]{String.valueOf(songID)};
+        String sortOrder = null;
+
+        Cursor cursor = context.getContentResolver().query(table, projection, selection, selectionArgs, sortOrder);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                genre = cursor.getString(0);
+            }
+
+            if (!cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return genre;
+    }
 
     public static String getSongPathById(Context context, Long id) {
         String path = null;

@@ -13,17 +13,18 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */
-public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
+public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener{
 
     private final IBinder audioBind = new AudioBinder();
     private MediaPlayer mediaPlayer;
-    private ArrayList<Song> songsList;
+    boolean songPaused;
     private Uri songUri;
 
     @Override
@@ -31,6 +32,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         super.onCreate();
         mediaPlayer = new MediaPlayer();
         initAudioPlayer();
+        notify();
     }
 
     public void initAudioPlayer() {
@@ -39,10 +41,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         mediaPlayer.setOnPreparedListener(this);
         mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
-    }
-
-    public void setSongsList(ArrayList<Song> songs) {
-        songsList = songs;
     }
 
     public void setSong(long songId) {
@@ -68,39 +66,39 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
     public void playSong() {
         if (songUri != null) {
-
-
             mediaPlayer.reset();
             try {
                 mediaPlayer.setDataSource(getApplicationContext(), songUri);
             } catch (Exception e) {
-                Log.e("ADUIO SERVICE", "Error setting data source", e);
+                Log.e("AUDIO SERVICE", "Error setting data source", e);
             }
             mediaPlayer.prepareAsync();
+            songPaused = false;
         }
     }
 
-    public boolean pauseSong() {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean resumeSong() {
-        if (!mediaPlayer.isPlaying()) {
+    public void pauseSong() {
+        if (songPaused) {
             mediaPlayer.start();
-            return true;
+            songPaused = false;
+
+        }else{
+            mediaPlayer.pause();
+            songPaused = true;
         }
-        return false;
     }
+
     public boolean isSongPlaying(){
         return mediaPlayer.isPlaying();
     }
 
+    public boolean isSongPaused() {
+        return songPaused;
+    }
+
     public void stopSong() {
         mediaPlayer.stop();
+        songPaused = false;
     }
 
     @Override
@@ -123,4 +121,5 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             return AudioService.this;
         }
     }
+
 }

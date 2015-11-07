@@ -32,7 +32,9 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/regaplay_lists_activity_pager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_below="@id/regaplay_lists_activity_tabs" />
+
 
 </android.support.design.widget.CoordinatorLayout>

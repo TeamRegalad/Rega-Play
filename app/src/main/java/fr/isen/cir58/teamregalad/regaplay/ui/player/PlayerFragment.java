@@ -46,6 +46,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     private ProgressBar progressBar;
     private TextView textBufferDuration;
     private TextView textDuration;
+    private Song song;
 
 
     @Override
@@ -68,12 +69,13 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         progressBar = (ProgressBar) rootView.findViewById(R.id.player_progressbar);
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
+        imageviewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
         textViewSongName.setSelected(true);
 
         setOnclickListeners();
     }
     public void changeButton() {
-        if(((AudioActivity)getActivity()).getAudioService().isSongPlaying()){
+        if(((AudioActivity)getActivity()).getAudioService().isSongPaused()){
             buttonPause.setVisibility(View.GONE);
             buttonPlay.setVisibility(View.VISIBLE);
         }else{
@@ -92,6 +94,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         buttonExtendedMP.setOnClickListener(this);
     }
     public void setNewSong(Song song){
+        this.song = song;
         textViewSongName.setText(song.getTitle());
 
         if (song.getCoverPath() != null) {
@@ -102,8 +105,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         }
         //textDuration.setText(song.getDuration());
 
-        changeButton();
         rootView.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -114,19 +117,24 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.player_button_play:
                 ((AudioActivity)getActivity()).playSong();
+                changeButton();
                 break;
             case R.id.player_button_pause:
                 ((AudioActivity)getActivity()).pauseSong();
+                changeButton();
                 break;
             case R.id.player_button_previous:
-                ((AudioActivity)getActivity()).previousSong();
+                ((AudioActivity)getActivity()).previousSong(song.getID());
+                changeButton();
                 break;
             case R.id.player_button_next:
-                ((AudioActivity)getActivity()).nextSong();
+                ((AudioActivity)getActivity()).nextSong(song.getID());
+                changeButton();
                 break;
             case R.id.player_button_stop:
                 ((AudioActivity)getActivity()).stopSong();
                 rootView.setVisibility(View.GONE);
+                changeButton();
                 break;
 
         }

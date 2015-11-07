@@ -5,7 +5,7 @@ package fr.isen.cir58.teamregalad.regaplay.audio;
  */
 public class Song {
 
-    private int ID;
+    private long ID;
     private String title;
     private String path;
     private int artistID;
@@ -17,7 +17,7 @@ public class Song {
     private String genre;
     private String coverPath;
 
-    public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration, String genre) {
+    public Song(long ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration, String genre, String coverPath) {
         this.ID = ID;
         this.title = title;
         this.path = path;
@@ -28,26 +28,14 @@ public class Song {
         this.year = year;
         this.duration = duration;
         this.genre = genre;
+        this.coverPath = coverPath;
     }
 
-    public Song(int ID, String title, String path, int artistID, String artist, int albumID, String album, int year, int duration) {
-        this.ID = ID;
-        this.title = title;
-        this.path = path;
-        this.artistID = artistID;
-        this.artist = artist;
-        this.albumID = albumID;
-        this.album = album;
-        this.year = year;
-        this.duration = duration;
-        this.genre = "";
-    }
-
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 

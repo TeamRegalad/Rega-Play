@@ -3,6 +3,7 @@ package fr.isen.cir58.teamregalad.regaplay.async;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -53,7 +54,12 @@ public class SetAlbumArtAsyncTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        File file = new File(s);
-        Glide.with(RegaPlayApplication.getContext()).load(file).into(cover);
+        if(s != null){
+            File file = new File(s);
+            Glide.with(RegaPlayApplication.getContext()).load(file).into(cover);
+        } else {
+            Log.w(getClass().getName(),"Warning: this song has no cover");
+        }
+
     }
 }

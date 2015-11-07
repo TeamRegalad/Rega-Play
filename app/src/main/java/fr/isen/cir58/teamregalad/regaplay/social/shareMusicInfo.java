@@ -16,6 +16,7 @@ import java.util.List;
  * Created by Paul on 10/26/2015.
  */
 public class shareMusicInfo {
+    @Deprecated
     public static void sendSMS(Activity activity, String musicInfo) {
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
         smsIntent.setData(Uri.parse("sms:"));
@@ -26,6 +27,7 @@ public class shareMusicInfo {
         }
     }
 
+    @Deprecated
     public static void sendMail(Activity activity, String musicInfo) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
@@ -38,6 +40,7 @@ public class shareMusicInfo {
 
     }
 
+    @Deprecated
     public static void sendTweet(Activity activity, String musicInfo)
     {
         final PackageManager packageManager = activity.getPackageManager();
@@ -63,6 +66,7 @@ public class shareMusicInfo {
         }
     }
 
+    @Deprecated
     public static void sendOnFacebook(Activity activity, String musicInfo) // WIP
     {
         String urlToShare = "https://www.facebook.com/";
@@ -89,6 +93,7 @@ public class shareMusicInfo {
         activity.startActivity(intent);
     }
 
+    @Deprecated
     public static void sendOnGooglePlus(Activity activity, String musicInfo)
     {
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -101,5 +106,21 @@ public class shareMusicInfo {
         } catch (android.content.ActivityNotFoundException e) {
             Toast.makeText(activity.getApplicationContext(), "Google+ is not installed on this device", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Show a app chooser to share on the chosen app
+     * @param activity
+     * The activity
+     * @param musicInfo
+     * String with the information from the music
+     */
+    public static void shareVia(Activity activity, String musicInfo)
+    {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"subject");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, musicInfo);
+        activity.startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 }

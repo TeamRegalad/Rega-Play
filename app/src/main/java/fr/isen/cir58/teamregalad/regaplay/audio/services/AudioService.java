@@ -32,7 +32,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         super.onCreate();
         mediaPlayer = new MediaPlayer();
         initAudioPlayer();
-        notify();
     }
 
     public void initAudioPlayer() {

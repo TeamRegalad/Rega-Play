@@ -1,14 +1,10 @@
 package fr.isen.cir58.teamregalad.regaplay.async;
 
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
-import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
-import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
+import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 
 /**
  * Created by Thomas Fossati on 07/11/2015.

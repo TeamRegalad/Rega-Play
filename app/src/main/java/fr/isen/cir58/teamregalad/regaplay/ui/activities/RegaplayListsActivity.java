@@ -9,9 +9,7 @@ import android.view.View;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
-import fr.isen.cir58.teamregalad.regaplay.ui.AudioActivity;
 import fr.isen.cir58.teamregalad.regaplay.ui.filesList.FilesListActivity;
-import fr.isen.cir58.teamregalad.regaplay.ui.player.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;

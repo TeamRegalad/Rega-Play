@@ -14,8 +14,8 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.ui.activities.RegaplayListsActivity;
 import fr.isen.cir58.teamregalad.regaplay.ui.filesList.FilesListActivity;
-import fr.isen.cir58.teamregalad.regaplay.ui.regaplayLists.RegaplayListsActivity;
 
 /**
  * Created by maxime on 08/11/15.

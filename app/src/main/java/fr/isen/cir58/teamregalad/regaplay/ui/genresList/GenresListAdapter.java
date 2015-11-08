@@ -14,8 +14,12 @@ import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
  * Created by aymeric on 10/30/15.
  */
 public class GenresListAdapter extends CursorRecyclerViewAdapter<GenresListViewHolder> {
-    public GenresListAdapter(Context context, Cursor cursor) {
+    private Context context;
+
+    public GenresListAdapter(Context context, Cursor cursor)
+    {
         super(context, cursor);
+        this.context = context;
     }
 
     @Override
@@ -28,6 +32,8 @@ public class GenresListAdapter extends CursorRecyclerViewAdapter<GenresListViewH
     @Override
     public GenresListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.genres_list_fragment_item, parent, false);
+        GenresListViewHolder genresListViewHolder = new GenresListViewHolder(itemView);
+        itemView.setOnClickListener(new GenresListOnClickListener(genresListViewHolder, context));
         return new GenresListViewHolder(itemView);
     }
 }

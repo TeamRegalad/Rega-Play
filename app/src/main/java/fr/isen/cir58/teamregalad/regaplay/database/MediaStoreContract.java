@@ -123,7 +123,6 @@ public class MediaStoreContract implements BaseColumns {
 
     // Table name
     public static final Uri TABLE_GENRES = MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI;
-
     // Projections
     public static final String[] GENRES_PROJECTION_FULL = new String[]{
             GENRES_ID,

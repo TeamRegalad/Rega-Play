@@ -12,18 +12,18 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 /**
  * Created by Thomas Fossati on 04/11/2015.
  */
-public class ArtistInfosListAdapter extends RecyclerView.Adapter<ArtistInfosListViewHolder>{
+public class ArtistInfosListAdapter extends RecyclerView.Adapter<ArtistInfosListViewHolder> {
     private Context context;
     private Artist artist;
 
 
-    public ArtistInfosListAdapter(Context context,Artist artist) {
+    public ArtistInfosListAdapter(Context context, Artist artist) {
         this.artist = artist;
     }
 
     @Override
     public ArtistInfosListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_albums_list_fragment_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_view_albums_list_fragment_item, parent, false);
         return new ArtistInfosListViewHolder(itemView);
     }
 

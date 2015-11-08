@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.async.SetAlbumArtAsyncTask;
 
 /**
  * Created by aymeric on 10/31/15.
@@ -15,6 +16,8 @@ public class SongsListViewHolder extends RecyclerView.ViewHolder {
     public TextView artistName;
     public ImageView songCover;
     public Long id;
+    public SetAlbumArtAsyncTask currentAsyncTask;
+    public String albumKey;
 
     public SongsListViewHolder(View itemView) {
         super(itemView);

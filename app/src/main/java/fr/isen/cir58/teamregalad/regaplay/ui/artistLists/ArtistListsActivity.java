@@ -30,7 +30,7 @@ public class ArtistListsActivity extends AudioActivity implements LastFMApiAsync
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.artist_lists_activity);
+        setContentView(R.layout.artist_view_activity);
         artistName = this.getIntent().getExtras().getString("ArtistName");
 
         // Adding Toolbar to Main screen
@@ -76,6 +76,8 @@ public class ArtistListsActivity extends AudioActivity implements LastFMApiAsync
 
             }
         });
+
+        commitPlayerFragment(R.id.artist_lists_activity_root);
     }
 
     public String getArtistName() {

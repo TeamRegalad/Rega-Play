@@ -2,7 +2,6 @@ package fr.isen.cir58.teamregalad.regaplay.ui.songsList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
@@ -20,7 +19,6 @@ public class SongsListOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Log.d(this.getClass().toString(), "TEST");
         Intent intent = new Intent(Constants.Audio.ACTION_SONG_CLICKED);
         Bundle extras = new Bundle();
         extras.putLong(Constants.Audio.ACTION_SONG_CLICKED_ID, songsListViewHolder.id);

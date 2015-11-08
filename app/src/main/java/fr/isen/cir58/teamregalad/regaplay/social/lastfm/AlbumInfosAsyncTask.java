@@ -8,7 +8,7 @@ import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsync
 /**
  * Created by Thomas Fossati on 03/11/2015.
  */
-public class AlbumInfosAsyncTask extends AsyncTask<String,Integer,Album> {
+public class AlbumInfosAsyncTask extends AsyncTask<String, Integer, Album> {
     private LastFMApiAsyncTaskListner listner;
 
     public AlbumInfosAsyncTask(LastFMApiAsyncTaskListner listner) {

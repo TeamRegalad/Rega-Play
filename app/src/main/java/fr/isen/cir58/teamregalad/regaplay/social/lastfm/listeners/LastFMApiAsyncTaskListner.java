@@ -8,5 +8,6 @@ import de.umass.lastfm.Artist;
  */
 public interface LastFMApiAsyncTaskListner {
     public void onArtistRetrieved(Artist artist);
+
     public void onAlbumRetrieved(Album album);
 }

@@ -12,19 +12,14 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Observer;
-
-import fr.isen.cir58.teamregalad.regaplay.audio.Song;
-
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */
-public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener{
+public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     private final IBinder audioBind = new AudioBinder();
-    private MediaPlayer mediaPlayer;
     boolean songPaused;
+    private MediaPlayer mediaPlayer;
     private Uri songUri;
 
     @Override
@@ -35,8 +30,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void initAudioPlayer() {
-        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
         mediaPlayer.setOnPreparedListener(this);
         mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
@@ -81,13 +76,13 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             mediaPlayer.start();
             songPaused = false;
 
-        }else{
+        } else {
             mediaPlayer.pause();
             songPaused = true;
         }
     }
 
-    public boolean isSongPlaying(){
+    public boolean isSongPlaying() {
         return mediaPlayer.isPlaying();
     }
 

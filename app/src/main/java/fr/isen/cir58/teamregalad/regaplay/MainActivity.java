@@ -8,9 +8,6 @@ import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.util.ArrayList;
-
-import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.stopButton).setOnClickListener(this);
         findViewById(R.id.previousButton).setOnClickListener(this);
         findViewById(R.id.nextButton).setOnClickListener(this);
-
 
 
     }

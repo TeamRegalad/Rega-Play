@@ -125,11 +125,11 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                 changeButton();
                 break;
             case R.id.player_button_previous:
-                ((AudioActivity) getActivity()).previousSong(song.getID());
+                ((AudioActivity) getActivity()).previousSong();
                 changeButton();
                 break;
             case R.id.player_button_next:
-                ((AudioActivity) getActivity()).nextSong(song.getID());
+                ((AudioActivity) getActivity()).nextSong();
                 changeButton();
                 break;
             case R.id.player_button_stop:
@@ -138,7 +138,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                 changeButton();
                 break;
             case R.id.player_button_social:
-                ShareMusicInfo.shareVia(getActivity(),this.song.toString());
+                ShareMusicInfo.shareVia(getActivity(), this.song.toString());
         }
     }
 }

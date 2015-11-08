@@ -18,8 +18,7 @@ import fr.isen.cir58.teamregalad.regaplay.view.GenresListViewHolder;
 public class GenresListAdapter extends CursorRecyclerViewAdapter<GenresListViewHolder> {
     private Context context;
 
-    public GenresListAdapter(Context context, Cursor cursor)
-    {
+    public GenresListAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         this.context = context;
     }

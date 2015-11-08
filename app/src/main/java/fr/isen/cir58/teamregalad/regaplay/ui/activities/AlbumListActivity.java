@@ -38,12 +38,10 @@ public class AlbumListActivity extends AudioActivity {
 
         ImageView albumPicture = (ImageView) findViewById(R.id.album_list_activity_picture);
 
-        if(coverPath != null) {
+        if (coverPath != null) {
             File file = new File(coverPath);
             Glide.with(RegaPlayApplication.getContext()).load(file).into(albumPicture);
-        }
-        else
-        {
+        } else {
             Log.w("AlbumListActivity", "Cover art path is null");
         }
 

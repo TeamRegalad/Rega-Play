@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.adapters.SongsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.ArtistListsActivity;
-import fr.isen.cir58.teamregalad.regaplay.adapters.SongsListAdapter;
 
 /**
  * Created by Thomas Fossati on 04/11/2015.

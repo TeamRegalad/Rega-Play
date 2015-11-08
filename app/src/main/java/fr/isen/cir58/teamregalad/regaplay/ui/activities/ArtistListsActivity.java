@@ -15,9 +15,9 @@ import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
+import fr.isen.cir58.teamregalad.regaplay.adapters.ArtistListsAdapter;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
-import fr.isen.cir58.teamregalad.regaplay.adapters.ArtistListsAdapter;
 
 /**
  * Created by Thomas Fossati on 03/11/2015.

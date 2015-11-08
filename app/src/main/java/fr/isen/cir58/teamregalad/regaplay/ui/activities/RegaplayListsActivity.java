@@ -6,11 +6,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
-import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.adapters.RegaplayListsAdapter;
+import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 
-public class RegaplayListsActivity extends AudioActivity implements SongClickedReceiver.SongClickedListener {
+public class RegaplayListsActivity extends AudioActivity {
     private PlayerFragment playerFragment;
 
     @Override

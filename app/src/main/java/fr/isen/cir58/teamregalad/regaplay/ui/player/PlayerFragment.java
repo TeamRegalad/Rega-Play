@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
@@ -51,7 +49,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         rootView = inflater.inflate(R.layout.player_fragment, container, false);
+        rootView = inflater.inflate(R.layout.player_fragment, container, false);
         getViews();
         rootView.setVisibility(View.GONE);
         return rootView;
@@ -63,7 +61,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         buttonNext = (Button) rootView.findViewById(R.id.player_button_next);
         buttonPlay = (Button) rootView.findViewById(R.id.player_button_play);
         buttonStop = (Button) rootView.findViewById(R.id.player_button_stop);
-        buttonExtendedMP =(Button) rootView.findViewById(R.id.player_button_extended_musicplayer);
+        buttonExtendedMP = (Button) rootView.findViewById(R.id.player_button_extended_musicplayer);
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_linearlayout);
         progressBar = (ProgressBar) rootView.findViewById(R.id.player_progressbar);
@@ -74,18 +72,19 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
         setOnclickListeners();
     }
+
     public void changeButton() {
-        if(((AudioActivity)getActivity()).getAudioService().isSongPaused()){
+        if (((AudioActivity) getActivity()).getAudioService().isSongPaused()) {
             buttonPause.setVisibility(View.GONE);
             buttonPlay.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             buttonPause.setVisibility(View.VISIBLE);
             buttonPlay.setVisibility(View.GONE);
         }
     }
 
 
-    private void setOnclickListeners(){
+    private void setOnclickListeners() {
         buttonBack.setOnClickListener(this);
         buttonPause.setOnClickListener(this);
         buttonPlay.setOnClickListener(this);
@@ -93,7 +92,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         buttonStop.setOnClickListener(this);
         buttonExtendedMP.setOnClickListener(this);
     }
-    public void setNewSong(Song song){
+
+    public void setNewSong(Song song) {
         this.song = song;
         textViewSongName.setText(song.getTitle());
 
@@ -116,23 +116,23 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.player_button_play:
-                ((AudioActivity)getActivity()).playSong();
+                ((AudioActivity) getActivity()).playSong();
                 changeButton();
                 break;
             case R.id.player_button_pause:
-                ((AudioActivity)getActivity()).pauseSong();
+                ((AudioActivity) getActivity()).pauseSong();
                 changeButton();
                 break;
             case R.id.player_button_previous:
-                ((AudioActivity)getActivity()).previousSong(song.getID());
+                ((AudioActivity) getActivity()).previousSong(song.getID());
                 changeButton();
                 break;
             case R.id.player_button_next:
-                ((AudioActivity)getActivity()).nextSong(song.getID());
+                ((AudioActivity) getActivity()).nextSong(song.getID());
                 changeButton();
                 break;
             case R.id.player_button_stop:
-                ((AudioActivity)getActivity()).stopSong();
+                ((AudioActivity) getActivity()).stopSong();
                 rootView.setVisibility(View.GONE);
                 changeButton();
                 break;

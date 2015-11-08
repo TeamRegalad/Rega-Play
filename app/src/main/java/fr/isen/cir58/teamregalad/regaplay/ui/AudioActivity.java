@@ -11,8 +11,7 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.async.GetSongInfosAsyncTask;
+import fr.isen.cir58.teamregalad.regaplay.async.GetSongDataAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
@@ -23,8 +22,8 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  * Created by Thomas Fossati on 04/11/2015.
  */
 public class AudioActivity extends AppCompatActivity implements SongClickedReceiver.SongClickedListener, MediaPlayer.OnCompletionListener {
-    private SongClickedReceiver songClickedReceiver;
     protected PlayerFragment playerFragment;
+    private SongClickedReceiver songClickedReceiver;
     private AudioService audioService;
     private Intent playIntent;
     private boolean audioBound = false;
@@ -84,7 +83,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     public void onSongClicked(long id) {
         audioService.setSong(id);
         audioService.playSong();
-        new GetSongInfosAsyncTask(playerFragment).execute(id);
+        new GetSongDataAsyncTask(playerFragment, id).execute();
 
     }
 
@@ -93,27 +92,31 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         audioService.setSong(path);
         audioService.playSong();
         // Will we be able to retrieve some songs info from a file in the filesystem ?
-        // new GetSongInfosAsyncTask(playerFragment).execute(path);
+        // new GetSongDataAsyncTask(playerFragment).execute(path);
 
     }
 
-    public void pauseSong(){
+    public void pauseSong() {
         audioService.pauseSong();
     }
-    public void playSong(){
-        if(audioService.isSongPaused()){
+
+    public void playSong() {
+        if (audioService.isSongPaused()) {
             audioService.pauseSong();
-        }else {
+        } else {
             audioService.playSong();
         }
     }
-    public void previousSong(long currentSongId){
-       onSongClicked(currentSongId-1);
+
+    public void previousSong(long currentSongId) {
+        onSongClicked(currentSongId - 1);
     }
-    public void nextSong(long currentSongId){
-        onSongClicked(currentSongId+1);
+
+    public void nextSong(long currentSongId) {
+        onSongClicked(currentSongId + 1);
     }
-    public void stopSong(){
+
+    public void stopSong() {
         audioService.stopSong();
     }
 
@@ -129,7 +132,7 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         super.onDestroy();
     }
 
-    protected void commitPlayerFragment(int containerViewId){
+    protected void commitPlayerFragment(int containerViewId) {
         this.playerFragment = new PlayerFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, playerFragment);

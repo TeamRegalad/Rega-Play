@@ -1,13 +1,11 @@
 package fr.isen.cir58.teamregalad.regaplay.social;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -41,13 +39,11 @@ public class shareMusicInfo {
     }
 
     @Deprecated
-    public static void sendTweet(Activity activity, String musicInfo)
-    {
+    public static void sendTweet(Activity activity, String musicInfo) {
         final PackageManager packageManager = activity.getPackageManager();
         final Context context = activity.getApplicationContext();
 
-        try
-        {
+        try {
             // Check if the Twitter app is installed on the phone.
             packageManager.getPackageInfo("com.twitter.android", 0);
 
@@ -57,8 +53,7 @@ public class shareMusicInfo {
             intent.putExtra(Intent.EXTRA_TEXT, musicInfo);
             activity.startActivity(intent);
 
-        }
-        catch (Exception e) // If the app is not installed, open twitter with the browser
+        } catch (Exception e) // If the app is not installed, open twitter with the browser
         {
             Toast.makeText(context, "Twitter is not installed on this device", Toast.LENGTH_SHORT).show();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://twitter.com/intent/tweet?text=%s", musicInfo)));
@@ -94,8 +89,7 @@ public class shareMusicInfo {
     }
 
     @Deprecated
-    public static void sendOnGooglePlus(Activity activity, String musicInfo)
-    {
+    public static void sendOnGooglePlus(Activity activity, String musicInfo) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, musicInfo);
@@ -110,16 +104,14 @@ public class shareMusicInfo {
 
     /**
      * Show a app chooser to share on the chosen app
-     * @param activity
-     * The activity
-     * @param musicInfo
-     * String with the information from the music
+     *
+     * @param activity  The activity
+     * @param musicInfo String with the information from the music
      */
-    public static void shareVia(Activity activity, String musicInfo)
-    {
+    public static void shareVia(Activity activity, String musicInfo) {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"subject");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "subject");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, musicInfo);
         activity.startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }

@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.GenreSongsFragment;
+import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 /**
  * Created by paul on 11/6/15.
@@ -19,6 +20,12 @@ public class GenreListActivity extends AudioActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.genre_list_activity);
+
+        //Navigation slider
+        DrawerUtils drawer = new DrawerUtils(this);
+        drawer.initializeDrawer(this);
+
+
         genreName = this.getIntent().getExtras().getString("GenreName");
         genreId = this.getIntent().getExtras().getLong("GenreId");
 

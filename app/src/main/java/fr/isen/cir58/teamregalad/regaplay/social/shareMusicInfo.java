@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Paul on 10/26/2015.
  */
-public class shareMusicInfo {
+public class ShareMusicInfo {
     public static void sendSMS(Activity activity, String musicInfo) {
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
         smsIntent.setData(Uri.parse("sms:"));

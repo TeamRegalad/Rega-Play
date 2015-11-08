@@ -84,13 +84,13 @@
                 android:background="@drawable/ic_action_next" />
 
             <Button
-                android:id="@+id/player_button_extended_musicplayer"
+                android:id="@+id/player_button_social"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/ic_music" />
+                android:background="@drawable/ic_social" />
         </LinearLayout>
 
         <LinearLayout

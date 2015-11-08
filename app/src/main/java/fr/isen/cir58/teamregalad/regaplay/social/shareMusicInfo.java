@@ -14,7 +14,6 @@ import java.util.List;
  * Created by Paul on 10/26/2015.
  */
 public class shareMusicInfo {
-    @Deprecated
     public static void sendSMS(Activity activity, String musicInfo) {
         Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
         smsIntent.setData(Uri.parse("sms:"));
@@ -25,7 +24,6 @@ public class shareMusicInfo {
         }
     }
 
-    @Deprecated
     public static void sendMail(Activity activity, String musicInfo) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
@@ -38,7 +36,6 @@ public class shareMusicInfo {
 
     }
 
-    @Deprecated
     public static void sendTweet(Activity activity, String musicInfo) {
         final PackageManager packageManager = activity.getPackageManager();
         final Context context = activity.getApplicationContext();
@@ -61,34 +58,6 @@ public class shareMusicInfo {
         }
     }
 
-    @Deprecated
-    public static void sendOnFacebook(Activity activity, String musicInfo) // WIP
-    {
-        String urlToShare = "https://www.facebook.com/";
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        // intent.putExtra(Intent.EXTRA_SUBJECT, "Foo bar");
-        intent.putExtra(Intent.EXTRA_TEXT, urlToShare);
-
-        boolean facebookAppFound = false;
-        List<ResolveInfo> matches = activity.getPackageManager().queryIntentActivities(intent, 0);
-        for (ResolveInfo info : matches) {
-            if (info.activityInfo.packageName.toLowerCase().startsWith("com.facebook.katana")) {
-                intent.setPackage(info.activityInfo.packageName);
-                facebookAppFound = true;
-                break;
-            }
-        }
-
-        if (!facebookAppFound) {
-            String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlToShare;
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
-        }
-
-        activity.startActivity(intent);
-    }
-
-    @Deprecated
     public static void sendOnGooglePlus(Activity activity, String musicInfo) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");

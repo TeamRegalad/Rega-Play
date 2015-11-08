@@ -44,7 +44,7 @@ public class GenreSongsAdapter extends CursorRecyclerViewAdapter<GenreSongsViewH
                 File file = new File(albumArtPath);
                 Glide.with(RegaPlayApplication.getContext()).load(file).into(viewHolder.songCover);
             } else {
-                Log.e("GenreSongsAdapter", "Error album art path is null.");
+                Log.w("GenreSongsAdapter", "Error album art path is null.");
             }
         }
     }

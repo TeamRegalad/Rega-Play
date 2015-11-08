@@ -20,22 +20,20 @@
             android:exported="true">
         </service>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.activities.ArtistListsActivity">
 
         </activity>
-        <activity android:name=".ui.artistLists.ArtistListsActivity">
+        <activity android:name=".ui.activities.AlbumListActivity">
 
         </activity>
-        <activity android:name=".ui.albumList.AlbumListActivity">
-
-        </activity>
-        <activity android:name=".ui.regaplayLists.RegaplayListsActivity">
+        <activity android:name=".ui.activities.RegaplayListsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.activities.GenreListActivity"></activity>
 
     </application>
 

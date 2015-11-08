@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "fr.isen.cir58.teamregalad.regaplay"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -29,4 +29,7 @@ dependencies {
     compile 'de.u-mass:lastfm-java:0.1.2'
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.android.support:design:23.1.0'
+    compile('com.mikepenz:materialdrawer:4.4.6@aar') {
+        transitive = true
+    }
 }

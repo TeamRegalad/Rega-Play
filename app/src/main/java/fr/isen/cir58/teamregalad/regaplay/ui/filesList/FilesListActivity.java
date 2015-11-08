@@ -1,4 +1,4 @@
-package fr.isen.cir58.teamregalad.regaplay.ui.listFile;
+package fr.isen.cir58.teamregalad.regaplay.ui.filesList;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+
 import java.io.File;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -18,20 +21,23 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 /**
  * Created by maxime on 25/10/15.
  */
-public class ListFileActivity extends ListActivity {
+public class FilesListActivity extends ListActivity {
 
     private String path;
-    private final String DEFAULT_PATH = "/";
+    private final String DEFAULT_PATH = "/storage/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_files);
-
+        setContentView(R.layout.files_list_activity);
+        DrawerUtils drawer = new DrawerUtils(this);
+        drawer.initializeDrawer(this);
+        drawer.setSelected(2);
         // Use the current directory as title
         path = DEFAULT_PATH;
         if (getIntent().hasExtra("path")) {
@@ -69,7 +75,7 @@ public class ListFileActivity extends ListActivity {
             filename = path + File.separator + filename;
         }
         if (new File(filename).isDirectory()) {
-            Intent intent = new Intent(this, ListFileActivity.class);
+            Intent intent = new Intent(this, FilesListActivity.class);
             intent.putExtra("path", filename);
             startActivity(intent);
         } else {
@@ -80,8 +86,7 @@ public class ListFileActivity extends ListActivity {
                 mediaPlayer.setDataSource(getApplicationContext(), myUri);
                 mediaPlayer.prepare();
                 mediaPlayer.start();
-                Toast.makeText(this, URLConnection.guessContentTypeFromName(filename).split("/")[0], Toast.LENGTH_LONG).show();
-
+                //Toast.makeText(this, URLConnection.guessContentTypeFromName(filename).split("/")[0], Toast.LENGTH_LONG).show();
             }
             catch(Exception e)
             {

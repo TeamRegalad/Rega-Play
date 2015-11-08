@@ -13,17 +13,9 @@
         android:elevation="6dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <Button
-            android:id="@+id/burgerMenuButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@color/colorPrimary"
-            android:text="Files"
-            android:textColor="@android:color/white"
-            android:clickable="true" />
-
         <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/regaplay_lists_activity_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"

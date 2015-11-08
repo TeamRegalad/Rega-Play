@@ -52,7 +52,6 @@ public class MediaStoreHelper implements BaseColumns {
                 cursor.close();
             }
         }
-
         return genre;
     }
 

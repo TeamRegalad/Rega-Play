@@ -1,5 +1,6 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.fragments;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +54,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         rootView = inflater.inflate(R.layout.player_fragment, container, false);
         getViews();
         rootView.setVisibility(View.GONE);
+
         return rootView;
     }
 
@@ -66,6 +68,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_linearlayout);
         progressBar = (ProgressBar) rootView.findViewById(R.id.player_progressbar);
+        progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
         imageviewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
@@ -104,7 +107,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         } else {
             Log.w("PlayerFragment", "warning album art path is null.");
         }
-        //textDuration.setText(song.getDuration());
+        textDuration.setText(getDuration(song.getDuration()));
 
         rootView.setVisibility(View.VISIBLE);
 
@@ -125,11 +128,11 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                 changeButton();
                 break;
             case R.id.player_button_previous:
-                ((AudioActivity) getActivity()).previousSong(song.getID());
+                ((AudioActivity) getActivity()).previousSong();
                 changeButton();
                 break;
             case R.id.player_button_next:
-                ((AudioActivity) getActivity()).nextSong(song.getID());
+                ((AudioActivity) getActivity()).nextSong();
                 changeButton();
                 break;
             case R.id.player_button_stop:
@@ -138,7 +141,38 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                 changeButton();
                 break;
             case R.id.player_button_social:
-                ShareMusicInfo.shareVia(getActivity(),this.song.toString());
+                ShareMusicInfo.shareVia(getActivity(),this.song.shareSongInfos());
+		break;
+
         }
+    }
+    public static String getDuration(long milliseconds) {
+        long sec = (milliseconds / 1000) % 60;
+        long min = (milliseconds / (60 * 1000))%60;
+        long hour = milliseconds / (60 * 60 * 1000);
+
+        String s = (sec < 10) ? "0" + sec : "" + sec;
+        String m = (min < 10) ? "0" + min : "" + min;
+        String h = "" + hour;
+
+        String time = "";
+        if(hour > 0) {
+            time = h + ":" + m + ":" + s;
+        } else {
+            time = m + ":" + s;
+        }
+        return time;
+    }
+
+    public TextView getTextDuration() {
+        return textDuration;
+    }
+
+    public TextView getTextBufferDuration() {
+        return textBufferDuration;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
     }
 }

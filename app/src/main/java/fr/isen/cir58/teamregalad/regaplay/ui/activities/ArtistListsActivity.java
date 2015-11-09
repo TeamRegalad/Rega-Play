@@ -15,9 +15,10 @@ import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
+import fr.isen.cir58.teamregalad.regaplay.adapters.ArtistListsAdapter;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
-import fr.isen.cir58.teamregalad.regaplay.adapters.ArtistListsAdapter;
+import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 /**
  * Created by Thomas Fossati on 03/11/2015.
@@ -37,6 +38,9 @@ public class ArtistListsActivity extends AudioActivity implements LastFMApiAsync
         Toolbar toolbar = (Toolbar) findViewById(R.id.artist_lists_activity_toolbar);
         setSupportActionBar(toolbar);
 
+        //Navigation slider
+        DrawerUtils drawer = new DrawerUtils(this);
+        drawer.initializeDrawer(this);
 
         ViewCompat.setTransitionName(findViewById(R.id.artist_lists_activity_appbar), "Name");
 

@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.adapters.ArtistsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
-import fr.isen.cir58.teamregalad.regaplay.adapters.ArtistsListAdapter;
 
 /**
  * Created by aymeric on 10/26/15.

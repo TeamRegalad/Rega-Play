@@ -36,3 +36,4 @@ captures/
 *.bat
 *.iml
 gradlew
+app/src/main/res/drawable/Thumbs.db

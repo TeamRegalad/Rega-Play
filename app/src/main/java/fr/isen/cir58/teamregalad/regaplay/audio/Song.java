@@ -129,4 +129,7 @@ public class Song {
                 genre + "\n " +
                 path;
     }
+    public String shareSongInfos(){
+        return "I'm listening to " + title + " - " + artist + " (" + album + " - " + year + ") with RegaPlay (https://github.com/TeamRegalad/Rega-Play)";
+    }
 }

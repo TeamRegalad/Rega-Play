@@ -11,21 +11,22 @@ import fr.isen.cir58.teamregalad.regaplay.view.GenresListViewHolder;
 /**
  * Created by paul on 11/6/15.
  */
-public class GenresListOnClickListener implements View.OnClickListener{
+public class GenresListOnClickListener implements View.OnClickListener {
     private GenresListViewHolder genresListViewHolder;
     private Context context;
 
-    public GenresListOnClickListener(GenresListViewHolder genresListViewHolder,Context context) {
+    public GenresListOnClickListener(GenresListViewHolder genresListViewHolder, Context context) {
         this.genresListViewHolder = genresListViewHolder;
         this.context = context;
     }
+
     @Override
     public void onClick(View v) {
 
         Intent intent = new Intent(context, GenreListActivity.class);
         Bundle extras = new Bundle();
         extras.putString("GenreName", genresListViewHolder.genreName.getText().toString());
-        extras.putLong("GenreId",genresListViewHolder.genreId);
+        extras.putLong("GenreId", genresListViewHolder.genreId);
         intent.putExtras(extras);
         context.startActivity(intent);
 

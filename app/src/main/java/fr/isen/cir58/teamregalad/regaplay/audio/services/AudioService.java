@@ -7,10 +7,21 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.PowerManager;
+import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
+
+import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
  * Created by Thomas Fossati on 26/10/2015.
@@ -18,14 +29,16 @@ import android.util.Log;
 public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     private final IBinder audioBind = new AudioBinder();
-    boolean songPaused;
+    private boolean songPaused;
     private MediaPlayer mediaPlayer;
     private Uri songUri;
+    private static Timer timer;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mediaPlayer = new MediaPlayer();
+        timer = new Timer();
         initAudioPlayer();
     }
 
@@ -75,7 +88,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         if (songPaused) {
             mediaPlayer.start();
             songPaused = false;
-
         } else {
             mediaPlayer.pause();
             songPaused = true;
@@ -97,7 +109,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-
+        Toast.makeText(RegaPlayApplication.getContext(), "FINISHED", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -108,6 +120,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
+        timer.scheduleAtFixedRate(new MainTask(), 0, 100);
     }
 
     public class AudioBinder extends Binder {
@@ -115,5 +128,29 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             return AudioService.this;
         }
     }
+
+    private class MainTask extends TimerTask {
+        public void run() {
+            handler.sendEmptyMessage(0);
+        }
+    }
+
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (mediaPlayer.isPlaying()) {
+
+                int progress = (mediaPlayer.getCurrentPosition() * 100) / mediaPlayer.getDuration();
+                Integer timeValues[] = new Integer[3];
+                timeValues[0] = mediaPlayer.getCurrentPosition();
+                timeValues[1] = mediaPlayer.getDuration();
+                timeValues[2] = progress;
+
+                Constants.PROGRESSBAR_HANDLER.sendMessage(Constants.PROGRESSBAR_HANDLER.obtainMessage(0, timeValues));
+
+
+            }
+        }
+    };
 
 }

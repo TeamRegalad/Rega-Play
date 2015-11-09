@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.adapters.AlbumsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
-import fr.isen.cir58.teamregalad.regaplay.adapters.AlbumsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.ArtistListsActivity;
 
 /**

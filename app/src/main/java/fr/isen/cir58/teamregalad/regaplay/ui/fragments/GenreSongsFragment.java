@@ -15,15 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.adapters.SongsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.GenreListActivity;
-import fr.isen.cir58.teamregalad.regaplay.adapters.SongsListAdapter;
 
 /**
  * Created by paul on 11/6/15.
  */
-public class GenreSongsFragment  extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class GenreSongsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -54,7 +54,7 @@ public class GenreSongsFragment  extends Fragment implements LoaderManager.Loade
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         final CursorLoader cursorLoader = new CursorLoader(getContext());
-        cursorLoader.setUri(MediaStore.Audio.Genres.Members.getContentUri("external",genreId));
+        cursorLoader.setUri(MediaStore.Audio.Genres.Members.getContentUri("external", genreId));
         cursorLoader.setProjection(MediaStoreContract.SONGS_PROJECTION_FULL);
         cursorLoader.setSelection(MediaStoreContract.SONGS_SELECTION_IS_MUSIC);
         cursorLoader.setSelectionArgs(null);

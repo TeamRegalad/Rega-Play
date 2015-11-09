@@ -95,9 +95,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     protected void onPause() {
         super.onPause();
         audioService.pauseSong();
-
-        unregisterReceiver(songClickedReceiver);
-        songClickedReceiver = null;
+        
         unregisterReceiver(onSongClickedWithIdReceiver);
         onSongClickedWithIdReceiver = null;
         unregisterReceiver(onSongClickedWithPathReceiver);

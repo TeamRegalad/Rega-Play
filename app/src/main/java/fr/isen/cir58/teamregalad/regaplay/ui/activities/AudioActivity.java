@@ -13,23 +13,28 @@ import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import fr.isen.cir58.teamregalad.regaplay.async.GetSongDataAsyncTask;
+import java.util.ArrayList;
+
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
-import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
+import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
+import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithIdReceiver;
+import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithPathReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
  * Created by Thomas Fossati on 04/11/2015.
  */
-public class AudioActivity extends AppCompatActivity implements SongClickedReceiver.SongClickedListener, MediaPlayer.OnCompletionListener {
+public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener {
     protected PlayerFragment playerFragment;
-    private SongClickedReceiver songClickedReceiver;
     private AudioService audioService;
+    private OnSongClickedWithIdReceiver onSongClickedWithIdReceiver;
+    private OnSongClickedWithPathReceiver onSongClickedWithPathReceiver;
     private Intent playIntent;
     private boolean audioBound = false;
-    private Song currentSong;
+    private ArrayList<Song> playList = new ArrayList<>();
+    private Integer currentSongIndex = 0;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
@@ -64,9 +69,11 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     protected void onResume() {
         super.onResume();
 
-        songClickedReceiver = new SongClickedReceiver();
-        registerReceiver(songClickedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED));
-        songClickedReceiver.setListener(this);
+        onSongClickedWithIdReceiver = new OnSongClickedWithIdReceiver(this);
+        registerReceiver(onSongClickedWithIdReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_ID));
+        onSongClickedWithPathReceiver = new OnSongClickedWithPathReceiver(this);
+        registerReceiver(onSongClickedWithPathReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_PATH));
+
         if (audioService != null) {
             audioService.pauseSong();
         }
@@ -88,27 +95,21 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
     protected void onPause() {
         super.onPause();
         audioService.pauseSong();
-        stopService(playIntent);
+
         unregisterReceiver(songClickedReceiver);
         songClickedReceiver = null;
+        unregisterReceiver(onSongClickedWithIdReceiver);
+        onSongClickedWithIdReceiver = null;
+        unregisterReceiver(onSongClickedWithPathReceiver);
+        onSongClickedWithPathReceiver = null;
 
     }
 
-    @Override
-    public void onSongClicked(long id) {
-        audioService.setSong(id);
-        audioService.playSong();
-        new GetSongDataAsyncTask(playerFragment, id).execute();
-
-    }
-
-
-    public void onSongClicked(String path) {
-        audioService.setSong(path);
-        audioService.playSong();
-        // Will we be able to retrieve some songs info from a file in the filesystem ?
-        // new GetSongDataAsyncTask(playerFragment).execute(path);
-
+    protected void onDestroy() {
+        stopService(playIntent);
+        unbindService(audioConnection);
+        audioService = null;
+        super.onDestroy();
     }
 
     public void pauseSong() {
@@ -123,28 +124,34 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
         }
     }
 
-    public void previousSong(long currentSongId) {
-        onSongClicked(currentSongId - 1);
-    }
-
-    public void nextSong(long currentSongId) {
-        onSongClicked(currentSongId + 1);
-    }
-
     public void stopSong() {
         audioService.stopSong();
     }
 
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-        nextSong(currentSong.getID());
+    public void previousSong() {
+        if (isTherePreviousSong()) {
+            currentSongIndex--;
+            songChanged();
+        }
     }
 
-    protected void onDestroy() {
-        stopService(playIntent);
-        unbindService(audioConnection);
-        audioService = null;
-        super.onDestroy();
+    public void nextSong() {
+        if (isThereNextSong()) {
+            currentSongIndex++;
+            songChanged();
+        }
+    }
+
+    public void songChanged() {
+        Song song = getCurrentSong();
+        audioService.setSong(song.getID());
+        playerFragment.setNewSong(song);
+        playSong();
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        nextSong();
     }
 
     protected void commitPlayerFragment(int containerViewId) {
@@ -156,5 +163,33 @@ public class AudioActivity extends AppCompatActivity implements SongClickedRecei
 
     public AudioService getAudioService() {
         return audioService;
+    }
+
+    @Override
+    public void onSongClickedWithId(Long id) {
+        playList.clear();
+        Song clickedSong = MediaStoreHelper.getSong(id);
+        playList.add(clickedSong);
+        songChanged();
+    }
+
+    public Song getCurrentSong() {
+        return playList.get(currentSongIndex);
+    }
+
+    public Boolean isThereNextSong() {
+        return (currentSongIndex + 1 < playList.size());
+    }
+
+    public Boolean isTherePreviousSong() {
+        return (currentSongIndex > 0);
+    }
+
+    @Override
+    public void OnSongClickedWithPath(String path) {
+        playList.clear();
+        Song clickedSong = MediaStoreHelper.getSong(path);
+        playList.add(clickedSong);
+        songChanged();
     }
 }

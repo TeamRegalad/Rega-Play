@@ -11,11 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-
 import java.io.File;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,8 +24,8 @@ import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
  */
 public class FilesListActivity extends ListActivity {
 
-    private String path;
     private final String DEFAULT_PATH = "/storage/";
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +75,7 @@ public class FilesListActivity extends ListActivity {
             intent.putExtra("path", filename);
             startActivity(intent);
         } else {
-            try{
+            try {
                 Uri myUri = Uri.parse(filename); // initialize Uri here
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -87,9 +83,7 @@ public class FilesListActivity extends ListActivity {
                 mediaPlayer.prepare();
                 mediaPlayer.start();
                 //Toast.makeText(this, URLConnection.guessContentTypeFromName(filename).split("/")[0], Toast.LENGTH_LONG).show();
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 Toast.makeText(this, filename + " is not a compatible file", Toast.LENGTH_LONG).show();
             }
         }

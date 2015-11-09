@@ -155,13 +155,13 @@ public class MediaStoreContract implements BaseColumns {
     public static final String SONGS_ARTIST_KEY = "artist_key";
     public static final String SONGS_BOOKMARK = "bookmark";
     public static final String SONGS_COMPOSER = "composer";
-    public static final String SONGS_DATA = "_data";
     public static final String SONGS_DURATION = "duration";
     public static final String SONGS_IS_ALARM = "is_alarm";
     public static final String SONGS_IS_MUSIC = "is_music";
     public static final String SONGS_IS_NOTIFICATION = "is_notification";
     public static final String SONGS_IS_PODCAST = "is_podcast";
     public static final String SONGS_IS_RINGTONE = "is_ringtone";
+    public static final String SONGS_PATH = "_data";
     public static final String SONGS_TITLE = "title";
     public static final String SONGS_TITLE_KEY = "title_key";
     public static final String SONGS_TRACK = "track";
@@ -181,13 +181,13 @@ public class MediaStoreContract implements BaseColumns {
             SONGS_ARTIST_KEY,
             SONGS_BOOKMARK,
             SONGS_COMPOSER,
-            SONGS_DATA,
             SONGS_DURATION,
             SONGS_IS_ALARM,
             SONGS_IS_MUSIC,
             SONGS_IS_NOTIFICATION,
             SONGS_IS_PODCAST,
             SONGS_IS_RINGTONE,
+            SONGS_PATH,
             SONGS_TITLE,
             SONGS_TITLE_KEY,
             SONGS_TRACK,
@@ -211,6 +211,7 @@ public class MediaStoreContract implements BaseColumns {
     public static final String SONGS_SELECTION_IS_NOTIFICATION = SONGS_IS_NOTIFICATION + "!=0";
     public static final String SONGS_SELECTION_IS_PODCAST = SONGS_IS_PODCAST + "!=0";
     public static final String SONGS_SELECTION_IS_RINGTONE = SONGS_IS_RINGTONE + "!=0";
+    public static final String SONGS_SELECTION_BY_PATH = SONGS_PATH + "=?";
     public static final String SONGS_SELECTION_BY_TITLE = SONGS_TITLE + "=?";
     public static final String SONGS_SELECTION_BY_TITLE_KEY = SONGS_TITLE_KEY + "=?";
     public static final String SONGS_SELECTION_BY_TRACK = SONGS_TRACK + "=?";

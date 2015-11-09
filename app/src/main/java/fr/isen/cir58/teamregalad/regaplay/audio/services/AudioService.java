@@ -14,6 +14,9 @@ import android.os.PowerManager;
 import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
+
+import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +29,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     private final IBinder audioBind = new AudioBinder();
-    boolean songPaused;
+    private boolean songPaused;
     private MediaPlayer mediaPlayer;
     private Uri songUri;
     private static Timer timer;
@@ -85,7 +88,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         if (songPaused) {
             mediaPlayer.start();
             songPaused = false;
-
         } else {
             mediaPlayer.pause();
             songPaused = true;
@@ -107,7 +109,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-
+        Toast.makeText(RegaPlayApplication.getContext(), "FINISHED", Toast.LENGTH_SHORT).show();
     }
 
     @Override

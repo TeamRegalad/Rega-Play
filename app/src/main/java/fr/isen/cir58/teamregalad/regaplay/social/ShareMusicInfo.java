@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.widget.Toast;
-
-import java.util.List;
 
 /**
  * Created by Paul on 10/26/2015.

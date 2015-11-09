@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
 
@@ -28,7 +30,7 @@ import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 /**
  * Created by Thomas Fossati on 05/11/2015.
  */
-public class PlayerFragment extends Fragment implements View.OnClickListener {
+public class PlayerFragment extends Fragment implements View.OnClickListener, SlidingUpPanelLayout.PanelSlideListener {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private View rootView;
@@ -39,7 +41,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     private Button buttonStop;
     private Button buttonSocial;
     private TextView textViewSongName;
-    private ImageView imageviewCover;
+    private ImageView imageViewCover;
+    private ImageView imageViewCoverExtended;
     private LinearLayout linearLayoutPlayer;
     private TextView textViewAlbumName;
     private TextView textViewArtistName;
@@ -71,7 +74,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
-        imageviewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
+        imageViewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
+        imageViewCoverExtended =  (ImageView) rootView.findViewById(R.id.player_imageview_albumart_extended);
         textViewSongName.setSelected(true);
 
         setOnclickListeners();
@@ -103,7 +107,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
         if (song.getCoverPath() != null) {
             File file = new File(song.getCoverPath());
-            Glide.with(RegaPlayApplication.getContext()).load(file).into(imageviewCover);
+            Glide.with(RegaPlayApplication.getContext()).load(file).into(imageViewCover);
+            Glide.with(RegaPlayApplication.getContext()).load(file).into(imageViewCoverExtended);
         } else {
             Log.w("PlayerFragment", "warning album art path is null.");
         }
@@ -146,6 +151,30 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
+    @Override
+    public void onPanelSlide(View view, float v) {
+    }
+    @Override
+    public void onPanelCollapsed(View view) {
+        Toast.makeText(RegaPlayApplication.getContext(),"COUCOU",Toast.LENGTH_SHORT);
+
+    }
+
+    @Override
+    public void onPanelExpanded(View view) {
+        Toast.makeText(RegaPlayApplication.getContext(),"COUCOU",Toast.LENGTH_SHORT);
+
+    }
+
+    @Override
+    public void onPanelAnchored(View view) {
+    }
+
+    @Override
+    public void onPanelHidden(View view) {
+    }
+
     public static String getDuration(long milliseconds) {
         long sec = (milliseconds / 1000) % 60;
         long min = (milliseconds / (60 * 1000))%60;

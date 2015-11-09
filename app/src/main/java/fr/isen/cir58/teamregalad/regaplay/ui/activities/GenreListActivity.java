@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.GenreSongsFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
@@ -39,9 +37,7 @@ public class GenreListActivity extends AudioActivity {
         transaction.add(R.id.genre_list_activity_relative_layout, genreSongsFragment);
         transaction.commit();
 
-        commitPlayerFragment(R.id.genre_list_activity_player_layout);
-        SlidingUpPanelLayout slidingPaneLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        slidingPaneLayout.setPanelSlideListener(playerFragment);
+        commitPlayerFragment(R.id.genre_list_activity_root);
 
     }
 

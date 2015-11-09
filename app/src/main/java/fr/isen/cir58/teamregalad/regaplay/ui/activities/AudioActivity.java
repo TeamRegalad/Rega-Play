@@ -11,12 +11,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
@@ -159,7 +157,6 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, playerFragment);
         transaction.commit();
-
     }
 
     public AudioService getAudioService() {

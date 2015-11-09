@@ -13,8 +13,8 @@ import java.io.File;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.AlbumSongsFragment;
+import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.

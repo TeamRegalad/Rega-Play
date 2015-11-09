@@ -7,7 +7,9 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
@@ -75,16 +77,30 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         if (audioService != null) {
             audioService.pauseSong();
         }
+
+        Constants.PROGRESSBAR_HANDLER = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                Integer timeValues[] = (Integer[])msg.obj;
+                playerFragment.getTextBufferDuration().setText(playerFragment.getDuration(timeValues[0]));
+                playerFragment.getTextDuration().setText(playerFragment.getDuration(timeValues[1]));
+                playerFragment.getProgressBar().setProgress(timeValues[2]);
+            }
+        };
+
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         audioService.pauseSong();
+        
         unregisterReceiver(onSongClickedWithIdReceiver);
         onSongClickedWithIdReceiver = null;
         unregisterReceiver(onSongClickedWithPathReceiver);
         onSongClickedWithPathReceiver = null;
+
     }
 
     protected void onDestroy() {

@@ -31,7 +31,7 @@ import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 public class PlayerFragment extends Fragment implements View.OnClickListener {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private View rootView;
+    public View rootView;
     private Button buttonBack;
     private Button buttonPause;
     private Button buttonNext;
@@ -39,7 +39,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     private Button buttonStop;
     private Button buttonSocial;
     private TextView textViewSongName;
-    private ImageView imageviewCover;
+    private ImageView imageViewCover;
     private LinearLayout linearLayoutPlayer;
     private TextView textViewAlbumName;
     private TextView textViewArtistName;
@@ -71,7 +71,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
-        imageviewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
+        imageViewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
         textViewSongName.setSelected(true);
 
         setOnclickListeners();
@@ -103,15 +103,13 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
         if (song.getCoverPath() != null) {
             File file = new File(song.getCoverPath());
-            Glide.with(RegaPlayApplication.getContext()).load(file).into(imageviewCover);
+            Glide.with(RegaPlayApplication.getContext()).load(file).into(imageViewCover);
         } else {
             Log.w("PlayerFragment", "warning album art path is null.");
         }
         textDuration.setText(getDuration(song.getDuration()));
 
         rootView.setVisibility(View.VISIBLE);
-
-
     }
 
     @Override

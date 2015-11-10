@@ -38,6 +38,7 @@ public class GenreListActivity extends AudioActivity {
         transaction.commit();
 
         commitPlayerFragment(R.id.genre_list_activity_root);
+        showPlayerFragment();
 
     }
 

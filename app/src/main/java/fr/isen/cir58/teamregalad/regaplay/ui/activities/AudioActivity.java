@@ -12,9 +12,12 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
@@ -27,14 +30,15 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  * Created by Thomas Fossati on 04/11/2015.
  */
 public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener {
-    protected PlayerFragment playerFragment;
-    private AudioService audioService;
+    private static PlayerFragment playerFragment;
+    private static AudioService audioService;
     private OnSongClickedWithIdReceiver onSongClickedWithIdReceiver;
     private OnSongClickedWithPathReceiver onSongClickedWithPathReceiver;
     private Intent playIntent;
     private boolean audioBound = false;
     private ArrayList<Song> playList = new ArrayList<>();
     private Integer currentSongIndex = 0;
+    private Boolean isAudioPlaying = false;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
@@ -74,9 +78,11 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         onSongClickedWithPathReceiver = new OnSongClickedWithPathReceiver(this);
         registerReceiver(onSongClickedWithPathReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_PATH));
 
-        if (audioService != null) {
+        /*if (audioService != null) {
             audioService.pauseSong();
-        }
+        }*/
+
+        showPlayerFragment();
 
         Constants.PROGRESSBAR_HANDLER = new Handler(){
             @Override
@@ -87,20 +93,17 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
                 playerFragment.getProgressBar().setProgress(timeValues[2]);
             }
         };
-
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        audioService.pauseSong();
+        //audioService.pauseSong();
         
         unregisterReceiver(onSongClickedWithIdReceiver);
         onSongClickedWithIdReceiver = null;
         unregisterReceiver(onSongClickedWithPathReceiver);
         onSongClickedWithPathReceiver = null;
-
     }
 
     protected void onDestroy() {
@@ -120,10 +123,12 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         } else {
             audioService.playSong();
         }
+        isAudioPlaying = true;
     }
 
     public void stopSong() {
         audioService.stopSong();
+        isAudioPlaying = false;
     }
 
     public void previousSong() {
@@ -153,10 +158,23 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     }
 
     protected void commitPlayerFragment(int containerViewId) {
-        this.playerFragment = new PlayerFragment();
+        playerFragment = new PlayerFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, playerFragment);
         transaction.commit();
+    }
+
+    protected void showPlayerFragment() {
+        Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_SHORT).show();
+        if (isAudioPlaying) {
+            playerFragment.rootView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void hidePlayerFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .hide(playerFragment)
+                .commit();
     }
 
     public AudioService getAudioService() {

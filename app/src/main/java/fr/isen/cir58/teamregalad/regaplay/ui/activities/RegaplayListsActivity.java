@@ -7,12 +7,9 @@ import android.support.v7.widget.Toolbar;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.adapters.RegaplayListsAdapter;
-import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 public class RegaplayListsActivity extends AudioActivity {
-    private PlayerFragment playerFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +57,7 @@ public class RegaplayListsActivity extends AudioActivity {
         });
 
         commitPlayerFragment(R.id.regaplay_lists_activity_root_layout);
+        showPlayerFragment();
 
     }
 }

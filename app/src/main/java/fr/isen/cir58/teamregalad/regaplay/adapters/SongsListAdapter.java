@@ -13,21 +13,28 @@ import fr.isen.cir58.teamregalad.regaplay.async.SetAlbumArtAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
 import fr.isen.cir58.teamregalad.regaplay.listeners.SongsListOnClickListener;
+import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 import fr.isen.cir58.teamregalad.regaplay.view.SongsListViewHolder;
 
 /**
  * Created by aymeric on 10/31/15.
  */
 public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHolder> {
-    public SongsListAdapter(Context context, Cursor cursor) {
+    private String clickOrigin;
+    private String clickOriginName;
+    private long genreId;
+
+    public SongsListAdapter(Context context, Cursor cursor, String origin, String originName, long genreId) {
         super(context, cursor);
+        this.clickOrigin = origin;
+        this.clickOriginName = originName;
+        this.genreId = genreId;
     }
 
     @Override
     public void onBindViewHolder(SongsListViewHolder viewHolder, Cursor cursor) {
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_TITLE) >= 0) {
             viewHolder.songName.setText(cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_TITLE)));
-
         }
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ARTIST) >= 0) {
@@ -36,6 +43,7 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ID) >= 0) {
             viewHolder.id = cursor.getLong(cursor.getColumnIndex(MediaStoreContract.SONGS_ID));
+            viewHolder.position = cursor.getPosition();
         }
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY) >= 0) {
@@ -58,7 +66,13 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
     public SongsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songs_fragment_item, parent, false);
         SongsListViewHolder songsListViewHolder = new SongsListViewHolder(itemView);
-        itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder));
+        if (clickOrigin.equals(Constants.SongClickedOrigin.GENRE)){
+
+            itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder, clickOrigin, genreId));
+        }else{
+            itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder, clickOrigin, clickOriginName));
+        }
+
 
         return songsListViewHolder;
     }

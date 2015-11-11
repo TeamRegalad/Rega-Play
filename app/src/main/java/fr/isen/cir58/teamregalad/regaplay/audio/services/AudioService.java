@@ -123,6 +123,10 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         timer.scheduleAtFixedRate(new MainTask(), 0, 100);
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
     public class AudioBinder extends Binder {
         public AudioService getService() {
             return AudioService.this;

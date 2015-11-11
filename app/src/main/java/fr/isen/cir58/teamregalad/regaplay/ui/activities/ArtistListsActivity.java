@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +17,7 @@ import de.umass.lastfm.ImageSize;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.adapters.ArtistListsAdapter;
+import fr.isen.cir58.teamregalad.regaplay.listeners.ArtistPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.ArtistInfosAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.social.lastfm.listeners.LastFMApiAsyncTaskListner;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
@@ -80,6 +82,12 @@ public class ArtistListsActivity extends AudioActivity implements LastFMApiAsync
 
             }
         });
+
+        // Adding FloatingActionButton
+
+        ImageButton fabButton = (ImageButton) findViewById(R.id.artists_view_activity_fab);
+        fabButton.setOnClickListener(new ArtistPlaylistOnClickListener(artistName));
+
 
         commitPlayerFragment(R.id.artist_lists_activity_root);
     }

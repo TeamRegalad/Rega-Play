@@ -18,6 +18,7 @@ import fr.isen.cir58.teamregalad.regaplay.adapters.SongsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.ArtistListsActivity;
+import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
  * Created by Thomas Fossati on 04/11/2015.
@@ -63,7 +64,7 @@ public class ArtistSongsListFragment extends Fragment implements LoaderManager.L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mAdapter = new SongsListAdapter(getActivity(), data);
+        mAdapter = new SongsListAdapter(getActivity(), data, Constants.SongClickedOrigin.ARTIST, artistName, 0);
         mRecyclerView.setAdapter(mAdapter);
     }
 

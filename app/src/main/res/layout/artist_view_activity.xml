@@ -65,7 +65,15 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/artists_view_activity_fab"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_action_play"
+        android:layout_marginRight="10dp"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_anchor="@id/artist_lists_activity_tabs"
+        app:pressedTranslationZ="12dp"/>
 
 
 

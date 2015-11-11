@@ -5,6 +5,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -13,6 +14,7 @@ import java.io.File;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
+import fr.isen.cir58.teamregalad.regaplay.listeners.AlbumPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.AlbumSongsFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
@@ -55,6 +57,12 @@ public class AlbumListActivity extends AudioActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.album_list_activity_relative_layout, albumSongsFragment);
         transaction.commit();
+
+        // Adding FloatingActionButton
+
+        ImageButton fabButton = (ImageButton) findViewById(R.id.album_list_activity_fab);
+        fabButton.setOnClickListener(new AlbumPlaylistOnClickListener(albumName));
+
 
         commitPlayerFragment(R.id.album_list_activity_root);
 

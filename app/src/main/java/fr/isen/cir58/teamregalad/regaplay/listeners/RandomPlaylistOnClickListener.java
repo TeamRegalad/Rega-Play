@@ -13,10 +13,7 @@ public class RandomPlaylistOnClickListener implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(Constants.Audio.ACTION_RANDOM_PLAYLIST_CLICKED);
-        Bundle extras = new Bundle();
-        extras.putInt(Constants.Audio.ACTION_SONG_CLICKED_POSITION, 0);
-        intent.putExtras(extras);
+        Intent intent = new Intent(Constants.Playlist.ACTION_RANDOM_PLAYLIST_CLICKED);
         RegaPlayApplication.getContext().sendBroadcast(intent);
     }
 }

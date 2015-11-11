@@ -20,16 +20,9 @@ import fr.isen.cir58.teamregalad.regaplay.view.SongsListViewHolder;
  * Created by aymeric on 10/31/15.
  */
 public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHolder> {
-    private String clickOrigin;
-    private String clickOriginName;
-    private long genreId;
 
-    public SongsListAdapter(Context context, Cursor cursor, String origin, String originName, long genreId) {
-        super(context, cursor);
-        this.clickOrigin = origin;
-        this.clickOriginName = originName;
-        this.genreId = genreId;
-    }
+
+    public SongsListAdapter(Context context, Cursor cursor) {super(context, cursor);}
 
     @Override
     public void onBindViewHolder(SongsListViewHolder viewHolder, Cursor cursor) {
@@ -43,7 +36,6 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ID) >= 0) {
             viewHolder.id = cursor.getLong(cursor.getColumnIndex(MediaStoreContract.SONGS_ID));
-            viewHolder.position = cursor.getPosition();
         }
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY) >= 0) {
@@ -66,14 +58,7 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
     public SongsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songs_fragment_item, parent, false);
         SongsListViewHolder songsListViewHolder = new SongsListViewHolder(itemView);
-        if (clickOrigin.equals(Constants.SongClickedOrigin.GENRE)){
-
-            itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder, clickOrigin, genreId));
-        }else{
-            itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder, clickOrigin, clickOriginName));
-        }
-
-
+        itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder));
         return songsListViewHolder;
     }
 }

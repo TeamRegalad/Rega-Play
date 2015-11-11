@@ -40,6 +40,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     private AudioService audioService;
     private OnSongClickedWithIdReceiver onSongClickedWithIdReceiver;
     private OnSongClickedWithPathReceiver onSongClickedWithPathReceiver;
+    private OnSongChangedReceiver onSongChangedReceiver;
     private ArtistPlaylistClickedReceiver artistPlaylistClickedReceiver;
     private AlbumPlaylistClickedReceiver albumPlaylistClickedReceiver;
     private GenrePlaylistClickedReceiver genrePlaylistClickedReceiver;
@@ -236,20 +237,21 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     public AudioService getAudioService() {
         return audioService;
     }
-/*
+
     @Override
     public void onSongClickedWithId(Long id) {
-        playList.clear();
-        Song clickedSong = MediaStoreHelper.getSong(id);
-        playList.add(clickedSong);
+        playlist = null;
+        playlist = new Playlist(0);
+        playlist.addSong(id);
         songChanged();
-    }*/
+    }
 
     @Override
     public void OnSongClickedWithPath(String path) {
-        playlist.clear();
+        playlist = null;
+        playlist = new Playlist(0);
         Song clickedSong = MediaStoreHelper.getSong(path);
-        playlist.add(clickedSong);
+        playlist.addSong(clickedSong);
         songChanged();
     }
 
@@ -260,39 +262,27 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
 
     @Override
-    public void onAlbumPlaylistClicked(String albumName, int position) {
-        new BuildPlaylistAsyncTask(this,false, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ALBUM, new String[]{albumName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+    public void onAlbumPlaylistClicked(String albumName) {
+        new BuildPlaylistAsyncTask(this,false, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ALBUM, new String[]{albumName}, MediaStoreContract.SONGS_ORDER_BY_TRACK_ASC).execute();
     }
 
     @Override
-    public void onArtistPlaylistClicked(String artistName, int position) {
-        new BuildPlaylistAsyncTask(this, false, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ARTIST, new String[]{artistName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+    public void onArtistPlaylistClicked(String artistName) {
+        new BuildPlaylistAsyncTask(this, false,MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ARTIST, new String[]{artistName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
 
     @Override
-    public void onSongClickedWithId(Long id, int position) {
-
-        new BuildPlaylistAsyncTask(this,false, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+    public void onGenrePlaylistClicked(long genreId) {
+        new BuildPlaylistAsyncTask(this, false, MediaStore.Audio.Genres.Members.getContentUri("external", genreId), MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
 
     @Override
-    public void onGenrePlaylistClicked(long genreId, int position) {
-        new BuildPlaylistAsyncTask(this, false, position, MediaStore.Audio.Genres.Members.getContentUri("external", genreId), MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
-    }
+    public void onRandomPlaylistClicked() {
 
-    @Override
-    public void onRandomPlaylistClicked(int position) {
-
-        new BuildPlaylistAsyncTask(this, true, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+        new BuildPlaylistAsyncTask(this, true, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
 
     public void setPlaylist(Playlist playlist) {
         this.playlist = playlist;
     }
-
-
-    public Boolean isTherePreviousSong() {
-        return (currentSongIndex > 0);
-    }
-
 }

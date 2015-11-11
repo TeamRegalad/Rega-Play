@@ -20,14 +20,14 @@ public class BuildPlaylistAsyncTask extends AsyncTask<Long, Integer, Playlist> {
     private int beginIndex;
     private boolean isRandom;
 
-    public BuildPlaylistAsyncTask(AudioActivity audioAct, boolean isRandom, int position, Uri tab, String[] proj, String sel, String[] args, String order) {
+    public BuildPlaylistAsyncTask(AudioActivity audioAct, boolean isRandom, Uri tab, String[] proj, String sel, String[] args, String order) {
         table = tab;
         projection = proj;
         selection = sel;
         arguments = args;
         sortOrder = order;
         audioActivity = audioAct;
-        beginIndex = position;
+        beginIndex = 0;
         this.isRandom = isRandom;
 
     }

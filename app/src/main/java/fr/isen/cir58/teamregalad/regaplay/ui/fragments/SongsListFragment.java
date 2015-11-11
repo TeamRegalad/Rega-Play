@@ -35,7 +35,7 @@ public class SongsListFragment extends Fragment implements LoaderManager.LoaderC
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new SongsListAdapter(getActivity(), null, Constants.SongClickedOrigin.SONGS, null,0);
+        mAdapter = new SongsListAdapter(getActivity(), null);
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
@@ -63,7 +63,7 @@ public class SongsListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mAdapter = new SongsListAdapter(getActivity(), data, Constants.SongClickedOrigin.SONGS,null, 0);
+        mAdapter = new SongsListAdapter(getActivity(), data);
         mRecyclerView.setAdapter(mAdapter);
     }
 

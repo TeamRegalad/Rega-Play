@@ -17,10 +17,9 @@ public class AlbumPlaylistOnClickListener implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
-        Intent intent = new Intent(Constants.Audio.ACTION_PLAYLIST_ALBUM_CLICKED);
+        Intent intent = new Intent(Constants.Playlist.ACTION_PLAYLIST_ALBUM_CLICKED);
         Bundle extras = new Bundle();
-        extras.putString(Constants.Audio.ACTION_PLAYLIST_ALBUM_CLICKED_NAME, albumName);
-        extras.putInt(Constants.Audio.ACTION_SONG_CLICKED_POSITION, 0);
+        extras.putString(Constants.Playlist.ACTION_PLAYLIST_ALBUM_CLICKED_NAME, albumName);
         intent.putExtras(extras);
         RegaPlayApplication.getContext().sendBroadcast(intent);
 

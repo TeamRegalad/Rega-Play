@@ -18,7 +18,6 @@ public class SongsListViewHolder extends RecyclerView.ViewHolder {
     public Long id;
     public SetAlbumArtAsyncTask currentAsyncTask;
     public String albumKey;
-    public int position;
 
     public SongsListViewHolder(View itemView) {
         super(itemView);

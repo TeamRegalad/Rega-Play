@@ -11,15 +11,15 @@ public class OnRandomPlaylistClickedReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Constants.Audio.ACTION_RANDOM_PLAYLIST_CLICKED)) {
+        if (intent.getAction().equals(Constants.Playlist.ACTION_RANDOM_PLAYLIST_CLICKED)) {
             if (mlistener != null) {
-                mlistener.onRandomPlaylistClicked(intent.getExtras().getInt(Constants.Audio.ACTION_SONG_CLICKED_POSITION));
+                mlistener.onRandomPlaylistClicked();
             }
         }
     }
 
     public interface OnRandomPlaylistClickedListener{
-        public void onRandomPlaylistClicked(int position);
+        public void onRandomPlaylistClicked();
     }
 
     public void setListener(OnRandomPlaylistClickedListener listener) {this.mlistener = listener;}

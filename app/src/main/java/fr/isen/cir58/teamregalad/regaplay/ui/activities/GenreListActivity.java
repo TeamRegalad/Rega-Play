@@ -3,8 +3,11 @@ package fr.isen.cir58.teamregalad.regaplay.ui.activities;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageButton;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.listeners.AlbumPlaylistOnClickListener;
+import fr.isen.cir58.teamregalad.regaplay.listeners.GenrePlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.GenreSongsFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
@@ -31,6 +34,11 @@ public class GenreListActivity extends AudioActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.genre_list_activity_toolbar);
         toolbar.setTitle(genreName);
+
+        // Adding FloatingActionButton
+
+        ImageButton fabButton = (ImageButton) findViewById(R.id.genre_list_activity_fab);
+        fabButton.setOnClickListener(new GenrePlaylistOnClickListener(genreId));
 
         this.genreSongsFragment = new GenreSongsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

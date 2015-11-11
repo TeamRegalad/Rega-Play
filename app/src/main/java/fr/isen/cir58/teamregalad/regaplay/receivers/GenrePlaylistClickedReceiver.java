@@ -14,17 +14,17 @@ public class GenrePlaylistClickedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Constants.Audio.ACTION_PLAYLIST_GENRE_CLICKED)) {
+        if (intent.getAction().equals(Constants.Playlist.ACTION_PLAYLIST_GENRE_CLICKED)) {
             if (mlistener != null) {
-                genreId = intent.getExtras().getLong(Constants.Audio.ACTION_PLAYLIST_GENRE_CLICKED_ID);
-                mlistener.onGenrePlaylistClicked(genreId, intent.getExtras().getInt(Constants.Audio.ACTION_SONG_CLICKED_POSITION));
+                genreId = intent.getExtras().getLong(Constants.Playlist.ACTION_PLAYLIST_GENRE_CLICKED_ID);
+                mlistener.onGenrePlaylistClicked(genreId);
             }
         }
 
     }
 
     public interface GenrePlaylistClickedListener {
-        public void onGenrePlaylistClicked(long genreId, int position);
+        public void onGenrePlaylistClicked(long genreId);
     }
 
     public void setListener(GenrePlaylistClickedListener listener) {

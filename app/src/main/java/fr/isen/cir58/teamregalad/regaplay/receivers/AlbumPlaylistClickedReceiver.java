@@ -14,17 +14,17 @@ public class AlbumPlaylistClickedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Constants.Audio.ACTION_PLAYLIST_ALBUM_CLICKED)) {
+        if (intent.getAction().equals(Constants.Playlist.ACTION_PLAYLIST_ALBUM_CLICKED)) {
             if (mlistener != null) {
-                albumName = intent.getExtras().getString(Constants.Audio.ACTION_PLAYLIST_ALBUM_CLICKED_NAME);
-                mlistener.onAlbumPlaylistClicked(albumName, intent.getExtras().getInt(Constants.Audio.ACTION_SONG_CLICKED_POSITION));
+                albumName = intent.getExtras().getString(Constants.Playlist.ACTION_PLAYLIST_ALBUM_CLICKED_NAME);
+                mlistener.onAlbumPlaylistClicked(albumName);
             }
         }
 
     }
 
     public interface AlbumPlaylistClickedListener {
-        public void onAlbumPlaylistClicked(String albumName, int position);
+        public void onAlbumPlaylistClicked(String albumName);
     }
 
     public void setListener(AlbumPlaylistClickedListener listener) {

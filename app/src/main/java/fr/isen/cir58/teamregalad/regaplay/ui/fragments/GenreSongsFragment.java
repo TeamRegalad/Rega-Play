@@ -67,7 +67,7 @@ public class GenreSongsFragment extends Fragment implements LoaderManager.Loader
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
 
-        mAdapter = new SongsListAdapter(getActivity(), data, Constants.SongClickedOrigin.GENRE, null, genreId);
+        mAdapter = new SongsListAdapter(getActivity(), data);
         mRecyclerView.setAdapter(mAdapter);
     }
 

@@ -15,7 +15,7 @@ public class Constants {
             public static final String ACTION_SONG_CLICKED_PATH = "actionSongClickedPath";
             public static final String ACTION_SONG_CHANGED = "actionSongChanged";
             public static final String ACTION_SONG_CHANGED_SONG = "actionSongChangedSong";
-        }
+    }
 
         public class Playlist {
             public static final String ACTION_PLAYLIST_ARTIST_CLICKED = "actionPlaylistArtistClicked";
@@ -28,14 +28,5 @@ public class Constants {
             public static final String ACTION_PLAYLIST_GENRE_CLICKED_ID = "actionPlaylistGenreClickedId";
 
             public static final String ACTION_RANDOM_PLAYLIST_CLICKED = "actionRandomPlaylistClicked";
-        }
-
-        public class SongClickedOrigin {
-            public static final String ALBUM = "album";
-            public static final String ARTIST = "artist";
-            public static final String SONGS = "songs";
-            public static final String GENRE = "genres";
-            public static final String ACTION_SONG_CHANGED = "actionSongChanged";
-            public static final String ACTION_SONG_CHANGED_SONG = "actionSongChangedSong";
         }
     }

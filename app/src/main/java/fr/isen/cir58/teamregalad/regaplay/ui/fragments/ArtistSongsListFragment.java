@@ -64,7 +64,7 @@ public class ArtistSongsListFragment extends Fragment implements LoaderManager.L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mAdapter = new SongsListAdapter(getActivity(), data, Constants.SongClickedOrigin.ARTIST, artistName, 0);
+        mAdapter = new SongsListAdapter(getActivity(), data);
         mRecyclerView.setAdapter(mAdapter);
     }
 

@@ -24,16 +24,18 @@ import java.io.File;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
+import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongChangedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.social.ShareMusicInfo;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.
  */
-public class PlayerFragment extends Fragment implements View.OnClickListener, SlidingUpPanelLayout.PanelSlideListener {
+
+public class PlayerFragment extends Fragment implements View.OnClickListener, OnSongChangedReceiver.OnSongChangedListener,SlidingUpPanelLayout.PanelSlideListener {
+    public View rootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private View rootView;
     private Button buttonBack;
     private Button buttonPause;
     private Button buttonNext;
@@ -51,6 +53,23 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
     private TextView textDuration;
     private Song song;
 
+    public static String getDuration(long milliseconds) {
+        long sec = (milliseconds / 1000) % 60;
+        long min = (milliseconds / (60 * 1000)) % 60;
+        long hour = milliseconds / (60 * 60 * 1000);
+
+        String s = (sec < 10) ? "0" + sec : "" + sec;
+        String m = (min < 10) ? "0" + min : "" + min;
+        String h = "" + hour;
+
+        String time = "";
+        if (hour > 0) {
+            time = h + ":" + m + ":" + s;
+        } else {
+            time = m + ":" + s;
+        }
+        return time;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,7 +110,6 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
         }
     }
 
-
     private void setOnclickListeners() {
         buttonBack.setOnClickListener(this);
         buttonPause.setOnClickListener(this);
@@ -103,6 +121,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
 
     public void setNewSong(Song song) {
         this.song = song;
+        updateInfos();
+    }
+
+    public void updateInfos() {
         textViewSongName.setText(song.getTitle());
 
         if (song.getCoverPath() != null) {
@@ -115,8 +137,6 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
         textDuration.setText(getDuration(song.getDuration()));
 
         rootView.setVisibility(View.VISIBLE);
-
-
     }
 
     @Override
@@ -183,14 +203,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
         String s = (sec < 10) ? "0" + sec : "" + sec;
         String m = (min < 10) ? "0" + min : "" + min;
         String h = "" + hour;
-
-        String time = "";
-        if(hour > 0) {
-            time = h + ":" + m + ":" + s;
-        } else {
-            time = m + ":" + s;
         }
-        return time;
     }
 
     public TextView getTextDuration() {
@@ -203,5 +216,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
 
     public ProgressBar getProgressBar() {
         return progressBar;
+    }
+
+    @Override
+    public void onSongChanged(Song song) {
+        setNewSong(song);
     }
 }

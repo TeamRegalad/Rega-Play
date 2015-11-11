@@ -39,7 +39,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     private boolean audioBound = false;
     private ArrayList<Song> playList = new ArrayList<>();
     private Integer currentSongIndex = 0;
-    private FrameLayout rootSlidingUpFrameLayout;
+    private int rootSlidingUpFrameLayoutID;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
@@ -165,7 +165,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     protected void commitPlayerFragment(int containerViewId) {
         playerFragment = new PlayerFragment();
-        rootSlidingUpFrameLayout = (FrameLayout) findViewById(containerViewId);
+        rootSlidingUpFrameLayoutID = containerViewId;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, playerFragment);
         transaction.commit();
@@ -212,9 +212,15 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         return (currentSongIndex > 0);
     }
 
-    protected void hideSlidingUpFrameLayout(){
+    protected void hideSlidingUpFrameLayout() {
+        FrameLayout rootSlidingUpFrameLayout = (FrameLayout) findViewById(rootSlidingUpFrameLayoutID);
         rootSlidingUpFrameLayout.setVisibility(View.GONE);
+        rootSlidingUpFrameLayout.postInvalidate();
     }
-    protected void showSlidingUpFrameLayout(){
-        rootSlidingUpFrameLayout.setVisibility(View.VISIBLE);    }
+
+    protected void showSlidingUpFrameLayout() {
+        FrameLayout rootSlidingUpFrameLayout = (FrameLayout) findViewById(rootSlidingUpFrameLayoutID);
+        rootSlidingUpFrameLayout.setVisibility(View.VISIBLE);
+        rootSlidingUpFrameLayout.postInvalidate();
+    }
 }

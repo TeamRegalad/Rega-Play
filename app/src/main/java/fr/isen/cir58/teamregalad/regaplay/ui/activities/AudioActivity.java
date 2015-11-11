@@ -96,22 +96,22 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
         //Set artist playlist broadcast receiver
         artistPlaylistClickedReceiver = new ArtistPlaylistClickedReceiver();
-        registerReceiver(artistPlaylistClickedReceiver, new IntentFilter(Constants.Audio.ACTION_PLAYLIST_ARTIST_CLICKED));
+        registerReceiver(artistPlaylistClickedReceiver, new IntentFilter(Constants.Playlist.ACTION_PLAYLIST_ARTIST_CLICKED));
         artistPlaylistClickedReceiver.setListener(this);
 
         //Set album playlist broadcast receiver
         albumPlaylistClickedReceiver = new AlbumPlaylistClickedReceiver();
-        registerReceiver(albumPlaylistClickedReceiver, new IntentFilter(Constants.Audio.ACTION_PLAYLIST_ALBUM_CLICKED));
+        registerReceiver(albumPlaylistClickedReceiver, new IntentFilter(Constants.Playlist.ACTION_PLAYLIST_ALBUM_CLICKED));
         albumPlaylistClickedReceiver.setListener(this);
 
         //Set genre playlist broadcast receiver
         genrePlaylistClickedReceiver = new GenrePlaylistClickedReceiver();
-        registerReceiver(genrePlaylistClickedReceiver, new IntentFilter(Constants.Audio.ACTION_PLAYLIST_GENRE_CLICKED));
+        registerReceiver(genrePlaylistClickedReceiver, new IntentFilter(Constants.Playlist.ACTION_PLAYLIST_GENRE_CLICKED));
         genrePlaylistClickedReceiver.setListener(this);
 
         //Set random playlist broadcast receiver
         onRandomPlaylistClickedReceiver = new OnRandomPlaylistClickedReceiver();
-        registerReceiver(onRandomPlaylistClickedReceiver, new IntentFilter(Constants.Audio.ACTION_RANDOM_PLAYLIST_CLICKED));
+        registerReceiver(onRandomPlaylistClickedReceiver, new IntentFilter(Constants.Playlist.ACTION_RANDOM_PLAYLIST_CLICKED));
         onRandomPlaylistClickedReceiver.setListener(this);
 
         if (audioService != null) {
@@ -195,7 +195,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     public void songChanged() {
         Song song = getCurrentSong();
-        audioService.setSong(song);
+        audioService.setSong(song.getID());
         sendBroadcastSongChanged(song);
         playSong();
     }
@@ -222,8 +222,8 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     }
 
     protected void showPlayerFragment() {
-        if (audioService != null && audioService.isPlaying) {
-            playerFragment.setNewSong(audioService.song);
+        if (audioService != null && audioService.isSongPlaying()) {
+            playerFragment.updateInfos();
         }
     }
 
@@ -247,9 +247,9 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     @Override
     public void OnSongClickedWithPath(String path) {
-        playList.clear();
+        playlist.clear();
         Song clickedSong = MediaStoreHelper.getSong(path);
-        playList.add(clickedSong);
+        playlist.add(clickedSong);
         songChanged();
     }
 

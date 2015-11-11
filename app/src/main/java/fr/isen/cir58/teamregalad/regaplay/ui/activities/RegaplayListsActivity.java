@@ -10,7 +10,6 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.adapters.RegaplayListsAdapter;
 import fr.isen.cir58.teamregalad.regaplay.listeners.RandomPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
->>>>>>> refs/remotes/origin/master
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 public class RegaplayListsActivity extends AudioActivity {

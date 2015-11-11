@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageButton;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.adapters.RegaplayListsAdapter;
+import fr.isen.cir58.teamregalad.regaplay.listeners.RandomPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
@@ -58,6 +60,11 @@ public class RegaplayListsActivity extends AudioActivity {
 
             }
         });
+
+        // Adding FloatingActionButton
+
+        ImageButton fabButton = (ImageButton) findViewById(R.id.regaplay_lists_activity_fab);
+        fabButton.setOnClickListener(new RandomPlaylistOnClickListener());
 
         commitPlayerFragment(R.id.regaplay_lists_activity_root_layout);
 

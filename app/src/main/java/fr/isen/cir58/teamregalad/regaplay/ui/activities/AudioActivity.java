@@ -13,11 +13,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.async.BuildPlaylistAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.audio.Playlist;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
@@ -27,6 +23,7 @@ import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.receivers.AlbumPlaylistClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.receivers.ArtistPlaylistClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.receivers.GenrePlaylistClickedReceiver;
+import fr.isen.cir58.teamregalad.regaplay.receivers.OnRandomPlaylistClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithIdReceiver;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithPathReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
@@ -35,7 +32,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 /**
  * Created by Thomas Fossati on 04/11/2015.
  */
-public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener, ArtistPlaylistClickedReceiver.ArtistPlaylistClickedListener, AlbumPlaylistClickedReceiver.AlbumPlaylistClickedListener, GenrePlaylistClickedReceiver.GenrePlaylistClickedListener {
+public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener, ArtistPlaylistClickedReceiver.ArtistPlaylistClickedListener, AlbumPlaylistClickedReceiver.AlbumPlaylistClickedListener, GenrePlaylistClickedReceiver.GenrePlaylistClickedListener, OnRandomPlaylistClickedReceiver.OnRandomPlaylistClickedListener {
 
     protected PlayerFragment playerFragment;
     private AudioService audioService;
@@ -44,9 +41,9 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     private ArtistPlaylistClickedReceiver artistPlaylistClickedReceiver;
     private AlbumPlaylistClickedReceiver albumPlaylistClickedReceiver;
     private GenrePlaylistClickedReceiver genrePlaylistClickedReceiver;
+    private OnRandomPlaylistClickedReceiver onRandomPlaylistClickedReceiver;
     private Intent playIntent;
     private boolean audioBound = false;
-    private Integer currentSongIndex = 0;
     private Playlist playlist;
     private ServiceConnection audioConnection = new ServiceConnection(){
 
@@ -105,6 +102,11 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         registerReceiver(genrePlaylistClickedReceiver, new IntentFilter(Constants.Audio.ACTION_PLAYLIST_GENRE_CLICKED));
         genrePlaylistClickedReceiver.setListener(this);
 
+        //Set random playlist broadcast receiver
+        onRandomPlaylistClickedReceiver = new OnRandomPlaylistClickedReceiver();
+        registerReceiver(onRandomPlaylistClickedReceiver, new IntentFilter(Constants.Audio.ACTION_RANDOM_PLAYLIST_CLICKED));
+        onRandomPlaylistClickedReceiver.setListener(this);
+
         if (audioService != null) {
             audioService.pauseSong();
             audioService.getMediaPlayer().setOnCompletionListener(this);
@@ -138,6 +140,8 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         albumPlaylistClickedReceiver = null;
         unregisterReceiver(genrePlaylistClickedReceiver);
         genrePlaylistClickedReceiver = null;
+        unregisterReceiver(onRandomPlaylistClickedReceiver);
+        onRandomPlaylistClickedReceiver = null;
 
     }
 
@@ -234,24 +238,31 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     @Override
     public void onAlbumPlaylistClicked(String albumName, int position) {
-        new BuildPlaylistAsyncTask(this, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ALBUM, new String[]{albumName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+        new BuildPlaylistAsyncTask(this,false, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ALBUM, new String[]{albumName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
 
     @Override
     public void onArtistPlaylistClicked(String artistName, int position) {
-        new BuildPlaylistAsyncTask(this, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ARTIST, new String[]{artistName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+        new BuildPlaylistAsyncTask(this, false, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ARTIST, new String[]{artistName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
 
     @Override
     public void onSongClickedWithId(Long id, int position) {
 
-        new BuildPlaylistAsyncTask(this,position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+        new BuildPlaylistAsyncTask(this,false, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
 
     @Override
     public void onGenrePlaylistClicked(long genreId, int position) {
-        new BuildPlaylistAsyncTask(this,position, MediaStore.Audio.Genres.Members.getContentUri("external", genreId), MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+        new BuildPlaylistAsyncTask(this, false, position, MediaStore.Audio.Genres.Members.getContentUri("external", genreId), MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
+
+    @Override
+    public void onRandomPlaylistClicked(int position) {
+
+        new BuildPlaylistAsyncTask(this, true, position, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_IS_MUSIC, null, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+    }
+
     public void setPlaylist(Playlist playlist) {
         this.playlist = playlist;
     }

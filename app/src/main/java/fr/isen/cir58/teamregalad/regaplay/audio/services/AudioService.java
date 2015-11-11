@@ -11,16 +11,14 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
+import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**

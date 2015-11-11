@@ -31,6 +31,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/regaplay_lists_activity_fab"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src = "@drawable/ic_action_random"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop ="5dp"
+        android:scaleType="fitXY"
+        app:layout_anchorGravity="right"
+        app:layout_anchor="@id/regaplay_lists_activity_toolbar"
+        app:pressedTranslationZ="12dp" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/regaplay_lists_activity_pager"
         android:layout_width="match_parent"

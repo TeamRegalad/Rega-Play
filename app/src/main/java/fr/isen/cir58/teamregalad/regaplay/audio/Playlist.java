@@ -1,6 +1,7 @@
 package fr.isen.cir58.teamregalad.regaplay.audio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 
@@ -38,6 +39,10 @@ public class Playlist{
             currentIndexSong --;
         }
 
+    }
+
+    public void randomize(){
+        Collections.shuffle(songsList);
     }
 
     public Song getCurrentSong(){return songsList.get(currentIndexSong);}

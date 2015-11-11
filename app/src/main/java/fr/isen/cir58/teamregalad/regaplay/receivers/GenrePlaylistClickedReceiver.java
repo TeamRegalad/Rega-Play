@@ -3,9 +3,7 @@ package fr.isen.cir58.teamregalad.regaplay.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 public class GenrePlaylistClickedReceiver extends BroadcastReceiver {
@@ -16,7 +14,6 @@ public class GenrePlaylistClickedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(RegaPlayApplication.getContext(), "OK", Toast.LENGTH_SHORT).show();
         if (intent.getAction().equals(Constants.Audio.ACTION_PLAYLIST_GENRE_CLICKED)) {
             if (mlistener != null) {
                 genreId = intent.getExtras().getLong(Constants.Audio.ACTION_PLAYLIST_GENRE_CLICKED_ID);

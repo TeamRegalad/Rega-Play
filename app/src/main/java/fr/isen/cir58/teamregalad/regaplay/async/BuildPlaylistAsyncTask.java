@@ -18,8 +18,9 @@ public class BuildPlaylistAsyncTask extends AsyncTask<Long, Integer, Playlist> {
     private String sortOrder;
     private AudioActivity audioActivity;
     private int beginIndex;
+    private boolean isRandom;
 
-    public BuildPlaylistAsyncTask(AudioActivity audioAct, int position, Uri tab, String[] proj, String sel, String[] args, String order) {
+    public BuildPlaylistAsyncTask(AudioActivity audioAct, boolean isRandom, int position, Uri tab, String[] proj, String sel, String[] args, String order) {
         table = tab;
         projection = proj;
         selection = sel;
@@ -27,6 +28,7 @@ public class BuildPlaylistAsyncTask extends AsyncTask<Long, Integer, Playlist> {
         sortOrder = order;
         audioActivity = audioAct;
         beginIndex = position;
+        this.isRandom = isRandom;
 
     }
 
@@ -52,6 +54,9 @@ public class BuildPlaylistAsyncTask extends AsyncTask<Long, Integer, Playlist> {
     @Override
     protected void onPostExecute(Playlist playlist) {
         super.onPostExecute(playlist);
+        if (isRandom){
+            playlist.randomize();
+        }
         audioActivity.setPlaylist(playlist);
         audioActivity.songChanged();
 

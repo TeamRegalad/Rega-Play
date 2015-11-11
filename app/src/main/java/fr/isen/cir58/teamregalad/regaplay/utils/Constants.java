@@ -22,6 +22,8 @@ public class Constants {
 
         public static final String ACTION_PLAYLIST_GENRE_CLICKED = "actionPlaylistGenreClicked";
         public static final String ACTION_PLAYLIST_GENRE_CLICKED_ID = "actionPlaylistGenreClickedId";
+
+        public static final String ACTION_RANDOM_PLAYLIST_CLICKED = "actionRandomPlaylistClicked";
     }
     public class SongClickedOrigin{
         public static final String ALBUM = "album";

@@ -3,7 +3,6 @@ package fr.isen.cir58.teamregalad.regaplay.listeners;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;

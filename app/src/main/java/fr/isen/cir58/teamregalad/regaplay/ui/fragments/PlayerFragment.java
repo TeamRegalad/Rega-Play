@@ -195,16 +195,6 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     public void onPanelHidden(View view) {
     }
 
-    public static String getDuration(long milliseconds) {
-        long sec = (milliseconds / 1000) % 60;
-        long min = (milliseconds / (60 * 1000))%60;
-        long hour = milliseconds / (60 * 60 * 1000);
-
-        String s = (sec < 10) ? "0" + sec : "" + sec;
-        String m = (min < 10) ? "0" + min : "" + min;
-        String h = "" + hour;
-        }
-    }
 
     public TextView getTextDuration() {
         return textDuration;

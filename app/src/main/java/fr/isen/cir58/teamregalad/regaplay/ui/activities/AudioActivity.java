@@ -12,6 +12,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     private boolean audioBound = false;
     private ArrayList<Song> playList = new ArrayList<>();
     private Integer currentSongIndex = 0;
+    private FrameLayout rootSlidingUpFrameLayout;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
@@ -73,7 +76,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     @Override
     protected void onResume() {
         super.onResume();
-        showPlayerFragment();
+        updatePlayerFragment();
 
         onSongClickedWithIdReceiver = new OnSongClickedWithIdReceiver(this);
         registerReceiver(onSongClickedWithIdReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_ID));
@@ -123,6 +126,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     public void stopSong() {
         audioService.stopSong();
+        hideSlidingUpFrameLayout();
     }
 
     public void previousSong() {
@@ -139,7 +143,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         }
     }
 
-    public void songChanged() {
+    private void songChanged() {
         Song song = getCurrentSong();
         audioService.setSong(song.getID());
         sendBroadcastSongChanged(song);
@@ -161,21 +165,16 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     protected void commitPlayerFragment(int containerViewId) {
         playerFragment = new PlayerFragment();
+        rootSlidingUpFrameLayout = (FrameLayout) findViewById(containerViewId);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, playerFragment);
         transaction.commit();
     }
 
-    protected void showPlayerFragment() {
+    protected void updatePlayerFragment() {
         if (audioService != null && audioService.isPlaying) {
             playerFragment.updateInfos();
         }
-    }
-
-    protected void hidePlayerFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .hide(playerFragment)
-                .commit();
     }
 
     public AudioService getAudioService() {
@@ -184,10 +183,12 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     @Override
     public void onSongClickedWithId(Long id) {
+        showSlidingUpFrameLayout();
         playList.clear();
         Song clickedSong = MediaStoreHelper.getSong(id);
         playList.add(clickedSong);
         songChanged();
+
     }
 
     @Override
@@ -196,6 +197,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         Song clickedSong = MediaStoreHelper.getSong(path);
         playList.add(clickedSong);
         songChanged();
+        showSlidingUpFrameLayout();
     }
 
     public Song getCurrentSong() {
@@ -209,4 +211,10 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     public Boolean isTherePreviousSong() {
         return (currentSongIndex > 0);
     }
+
+    protected void hideSlidingUpFrameLayout(){
+        rootSlidingUpFrameLayout.setVisibility(View.GONE);
+    }
+    protected void showSlidingUpFrameLayout(){
+        rootSlidingUpFrameLayout.setVisibility(View.VISIBLE);    }
 }

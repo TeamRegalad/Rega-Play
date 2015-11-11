@@ -42,7 +42,7 @@ public class GenreListActivity extends AudioActivity {
         commitPlayerFragment(R.id.genre_list_activity_player_layout);
         SlidingUpPanelLayout slidingPaneLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         slidingPaneLayout.setPanelSlideListener(playerFragment);
-        showPlayerFragment();
+        hideSlidingUpFrameLayout();
 
     }
 

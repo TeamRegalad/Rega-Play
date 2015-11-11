@@ -52,6 +52,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     private TextView textDuration;
     private Song song;
 
+
     public static String getDuration(long milliseconds) {
         long sec = (milliseconds / 1000) % 60;
         long min = (milliseconds / (60 * 1000)) % 60;

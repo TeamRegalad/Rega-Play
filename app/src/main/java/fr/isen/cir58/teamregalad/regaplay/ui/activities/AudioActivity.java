@@ -28,7 +28,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  * Created by Thomas Fossati on 04/11/2015.
  */
 public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener {
-    private PlayerFragment playerFragment;
+    protected PlayerFragment playerFragment;
     private AudioService audioService;
     private OnSongClickedWithIdReceiver onSongClickedWithIdReceiver;
     private OnSongClickedWithPathReceiver onSongClickedWithPathReceiver;

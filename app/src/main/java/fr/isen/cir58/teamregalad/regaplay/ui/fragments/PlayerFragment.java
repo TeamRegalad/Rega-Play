@@ -32,21 +32,20 @@ import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
  * Created by Thomas Fossati on 05/11/2015.
  */
 
-public class PlayerFragment extends Fragment implements View.OnClickListener, OnSongChangedReceiver.OnSongChangedListener,SlidingUpPanelLayout.PanelSlideListener {
+public class PlayerFragment extends Fragment implements View.OnClickListener, OnSongChangedReceiver.OnSongChangedListener, SlidingUpPanelLayout.PanelSlideListener {
     public View rootView;
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private Button buttonBack;
     private Button buttonPause;
     private Button buttonNext;
     private Button buttonPlay;
-    private Button buttonStop;
     private Button buttonSocial;
+    private Button buttonPrevious;
+    private Button buttonBarPause;
+    private Button buttonBarPlay;
+    private Button buttonBarStop;
     private TextView textViewSongName;
     private ImageView imageViewCover;
     private ImageView imageViewCoverExtended;
     private LinearLayout linearLayoutPlayer;
-    private TextView textViewAlbumName;
     private TextView textViewArtistName;
     private ProgressBar progressBar;
     private TextView textBufferDuration;
@@ -81,21 +80,31 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     }
 
     private void getViews() {
-        buttonBack = (Button) rootView.findViewById(R.id.player_button_previous);
+
+        //buttons extended
         buttonPause = (Button) rootView.findViewById(R.id.player_button_pause);
-        buttonNext = (Button) rootView.findViewById(R.id.player_button_next);
+        buttonPrevious = (Button) rootView.findViewById(R.id.player_button_previous);
         buttonPlay = (Button) rootView.findViewById(R.id.player_button_play);
-        buttonStop = (Button) rootView.findViewById(R.id.player_button_stop);
+        buttonNext = (Button) rootView.findViewById(R.id.player_button_next);
         buttonSocial = (Button) rootView.findViewById(R.id.player_button_social);
-        textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
-        linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_linearlayout);
-        progressBar = (ProgressBar) rootView.findViewById(R.id.player_progressbar);
-        progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
+        //bar buttons
+        buttonBarPause = (Button) rootView.findViewById(R.id.player_button_bar_pause);
+        buttonBarPlay = (Button) rootView.findViewById(R.id.player_button_bar_play);
+        buttonBarStop = (Button) rootView.findViewById(R.id.player_button_bar_stop);
+
+
+        imageViewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
+        imageViewCoverExtended = (ImageView) rootView.findViewById(R.id.player_imageview_albumart_extended);
+
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
-        imageViewCover = (ImageView) rootView.findViewById(R.id.player_imageview_albumart);
-        imageViewCoverExtended =  (ImageView) rootView.findViewById(R.id.player_imageview_albumart_extended);
-        textViewSongName.setSelected(true);
+        textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
+        textViewArtistName = (TextView) rootView.findViewById(R.id.player_textview_artistname);
+
+        linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_root_linearlayout);
+
+        progressBar = (ProgressBar) rootView.findViewById(R.id.player_progressbar);
+        progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
 
         setOnclickListeners();
     }
@@ -111,12 +120,14 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     }
 
     private void setOnclickListeners() {
-        buttonBack.setOnClickListener(this);
         buttonPause.setOnClickListener(this);
+        buttonPrevious.setOnClickListener(this);
         buttonPlay.setOnClickListener(this);
         buttonNext.setOnClickListener(this);
-        buttonStop.setOnClickListener(this);
         buttonSocial.setOnClickListener(this);
+        buttonBarPause.setOnClickListener(this);
+        buttonBarPlay.setOnClickListener(this);
+        buttonBarStop.setOnClickListener(this);
     }
 
     public void setNewSong(Song song) {
@@ -126,6 +137,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
 
     public void updateInfos() {
         textViewSongName.setText(song.getTitle());
+        textViewArtistName.setText(song.getArtist());
 
         if (song.getCoverPath() != null) {
             File file = new File(song.getCoverPath());
@@ -141,15 +153,26 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
 
     @Override
     public void onClick(View v) {
-        int viewId = v.getId();
-
         switch (v.getId()) {
             case R.id.player_button_play:
                 ((AudioActivity) getActivity()).playSong();
                 changeButton();
                 break;
+            case R.id.player_button_bar_play:
+                ((AudioActivity) getActivity()).playSong();
+                changeButton();
+                break;
             case R.id.player_button_pause:
                 ((AudioActivity) getActivity()).pauseSong();
+                changeButton();
+                break;
+            case R.id.player_button_bar_pause:
+                ((AudioActivity) getActivity()).pauseSong();
+                changeButton();
+                break;
+            case R.id.player_button_bar_stop:
+                ((AudioActivity) getActivity()).stopSong();
+                rootView.setVisibility(View.GONE);
                 changeButton();
                 break;
             case R.id.player_button_previous:
@@ -160,14 +183,9 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
                 ((AudioActivity) getActivity()).nextSong();
                 changeButton();
                 break;
-            case R.id.player_button_stop:
-                ((AudioActivity) getActivity()).stopSong();
-                rootView.setVisibility(View.GONE);
-                changeButton();
-                break;
             case R.id.player_button_social:
-                ShareMusicInfo.shareVia(getActivity(),this.song.shareSongInfos());
-		break;
+                ShareMusicInfo.shareVia(getActivity(), this.song.shareSongInfos());
+                break;
 
         }
     }
@@ -175,16 +193,20 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     @Override
     public void onPanelSlide(View view, float v) {
     }
+
     @Override
     public void onPanelCollapsed(View view) {
-        Toast.makeText(RegaPlayApplication.getContext(),"COUCOU",Toast.LENGTH_SHORT);
+        buttonBarPause.setVisibility(View.VISIBLE);
+        buttonBarPlay.setVisibility(View.GONE);
+        buttonBarStop.setVisibility(View.GONE);
 
     }
 
     @Override
     public void onPanelExpanded(View view) {
-        Toast.makeText(RegaPlayApplication.getContext(),"COUCOU",Toast.LENGTH_SHORT);
-
+        buttonBarPause.setVisibility(View.GONE);
+        buttonBarPlay.setVisibility(View.GONE);
+        buttonBarStop.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -21,6 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
@@ -51,6 +52,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     };
     private Uri songUri;
     private Long songId;
+    public Song song;
     private Notification notification;
     public Boolean isPlaying = false;
 
@@ -70,12 +72,17 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         mediaPlayer.setOnErrorListener(this);
     }
 
-    public void setSong(long songId) {
+    public void setSongId(long songId) {
         this.songUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
         this.songId = songId;
     }
 
-    public void setSong(String path) {
+    public void setSong(Song song) {
+        this.song = song;
+        setSongId(song.getID());
+    }
+
+    public void setSongId(String path) {
         this.songUri = Uri.parse(path);
     }
 

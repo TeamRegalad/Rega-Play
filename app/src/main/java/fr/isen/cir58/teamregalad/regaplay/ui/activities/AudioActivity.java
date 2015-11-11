@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
+import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongChangedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithIdReceiver;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithPathReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
@@ -27,10 +28,11 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  * Created by Thomas Fossati on 04/11/2015.
  */
 public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener {
-    protected PlayerFragment playerFragment;
+    private PlayerFragment playerFragment;
     private AudioService audioService;
     private OnSongClickedWithIdReceiver onSongClickedWithIdReceiver;
     private OnSongClickedWithPathReceiver onSongClickedWithPathReceiver;
+    private OnSongChangedReceiver onSongChangedReceiver;
     private Intent playIntent;
     private boolean audioBound = false;
     private ArrayList<Song> playList = new ArrayList<>();
@@ -63,50 +65,47 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
             bindService(playIntent, audioConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
         }
+
+        onSongChangedReceiver = new OnSongChangedReceiver(playerFragment);
+        registerReceiver(onSongChangedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CHANGED));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        showPlayerFragment();
 
         onSongClickedWithIdReceiver = new OnSongClickedWithIdReceiver(this);
         registerReceiver(onSongClickedWithIdReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_ID));
         onSongClickedWithPathReceiver = new OnSongClickedWithPathReceiver(this);
         registerReceiver(onSongClickedWithPathReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_PATH));
 
-        if (audioService != null) {
-            audioService.pauseSong();
-        }
-
-        Constants.PROGRESSBAR_HANDLER = new Handler(){
+        Constants.PROGRESSBAR_HANDLER = new Handler() {
             @Override
-            public void handleMessage(Message msg){
-                Integer timeValues[] = (Integer[])msg.obj;
+            public void handleMessage(Message msg) {
+                Integer timeValues[] = (Integer[]) msg.obj;
                 playerFragment.getTextBufferDuration().setText(playerFragment.getDuration(timeValues[0]));
                 playerFragment.getTextDuration().setText(playerFragment.getDuration(timeValues[1]));
                 playerFragment.getProgressBar().setProgress(timeValues[2]);
             }
         };
-
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        audioService.pauseSong();
-        
         unregisterReceiver(onSongClickedWithIdReceiver);
         onSongClickedWithIdReceiver = null;
         unregisterReceiver(onSongClickedWithPathReceiver);
         onSongClickedWithPathReceiver = null;
-
     }
 
     protected void onDestroy() {
         stopService(playIntent);
         unbindService(audioConnection);
         audioService = null;
+        unregisterReceiver(onSongChangedReceiver);
+        onSongChangedReceiver = null;
         super.onDestroy();
     }
 
@@ -143,8 +142,16 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     public void songChanged() {
         Song song = getCurrentSong();
         audioService.setSong(song.getID());
-        playerFragment.setNewSong(song);
+        sendBroadcastSongChanged(song);
         playSong();
+    }
+
+    public void sendBroadcastSongChanged(Song song) {
+        Intent intent = new Intent(Constants.Audio.ACTION_SONG_CHANGED);
+        Bundle extras = new Bundle();
+        extras.putParcelable(Constants.Audio.ACTION_SONG_CHANGED_SONG, song);
+        intent.putExtras(extras);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -153,10 +160,22 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     }
 
     protected void commitPlayerFragment(int containerViewId) {
-        this.playerFragment = new PlayerFragment();
+        playerFragment = new PlayerFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, playerFragment);
         transaction.commit();
+    }
+
+    protected void showPlayerFragment() {
+        if (audioService != null && audioService.isPlaying) {
+            playerFragment.updateInfos();
+        }
+    }
+
+    protected void hidePlayerFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .hide(playerFragment)
+                .commit();
     }
 
     public AudioService getAudioService() {
@@ -171,6 +190,14 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         songChanged();
     }
 
+    @Override
+    public void OnSongClickedWithPath(String path) {
+        playList.clear();
+        Song clickedSong = MediaStoreHelper.getSong(path);
+        playList.add(clickedSong);
+        songChanged();
+    }
+
     public Song getCurrentSong() {
         return playList.get(currentSongIndex);
     }
@@ -181,13 +208,5 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     public Boolean isTherePreviousSong() {
         return (currentSongIndex > 0);
-    }
-
-    @Override
-    public void OnSongClickedWithPath(String path) {
-        playList.clear();
-        Song clickedSong = MediaStoreHelper.getSong(path);
-        playList.add(clickedSong);
-        songChanged();
     }
 }

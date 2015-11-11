@@ -1,5 +1,7 @@
 package fr.isen.cir58.teamregalad.regaplay.audio.services;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -11,16 +13,16 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
-
-import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
+import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
@@ -28,11 +30,29 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
  */
 public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
+    private static Timer timer;
     private final IBinder audioBind = new AudioBinder();
     private boolean songPaused;
     private MediaPlayer mediaPlayer;
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (mediaPlayer.isPlaying()) {
+
+                int progress = (mediaPlayer.getCurrentPosition() * 100) / mediaPlayer.getDuration();
+                Integer timeValues[] = new Integer[3];
+                timeValues[0] = mediaPlayer.getCurrentPosition();
+                timeValues[1] = mediaPlayer.getDuration();
+                timeValues[2] = progress;
+
+                Constants.PROGRESSBAR_HANDLER.sendMessage(Constants.PROGRESSBAR_HANDLER.obtainMessage(0, timeValues));
+            }
+        }
+    };
     private Uri songUri;
-    private static Timer timer;
+    private Long songId;
+    private Notification notification;
+    public Boolean isPlaying = false;
 
     @Override
     public void onCreate() {
@@ -52,6 +72,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
     public void setSong(long songId) {
         this.songUri = ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
+        this.songId = songId;
     }
 
     public void setSong(String path) {
@@ -81,6 +102,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             }
             mediaPlayer.prepareAsync();
             songPaused = false;
+            isPlaying = true;
         }
     }
 
@@ -105,11 +127,12 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     public void stopSong() {
         mediaPlayer.stop();
         songPaused = false;
+        isPlaying = false;
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        Toast.makeText(RegaPlayApplication.getContext(), "FINISHED", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -123,6 +146,16 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         timer.scheduleAtFixedRate(new MainTask(), 0, 100);
     }
 
+    public void setAsForeground() {
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), AudioActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Notification notification = builder.setSmallIcon(R.drawable.defaultpic)
+                .setContentTitle("Regaplay")
+                .setContentText(MediaStoreHelper.getSong(songId).getTitle())
+                .setAutoCancel(true).build();
+        startForeground(0, notification);
+    }
+
     public class AudioBinder extends Binder {
         public AudioService getService() {
             return AudioService.this;
@@ -134,23 +167,4 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             handler.sendEmptyMessage(0);
         }
     }
-
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (mediaPlayer.isPlaying()) {
-
-                int progress = (mediaPlayer.getCurrentPosition() * 100) / mediaPlayer.getDuration();
-                Integer timeValues[] = new Integer[3];
-                timeValues[0] = mediaPlayer.getCurrentPosition();
-                timeValues[1] = mediaPlayer.getDuration();
-                timeValues[2] = progress;
-
-                Constants.PROGRESSBAR_HANDLER.sendMessage(Constants.PROGRESSBAR_HANDLER.obtainMessage(0, timeValues));
-
-
-            }
-        }
-    };
-
 }

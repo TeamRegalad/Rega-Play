@@ -2,9 +2,7 @@ package fr.isen.cir58.teamregalad.regaplay.utils;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -15,7 +13,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.RegaplayListsActivity;
-import fr.isen.cir58.teamregalad.regaplay.ui.filesList.FilesListActivity;
+import fr.isen.cir58.teamregalad.regaplay.ui.activities.FilesListActivity;
 
 /**
  * Created by maxime on 08/11/15.

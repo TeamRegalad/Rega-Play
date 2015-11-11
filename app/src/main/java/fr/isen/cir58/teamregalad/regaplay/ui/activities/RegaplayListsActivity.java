@@ -1,15 +1,12 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.receivers.SongClickedReceiver;
-import fr.isen.cir58.teamregalad.regaplay.ui.filesList.FilesListActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;

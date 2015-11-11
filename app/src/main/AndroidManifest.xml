@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.filesList.FilesListActivity"/>
+        <activity android:name=".ui.activities.FilesListActivity"/>
 
         <activity android:name=".ui.activities.GenreListActivity"></activity>
 

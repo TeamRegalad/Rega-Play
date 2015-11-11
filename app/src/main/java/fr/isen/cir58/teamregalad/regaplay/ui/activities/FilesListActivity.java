@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.adapters.FilesListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.listeners.FileListOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
@@ -59,7 +60,8 @@ public class FilesListActivity extends AudioActivity {
         values.add(0,"../");
 
         // Put the data into the list
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        FilesListAdapter adapter = new FilesListAdapter(this, R.layout.files_list_item_fragment, values,path);
         fileListView.setAdapter(adapter);
         fileListView.setOnItemClickListener(new FileListOnClickListener(this, path));
 

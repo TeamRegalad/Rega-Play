@@ -65,8 +65,8 @@ public class AlbumListActivity extends AudioActivity {
 
 
         commitPlayerFragment(R.id.album_list_activity_root);
-
     }
+
 
     public String getAlbumName() {
         return albumName;

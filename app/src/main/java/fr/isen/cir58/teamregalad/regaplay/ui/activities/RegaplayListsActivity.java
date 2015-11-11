@@ -10,11 +10,10 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.adapters.RegaplayListsAdapter;
 import fr.isen.cir58.teamregalad.regaplay.listeners.RandomPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
+>>>>>>> refs/remotes/origin/master
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 public class RegaplayListsActivity extends AudioActivity {
-    private PlayerFragment playerFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +66,7 @@ public class RegaplayListsActivity extends AudioActivity {
         fabButton.setOnClickListener(new RandomPlaylistOnClickListener());
 
         commitPlayerFragment(R.id.regaplay_lists_activity_root_layout);
+        showPlayerFragment();
 
     }
 }

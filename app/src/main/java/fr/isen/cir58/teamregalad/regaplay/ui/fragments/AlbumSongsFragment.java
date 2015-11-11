@@ -59,7 +59,7 @@ public class AlbumSongsFragment extends Fragment implements LoaderManager.Loader
         cursorLoader.setProjection(MediaStoreContract.SONGS_PROJECTION_FULL);
         cursorLoader.setSelection(MediaStoreContract.SONGS_SELECTION_BY_ALBUM);
         cursorLoader.setSelectionArgs(new String[]{albumName});
-        cursorLoader.setSortOrder(MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC);
+        cursorLoader.setSortOrder(MediaStoreContract.SONGS_ORDER_BY_TRACK_ASC);
         return cursorLoader;
     }
 

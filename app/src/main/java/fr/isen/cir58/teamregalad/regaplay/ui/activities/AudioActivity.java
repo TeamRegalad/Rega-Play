@@ -44,6 +44,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
             AudioService.AudioBinder binder = (AudioService.AudioBinder) service;
             audioService = binder.getService();
             audioBound = true;
+            showPlayerFragment();
         }
 
         @Override
@@ -141,7 +142,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     public void songChanged() {
         Song song = getCurrentSong();
-        audioService.setSong(song.getID());
+        audioService.setSong(song);
         sendBroadcastSongChanged(song);
         playSong();
     }
@@ -168,7 +169,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     protected void showPlayerFragment() {
         if (audioService != null && audioService.isPlaying) {
-            playerFragment.updateInfos();
+            playerFragment.setNewSong(audioService.song);
         }
     }
 

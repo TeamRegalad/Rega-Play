@@ -216,8 +216,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
 
     @Override
     public void onPanelCollapsed(View view) {
-        buttonBarPause.setVisibility(View.VISIBLE);
-        buttonBarPlay.setVisibility(View.GONE);
+        changeButtonBar();
         buttonBarStop.setVisibility(View.GONE);
 
     }

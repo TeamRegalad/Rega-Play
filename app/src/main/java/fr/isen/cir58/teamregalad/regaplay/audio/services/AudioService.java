@@ -70,7 +70,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
         mediaPlayer.setOnPreparedListener(this);
-        mediaPlayer.setOnCompletionListener(this);
+        //mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
     }
 

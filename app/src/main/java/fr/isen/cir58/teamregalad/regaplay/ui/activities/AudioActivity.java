@@ -47,6 +47,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
 
 public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener, ArtistPlaylistClickedReceiver.ArtistPlaylistClickedListener, AlbumPlaylistClickedReceiver.AlbumPlaylistClickedListener, GenrePlaylistClickedReceiver.GenrePlaylistClickedListener, OnRandomPlaylistClickedReceiver.OnRandomPlaylistClickedListener, AddToPlaylistClickedReceiver.AddToPlaylistClickedListener, OnSongChangedReceiver.OnSongChangedListener {
     protected PlayerFragment playerFragment;
+    private AudioActivity binding = this;
     private AudioService audioService;
     private OnSongClickedWithIdReceiver onSongClickedWithIdReceiver;
     private OnSongClickedWithPathReceiver onSongClickedWithPathReceiver;
@@ -67,6 +68,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
             AudioService.AudioBinder binder = (AudioService.AudioBinder) service;
             audioService = binder.getService();
             audioBound = true;
+            audioService.getMediaPlayer().setOnCompletionListener(binding);
             updatePlayerFragment();
         }
 
@@ -131,7 +133,6 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
 
         if (audioService != null) {
-            audioService.pauseSong();
             audioService.getMediaPlayer().setOnCompletionListener(this);
         }
 
@@ -186,7 +187,6 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         }
 
     }
-
 
     public void pauseSong() {
         audioService.pauseSong();

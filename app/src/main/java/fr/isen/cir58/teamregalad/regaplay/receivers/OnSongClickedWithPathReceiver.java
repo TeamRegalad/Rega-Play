@@ -19,10 +19,10 @@ public class OnSongClickedWithPathReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String path = intent.getExtras().getString(Constants.Audio.ACTION_SONG_CLICKED_PATH);
-        mListener.OnSongClickedWithPath(path);
+        mListener.onSongClickedWithPath(path);
     }
 
     public interface OnSongClickedWithPathListener {
-        void OnSongClickedWithPath(String path);
+        void onSongClickedWithPath(String path);
     }
 }

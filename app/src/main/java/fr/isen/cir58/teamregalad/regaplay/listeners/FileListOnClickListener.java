@@ -39,7 +39,7 @@ public class FileListOnClickListener implements ListView.OnItemClickListener {
             } else {
                 try{
                     FilesListActivity activity = (FilesListActivity) this.c;
-                    activity.onSongClicked(filename);
+                    activity.onSongClickedWithPath(path);
                 }
                 catch(Exception e)
                 {

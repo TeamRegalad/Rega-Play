@@ -102,7 +102,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center|end|bottom"
-        android:paddingBottom="15dp"
         android:background="@color/colorPrimary">
 
 

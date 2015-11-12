@@ -128,6 +128,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
     public void setNewSong(Song song) {
         this.song = song;
         updateInfos();
+        changeButton();
+        changeButtonBar();
     }
 
     public void updateInfos() {
@@ -193,7 +195,6 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
-            Log.d("PlayerFragment", String.valueOf(progress));
             ((AudioActivity) getActivity()).setSongAtTimestamp(progress);
         }
     }

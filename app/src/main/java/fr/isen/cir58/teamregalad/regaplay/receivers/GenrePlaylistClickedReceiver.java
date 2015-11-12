@@ -23,11 +23,11 @@ public class GenrePlaylistClickedReceiver extends BroadcastReceiver {
 
     }
 
-    public interface GenrePlaylistClickedListener {
-        public void onGenrePlaylistClicked(long genreId);
-    }
-
     public void setListener(GenrePlaylistClickedListener listener) {
         mlistener = listener;
+    }
+
+    public interface GenrePlaylistClickedListener {
+        public void onGenrePlaylistClicked(long genreId);
     }
 }

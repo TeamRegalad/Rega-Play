@@ -8,11 +8,9 @@ import android.widget.ImageButton;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
-import fr.isen.cir58.teamregalad.regaplay.listeners.AlbumPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.listeners.GenrePlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.GenreSongsFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
-import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
 
 /**
  * Created by paul on 11/6/15.
@@ -46,12 +44,12 @@ public class GenreListActivity extends AudioActivity {
 
         commitPlayerFragment(R.id.genre_list_activity_player_layout);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             this.genreSongsFragment = new GenreSongsFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.genre_list_activity_relative_layout, genreSongsFragment);
             transaction.commit();
-        }else {
+        } else {
             updatePlayerFragment();
         }
     }

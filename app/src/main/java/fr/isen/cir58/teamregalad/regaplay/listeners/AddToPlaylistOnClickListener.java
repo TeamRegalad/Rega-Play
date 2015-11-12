@@ -2,7 +2,6 @@ package fr.isen.cir58.teamregalad.regaplay.listeners;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
@@ -11,7 +10,8 @@ import fr.isen.cir58.teamregalad.regaplay.view.SongsListViewHolder;
 
 public class AddToPlaylistOnClickListener implements View.OnClickListener {
     private SongsListViewHolder songsListViewHolder;
-    public AddToPlaylistOnClickListener(SongsListViewHolder viewHolder){
+
+    public AddToPlaylistOnClickListener(SongsListViewHolder viewHolder) {
         songsListViewHolder = viewHolder;
 
     }

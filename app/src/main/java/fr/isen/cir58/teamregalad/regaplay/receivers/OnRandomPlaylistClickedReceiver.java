@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
-public class OnRandomPlaylistClickedReceiver extends BroadcastReceiver{
+public class OnRandomPlaylistClickedReceiver extends BroadcastReceiver {
     private OnRandomPlaylistClickedListener mlistener;
 
     @Override
@@ -18,9 +18,11 @@ public class OnRandomPlaylistClickedReceiver extends BroadcastReceiver{
         }
     }
 
-    public interface OnRandomPlaylistClickedListener{
-        public void onRandomPlaylistClicked();
+    public void setListener(OnRandomPlaylistClickedListener listener) {
+        this.mlistener = listener;
     }
 
-    public void setListener(OnRandomPlaylistClickedListener listener) {this.mlistener = listener;}
+    public interface OnRandomPlaylistClickedListener {
+        public void onRandomPlaylistClicked();
+    }
 }

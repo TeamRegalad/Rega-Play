@@ -54,7 +54,7 @@ public class BuildPlaylistAsyncTask extends AsyncTask<Long, Integer, Playlist> {
     @Override
     protected void onPostExecute(Playlist playlist) {
         super.onPostExecute(playlist);
-        if (isRandom){
+        if (isRandom) {
             playlist.randomize();
         }
         audioActivity.setPlaylist(playlist);

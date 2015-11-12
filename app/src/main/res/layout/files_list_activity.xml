@@ -10,7 +10,8 @@
     sothree:umanoPanelHeight="85dp"
     sothree:umanoShadowHeight="85dp">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/regaplay_lists_activity_root_layout"
         android:layout_width="match_parent"
@@ -24,42 +25,50 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/regaplay_lists_activity_toolbar"
+                android:id="@+id/file_lists_activity_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="RegaPlay"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF" />-->
 
             </android.support.v7.widget.Toolbar>
 
 
         </android.support.design.widget.AppBarLayout>
 
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <!--<RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true">
+            android:layout_height="wrap_content">
 
-            <ListView
-                android:id="@android:id/list"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Path"
+                android:id="@+id/pathTextView"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="60dp"
-                android:foregroundGravity="bottom" />
-        </RelativeLayout>
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="55dp"/>
+        </RelativeLayout>-->
 
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fileListView"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -67,7 +76,6 @@
         android:id="@+id/files_list_activity_player_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

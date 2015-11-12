@@ -35,13 +35,10 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
     private static Timer timer;
     private final IBinder audioBind = new AudioBinder();
+    public Song song;
+    public Boolean isPlaying = false;
     private boolean songPaused;
     private MediaPlayer mediaPlayer;
-    private Uri songUri;
-    private Long songId;
-    public Song song;
-    private Notification notification;
-    public Boolean isPlaying = false;
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -57,6 +54,9 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             }
         }
     };
+    private Uri songUri;
+    private Long songId;
+    private Notification notification;
 
     @Override
     public void onCreate() {

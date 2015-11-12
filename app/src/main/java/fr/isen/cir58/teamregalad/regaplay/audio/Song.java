@@ -6,8 +6,19 @@ import android.os.Parcelable;
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */
-public class Song implements Parcelable{
+public class Song implements Parcelable {
 
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
     private long ID;
     private String title;
     private String path;
@@ -47,18 +58,6 @@ public class Song implements Parcelable{
         genre = in.readString();
         coverPath = in.readString();
     }
-
-    public static final Creator<Song> CREATOR = new Creator<Song>() {
-        @Override
-        public Song createFromParcel(Parcel in) {
-            return new Song(in);
-        }
-
-        @Override
-        public Song[] newArray(int size) {
-            return new Song[size];
-        }
-    };
 
     public long getID() {
         return ID;

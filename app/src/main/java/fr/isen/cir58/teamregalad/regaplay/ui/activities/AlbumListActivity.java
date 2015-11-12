@@ -52,7 +52,7 @@ public class AlbumListActivity extends AudioActivity {
         } else {
             Log.w("AlbumListActivity", "Cover art path is null");
         }
-        
+
         // Adding FloatingActionButton
         ImageButton fabButton = (ImageButton) findViewById(R.id.album_list_activity_fab);
         fabButton.setOnClickListener(new AlbumPlaylistOnClickListener(albumName));
@@ -67,7 +67,6 @@ public class AlbumListActivity extends AudioActivity {
         } else {
             updatePlayerFragment();
         }
-
 
 
     }

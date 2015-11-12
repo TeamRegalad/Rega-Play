@@ -2,7 +2,6 @@ package fr.isen.cir58.teamregalad.regaplay.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
 import fr.isen.cir58.teamregalad.regaplay.listeners.AddToPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.listeners.SongsListOnClickListener;
-import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 import fr.isen.cir58.teamregalad.regaplay.view.SongsListViewHolder;
 
 /**
@@ -25,7 +23,9 @@ import fr.isen.cir58.teamregalad.regaplay.view.SongsListViewHolder;
 public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHolder> {
     private Long songId;
 
-    public SongsListAdapter(Context context, Cursor cursor) {super(context, cursor);}
+    public SongsListAdapter(Context context, Cursor cursor) {
+        super(context, cursor);
+    }
 
     @Override
     public void onBindViewHolder(SongsListViewHolder viewHolder, Cursor cursor) {

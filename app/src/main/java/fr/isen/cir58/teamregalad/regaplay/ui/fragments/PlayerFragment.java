@@ -3,8 +3,6 @@ package fr.isen.cir58.teamregalad.regaplay.ui.fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -25,7 +22,6 @@ import java.io.File;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
-import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongChangedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.social.ShareMusicInfo;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
@@ -105,6 +101,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
             buttonPlay.setVisibility(View.GONE);
         }
     }
+
     public void changeButtonBar() {
         if (((AudioActivity) getActivity()).getAudioService().isSongPaused()) {
             buttonBarPause.setVisibility(View.GONE);
@@ -148,7 +145,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
         rootView.setVisibility(View.VISIBLE);
     }
 
-    public void updatePlaylist(String currentSong, String playlistSize){
+    public void updatePlaylist(String currentSong, String playlistSize) {
         //textViewPlaylist.setText(currentSong + "/" + playlistSize);
     }
 

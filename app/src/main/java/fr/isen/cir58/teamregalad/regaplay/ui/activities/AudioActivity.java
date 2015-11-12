@@ -11,12 +11,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -176,10 +172,10 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     @Override
     public void onBackPressed() {
-        if(slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
+        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        }else {
-            if(this instanceof RegaplayListsActivity){
+        } else {
+            if (this instanceof RegaplayListsActivity) {
                 stopService(playIntent);
                 audioService = null;
             }
@@ -207,10 +203,10 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     }
 
     public void previousSong() {
-       if (playlist != null){
-           playlist.previousSong();
-           songChanged();
-       }
+        if (playlist != null) {
+            playlist.previousSong();
+            songChanged();
+        }
     }
 
     public void nextSong() {
@@ -240,7 +236,8 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         intent.putExtras(extras);
         sendBroadcast(intent);
     }
-    public void setSongAtTimestamp(int value){
+
+    public void setSongAtTimestamp(int value) {
         audioService.setSongAtTimeStamp(value);
     }
 
@@ -297,13 +294,13 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     @Override
     public void onAlbumPlaylistClicked(String albumName) {
         playlist = null;
-        new BuildPlaylistAsyncTask(this,false, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ALBUM, new String[]{albumName}, MediaStoreContract.SONGS_ORDER_BY_TRACK_ASC).execute();
+        new BuildPlaylistAsyncTask(this, false, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ALBUM, new String[]{albumName}, MediaStoreContract.SONGS_ORDER_BY_TRACK_ASC).execute();
     }
 
     @Override
     public void onArtistPlaylistClicked(String artistName) {
         playlist = null;
-        new BuildPlaylistAsyncTask(this, false,MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ARTIST, new String[]{artistName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
+        new BuildPlaylistAsyncTask(this, false, MediaStoreContract.TABLE_SONGS, MediaStoreContract.SONGS_PROJECTION_FULL, MediaStoreContract.SONGS_SELECTION_BY_ARTIST, new String[]{artistName}, MediaStoreContract.SONGS_ORDER_BY_TITLE_ASC).execute();
     }
 
     @Override
@@ -321,24 +318,25 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     @Override
     public void onAddToPlaylistClicked(long id) {
         boolean isFirst = false;
-        if (playlist == null){
+        if (playlist == null) {
             playlist = new Playlist(0);
             isFirst = true;
         }
         playlist.addSong(id);
         Toast.makeText(RegaPlayApplication.getContext(), R.string.song_added_to_playlist, Toast.LENGTH_SHORT).show();
         playerFragment.updatePlaylist(playlist.getCurrentIndexSongToString(), playlist.getPlaylistSizeToString());
-        if (isFirst){
+        if (isFirst) {
             songChanged();
         }
 
     }
+
     public void setPlaylist(Playlist playlist) {
         this.playlist = playlist;
     }
 
     protected void hideSlidingUpFrameLayout() {
-        if(slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
+        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
         }
         slidingUpPanelLayout.setPanelHeight(0);

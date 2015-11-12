@@ -41,6 +41,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     private Button buttonStop;
     private Button buttonSocial;
     private TextView textViewSongName;
+    private TextView textViewPlaylist;
     private ImageView imageViewCover;
     private LinearLayout linearLayoutPlayer;
     private TextView textViewAlbumName;
@@ -85,6 +86,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         buttonStop = (Button) rootView.findViewById(R.id.player_button_stop);
         buttonSocial = (Button) rootView.findViewById(R.id.player_button_social);
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
+        textViewPlaylist = (TextView) rootView.findViewById(R.id.player_textview_playlist);
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_linearlayout);
         progressBar = (ProgressBar) rootView.findViewById(R.id.player_progressbar);
         progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
@@ -134,6 +136,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         rootView.setVisibility(View.VISIBLE);
     }
 
+    public void updatePlaylist(String currentSong, String playlistSize){
+        textViewPlaylist.setText(currentSong + "/" + playlistSize);
+    }
+
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -178,6 +184,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     public ProgressBar getProgressBar() {
         return progressBar;
     }
+
+    public void setUnvisible(){rootView.setVisibility(View.GONE);}
 
     @Override
     public void onSongChanged(Song song) {

@@ -1,5 +1,8 @@
 package fr.isen.cir58.teamregalad.regaplay.audio;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,7 +20,9 @@ public class Playlist{
 
     public void addSong(Long id){
         if (id!=null) {
+
             songsList.add(songsList.size(), MediaStoreHelper.getSong(id));
+
         }
     }
     public void addSong(Song song){
@@ -53,5 +58,15 @@ public class Playlist{
 
     public ArrayList<Song> getSongsList() {
         return songsList;
+    }
+
+    public String getPlaylistSizeToString(){
+        Integer size = songsList.size();
+        return size.toString();
+    }
+
+    public String getCurrentIndexSongToString(){
+        Integer index = currentIndexSong + 1;
+        return index.toString();
     }
 }

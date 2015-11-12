@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/songs_fragment_item_root_layout">
 
@@ -8,7 +10,9 @@
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/songs_fragment_item_relative_layout">
+        android:id="@+id/songs_fragment_item_relative_layout"
+
+        >
 
         <ImageView
             android:layout_width="50dp"
@@ -26,7 +30,8 @@
             android:id="@+id/songs_fragment_item_linear_layout"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/songs_fragment_item_song_cover"
-            android:layout_marginStart="15dp">
+            android:layout_marginStart="15dp"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,6 +46,25 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/songs_fragment_item_artist_name"
                 android:text="@string/songs_list_fragment_item_artist_name" />
+
+
+
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/songs_fragment_button_linear_layout"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:layout_marginRight="10dp">
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/songs_fragment_item_button"
+            android:background="@drawable/ic_action_add_playlist" />
+        </LinearLayout>
+
     </RelativeLayout>
 </LinearLayout>

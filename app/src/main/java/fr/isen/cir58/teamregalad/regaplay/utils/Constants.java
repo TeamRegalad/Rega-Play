@@ -28,5 +28,8 @@ public class Constants {
             public static final String ACTION_PLAYLIST_GENRE_CLICKED_ID = "actionPlaylistGenreClickedId";
 
             public static final String ACTION_RANDOM_PLAYLIST_CLICKED = "actionRandomPlaylistClicked";
+
+            public static final String ACTION_ADD_TO_PLAYLIST_CLICKED = "actionAddToPlaylistClicked";
+            public static final String ACTION_ADD_TO_PLAYLIST_CLICKED_ID = "actionAddToPlaylistClickedId";
         }
     }

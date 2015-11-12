@@ -2,9 +2,11 @@ package fr.isen.cir58.teamregalad.regaplay.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.Objects;
 
@@ -12,6 +14,7 @@ import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.async.SetAlbumArtAsyncTask;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.CursorRecyclerViewAdapter;
+import fr.isen.cir58.teamregalad.regaplay.listeners.AddToPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.listeners.SongsListOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 import fr.isen.cir58.teamregalad.regaplay.view.SongsListViewHolder;
@@ -20,7 +23,7 @@ import fr.isen.cir58.teamregalad.regaplay.view.SongsListViewHolder;
  * Created by aymeric on 10/31/15.
  */
 public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHolder> {
-
+    private Long songId;
 
     public SongsListAdapter(Context context, Cursor cursor) {super(context, cursor);}
 
@@ -36,6 +39,7 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ID) >= 0) {
             viewHolder.id = cursor.getLong(cursor.getColumnIndex(MediaStoreContract.SONGS_ID));
+            songId = viewHolder.id;
         }
 
         if (cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY) >= 0) {
@@ -59,6 +63,8 @@ public class SongsListAdapter extends CursorRecyclerViewAdapter<SongsListViewHol
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songs_fragment_item, parent, false);
         SongsListViewHolder songsListViewHolder = new SongsListViewHolder(itemView);
         itemView.setOnClickListener(new SongsListOnClickListener(songsListViewHolder));
+        Button addButton = (Button) itemView.findViewById(R.id.songs_fragment_item_button);
+        addButton.setOnClickListener(new AddToPlaylistOnClickListener(songsListViewHolder));
         return songsListViewHolder;
     }
 }

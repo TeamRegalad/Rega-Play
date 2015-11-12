@@ -17,7 +17,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
         <TextView
             android:id="@+id/player_textview_songname"
             android:layout_width="match_parent"
@@ -30,6 +33,17 @@
             android:text="@string/songs_list_fragment_item_song_name"
             android:textColor="@color/white"
             android:textSize="15dp" />
+        <TextView
+            android:id="@+id/player_textview_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "0/0"
+            android:layout_marginRight="15dp"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textSize="15dp"
+            android:textColor="@color/white"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"

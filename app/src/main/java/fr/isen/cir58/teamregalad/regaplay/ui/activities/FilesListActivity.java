@@ -1,9 +1,7 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,7 +13,6 @@ import java.util.List;
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.adapters.FilesListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.listeners.FileListOnClickListener;
-import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 /**
@@ -36,7 +33,7 @@ public class FilesListActivity extends AudioActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.file_lists_activity_toolbar);
         setSupportActionBar(toolbar);
 
-        this.commitPlayerFragment(R.id.file_lists_activity_root_layout);
+        this.commitPlayerFragment(R.id.sliding_layout);
         this.fileListView =(ListView) findViewById(R.id.fileListView);
         // Initialize the Drawer menu
         DrawerUtils drawer = new DrawerUtils(this);

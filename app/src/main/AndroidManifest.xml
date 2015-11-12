@@ -37,7 +37,7 @@
         </activity>
 
         <activity
-            android:name=".ui.filesList.FilesListActivity"
+            android:name=".ui.activities.FilesListActivity"
             android:screenOrientation="portrait" />
 
         <activity

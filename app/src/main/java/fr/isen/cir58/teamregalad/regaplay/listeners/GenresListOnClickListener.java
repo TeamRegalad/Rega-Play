@@ -22,14 +22,11 @@ public class GenresListOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
         Intent intent = new Intent(context, GenreListActivity.class);
         Bundle extras = new Bundle();
         extras.putString("GenreName", genresListViewHolder.genreName.getText().toString());
         extras.putLong("GenreId", genresListViewHolder.genreId);
         intent.putExtras(extras);
         context.startActivity(intent);
-
-
     }
 }

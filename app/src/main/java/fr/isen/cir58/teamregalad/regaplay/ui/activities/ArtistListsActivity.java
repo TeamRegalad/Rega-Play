@@ -89,7 +89,7 @@ public class ArtistListsActivity extends AudioActivity implements LastFMApiAsync
         fabButton.setOnClickListener(new ArtistPlaylistOnClickListener(artistName));
 
 
-        commitPlayerFragment(R.id.artist_lists_activity_root);
+        commitPlayerFragment(R.id.artist_lists_activity_player_layout);
     }
 
     public String getArtistName() {

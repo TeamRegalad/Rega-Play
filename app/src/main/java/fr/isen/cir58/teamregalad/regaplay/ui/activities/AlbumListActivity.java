@@ -52,20 +52,19 @@ public class AlbumListActivity extends AudioActivity {
         } else {
             Log.w("AlbumListActivity", "Cover art path is null");
         }
+        
         // Adding FloatingActionButton
-
         ImageButton fabButton = (ImageButton) findViewById(R.id.album_list_activity_fab);
         fabButton.setOnClickListener(new AlbumPlaylistOnClickListener(albumName));
 
-        this.albumSongsFragment = new AlbumSongsFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.album_list_activity_relative_layout, albumSongsFragment);
-        transaction.commit();
+        if(savedInstanceState == null) {
+            this.albumSongsFragment = new AlbumSongsFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.album_list_activity_relative_layout, albumSongsFragment);
+            transaction.commit();
+        }
 
-
-
-
-        commitPlayerFragment(R.id.album_list_activity_root);
+        commitPlayerFragment(R.id.album_list_activity_player_layout);
     }
 
 

@@ -64,8 +64,7 @@ public class RegaplayListsActivity extends AudioActivity {
         ImageButton fabButton = (ImageButton) findViewById(R.id.regaplay_lists_activity_fab);
         fabButton.setOnClickListener(new RandomPlaylistOnClickListener());
 
-        commitPlayerFragment(R.id.regaplay_lists_activity_root_layout);
-        showPlayerFragment();
+        commitPlayerFragment(R.id.regaplay_lists_activity_player_layout);
 
     }
 }

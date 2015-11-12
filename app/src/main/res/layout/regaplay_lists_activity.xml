@@ -1,54 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/regaplay_lists_activity_root_layout"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="85dp"
+    sothree:umanoShadowHeight="85dp">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/regaplay_lists_activity_appbar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="6dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/regaplay_lists_activity_toolbar"
+            android:id="@+id/regaplay_lists_activity_root_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:layout_height="match_parent">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/regaplay_lists_activity_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabIndicatorColor="@android:color/white" />
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/regaplay_lists_activity_appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="6dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    </android.support.design.widget.AppBarLayout>
+                <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/regaplay_lists_activity_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/regaplay_lists_activity_fab"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:src = "@drawable/ic_action_random"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop ="5dp"
-        android:scaleType="fitXY"
-        app:layout_anchorGravity="right"
-        app:layout_anchor="@id/regaplay_lists_activity_toolbar"
-        app:pressedTranslationZ="12dp" />
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/regaplay_lists_activity_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabIndicatorColor="@android:color/white" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/regaplay_lists_activity_pager"
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/regaplay_lists_activity_fab"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src = "@drawable/ic_action_random"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop ="5dp"
+                android:scaleType="fitXY"
+                app:layout_anchorGravity="right"
+                app:layout_anchor="@id/regaplay_lists_activity_toolbar"
+                app:pressedTranslationZ="12dp" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/regaplay_lists_activity_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/regaplay_lists_activity_tabs"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/regaplay_lists_activity_player_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_below="@id/regaplay_lists_activity_tabs" />
+        android:layout_height="match_parent">
 
+    </FrameLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

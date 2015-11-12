@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -276,7 +277,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     }
 
     @Override
-    public void OnSongClickedWithPath(String path) {
+    public void onSongClickedWithPath(String path) {
         playlist = null;
         playlist = new Playlist(0);
         Song clickedSong = MediaStoreHelper.getSong(path);
@@ -344,5 +345,4 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         slidingUpPanelLayout.setPanelHeight(MethodsUtils.convertDpToPixel(85, RegaPlayApplication.getContext()));
 
     }
-
 }

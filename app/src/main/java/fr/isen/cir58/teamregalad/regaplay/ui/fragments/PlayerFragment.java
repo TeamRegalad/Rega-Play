@@ -85,7 +85,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
-        textViewPlaylist = (TextView) rootView.findViewById(R.id.player_textview_playlist);
+        //textViewPlaylist = (TextView) rootView.findViewById(R.id.player_textview_playlist);
         textViewArtistName = (TextView) rootView.findViewById(R.id.player_textview_artistname);
 
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_root_linearlayout);
@@ -149,7 +149,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     }
 
     public void updatePlaylist(String currentSong, String playlistSize){
-        textViewPlaylist.setText(currentSong + "/" + playlistSize);
+        //textViewPlaylist.setText(currentSong + "/" + playlistSize);
     }
 
     @Override

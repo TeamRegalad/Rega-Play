@@ -51,25 +51,25 @@ public class AlbumListActivity extends AudioActivity {
             Log.w("AlbumListActivity", "Cover art path is null");
         }
 
-        if(savedInstanceState == null) {
+        commitPlayerFragment(R.id.album_list_activity_player_layout);
+
+        if (savedInstanceState == null) {
             this.albumSongsFragment = new AlbumSongsFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.album_list_activity_relative_layout, albumSongsFragment);
             transaction.commit();
+        } else {
+            updatePlayerFragment();
         }
 
-        commitPlayerFragment(R.id.album_list_activity_player_layout);
+
+
     }
 
 
     public String getAlbumName() {
         return albumName;
     }
-
-    public String getCoverPath() {
-        return coverPath;
-    }
-
 
     @Override
     protected void onDestroy() {

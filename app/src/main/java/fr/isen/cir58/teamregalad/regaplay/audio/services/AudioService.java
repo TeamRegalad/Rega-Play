@@ -174,7 +174,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     private class MainTask extends TimerTask {
         public void run() {
             handler.sendEmptyMessage(0);
-            // handler.postDelayed(this, 50);
         }
     }
 }

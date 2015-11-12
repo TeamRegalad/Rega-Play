@@ -37,7 +37,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
 /**
  * Created by Thomas Fossati on 04/11/2015.
  */
-public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener {
+public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, OnSongClickedWithIdReceiver.OnSongClickedWithIdListener, OnSongClickedWithPathReceiver.OnSongClickedWithPathListener, OnSongChangedReceiver.OnSongChangedListener {
     protected PlayerFragment playerFragment;
     private AudioService audioService;
     private OnSongClickedWithIdReceiver onSongClickedWithIdReceiver;
@@ -74,12 +74,13 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         super.onStart();
         if (playIntent == null) {
             playIntent = new Intent(this, AudioService.class);
-            bindService(playIntent, audioConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
+            bindService(playIntent, audioConnection, Context.BIND_AUTO_CREATE);
         }
 
-        onSongChangedReceiver = new OnSongChangedReceiver(playerFragment);
+        onSongChangedReceiver = new OnSongChangedReceiver(this);
         registerReceiver(onSongChangedReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CHANGED));
+
     }
 
     @Override
@@ -91,6 +92,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         registerReceiver(onSongClickedWithIdReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_ID));
         onSongClickedWithPathReceiver = new OnSongClickedWithPathReceiver(this);
         registerReceiver(onSongClickedWithPathReceiver, new IntentFilter(Constants.Audio.ACTION_SONG_CLICKED_WITH_PATH));
+
 
         Constants.PROGRESSBAR_HANDLER = new Handler() {
             @Override
@@ -110,12 +112,11 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         onSongClickedWithIdReceiver = null;
         unregisterReceiver(onSongClickedWithPathReceiver);
         onSongClickedWithPathReceiver = null;
+
     }
 
     protected void onDestroy() {
-        stopService(playIntent);
         unbindService(audioConnection);
-        audioService = null;
         unregisterReceiver(onSongChangedReceiver);
         onSongChangedReceiver = null;
         super.onDestroy();
@@ -126,6 +127,10 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         if(slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         }else {
+            if(this instanceof RegaplayListsActivity){
+                stopService(playIntent);
+                audioService = null;
+            }
             super.onBackPressed();
         }
 
@@ -166,7 +171,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     private void songChanged() {
         Song song = getCurrentSong();
         audioService.setSong(song);
-        sendBroadcastSongChanged(song);
+        playerFragment.setNewSong(song);
         playSong();
         showSlidingUpFrameLayout();
     }
@@ -200,6 +205,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     protected void updatePlayerFragment() {
         if (audioService != null && audioService.isPlaying) {
             playerFragment.setNewSong(audioService.song);
+            showSlidingUpFrameLayout();
         }
     }
 
@@ -224,6 +230,15 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         playList.add(clickedSong);
         songChanged();
         showSlidingUpFrameLayout();
+    }
+
+    @Override
+    public void onSongChanged(Song song) {
+        playList.clear();
+        playList.add(song);
+        songChanged();
+        showSlidingUpFrameLayout();
+
     }
 
     public Song getCurrentSong() {

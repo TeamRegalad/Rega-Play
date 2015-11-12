@@ -37,14 +37,19 @@ public class GenreListActivity extends AudioActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.genre_list_activity_toolbar);
         toolbar.setTitle(genreName);
 
+        commitPlayerFragment(R.id.genre_list_activity_player_layout);
+
         if(savedInstanceState == null) {
             this.genreSongsFragment = new GenreSongsFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.genre_list_activity_relative_layout, genreSongsFragment);
             transaction.commit();
+        }else {
+            updatePlayerFragment();
         }
 
-        commitPlayerFragment(R.id.genre_list_activity_player_layout);
+
+
 
 
     }

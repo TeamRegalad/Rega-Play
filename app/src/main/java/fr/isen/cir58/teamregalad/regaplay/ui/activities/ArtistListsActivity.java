@@ -82,6 +82,9 @@ public class ArtistListsActivity extends AudioActivity implements LastFMApiAsync
         });
 
         commitPlayerFragment(R.id.artist_lists_activity_player_layout);
+        if (savedInstanceState != null) {
+            updatePlayerFragment();
+        }
     }
 
     public String getArtistName() {

@@ -124,8 +124,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     @Override
     public void onBackPressed() {
         if(slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
-            stopSong();
-            hideSlidingUpFrameLayout();
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         }else {
             super.onBackPressed();
         }

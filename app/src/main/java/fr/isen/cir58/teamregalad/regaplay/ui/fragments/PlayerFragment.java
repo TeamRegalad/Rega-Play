@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -44,7 +45,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
     private TextView textViewPlaylist;
     private ImageView imageViewCover;
     private ImageView imageViewCoverExtended;
-    private LinearLayout linearLayoutPlayer;
+    private FrameLayout frameLayoutPlayer;
     private TextView textViewArtistName;
     private SeekBar seekBar;
     private TextView textBufferDuration;
@@ -81,10 +82,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
-        //textViewPlaylist = (TextView) rootView.findViewById(R.id.player_textview_playlist);
+        textViewPlaylist = (TextView) rootView.findViewById(R.id.player_textview_playlist);
         textViewArtistName = (TextView) rootView.findViewById(R.id.player_textview_artistname);
 
-        linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_root_linearlayout);
+        frameLayoutPlayer = (FrameLayout) rootView.findViewById(R.id.player_root_linearlayout);
 
         seekBar = (SeekBar) rootView.findViewById(R.id.player_progressbar);
         seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
@@ -146,7 +147,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
     }
 
     public void updatePlaylist(String currentSong, String playlistSize) {
-        //textViewPlaylist.setText(currentSong + "/" + playlistSize);
+        textViewPlaylist.setText(currentSong + "/" + playlistSize);
     }
 
     @Override

@@ -34,7 +34,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
  * Created by Thomas Fossati on 05/11/2015.
  */
 
-public class PlayerFragment extends Fragment implements View.OnClickListener, OnSongChangedReceiver.OnSongChangedListener, SlidingUpPanelLayout.PanelSlideListener, SeekBar.OnSeekBarChangeListener {
+public class PlayerFragment extends Fragment implements View.OnClickListener, SlidingUpPanelLayout.PanelSlideListener, SeekBar.OnSeekBarChangeListener {
     public View rootView;
     private Button buttonPause;
     private Button buttonNext;
@@ -244,8 +244,4 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         return seekBar;
     }
 
-    @Override
-    public void onSongChanged(Song song) {
-        setNewSong(song);
-    }
 }

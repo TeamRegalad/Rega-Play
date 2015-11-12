@@ -215,7 +215,6 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     @Override
     public void onSongClickedWithId(Long id) {
-        showSlidingUpFrameLayout();
         playList.clear();
         Song clickedSong = MediaStoreHelper.getSong(id);
         playList.add(clickedSong);
@@ -229,7 +228,6 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         Song clickedSong = MediaStoreHelper.getSong(path);
         playList.add(clickedSong);
         songChanged();
-        showSlidingUpFrameLayout();
     }
 
     @Override

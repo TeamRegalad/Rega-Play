@@ -272,30 +272,21 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     @Override
     public void onSongClickedWithId(Long id) {
-        showSlidingUpFrameLayout();
-        playlist = null;
-        playlist = new Playlist(0);
-        playlist.addSong(id);
-        songChanged();
+        onSongChanged(MediaStoreHelper.getSong(id));
     }
 
     @Override
     public void onSongClickedWithPath(String path) {
-        playlist = null;
-        playlist = new Playlist(0);
-        Song clickedSong = MediaStoreHelper.getSong(path);
-        playlist.addSong(clickedSong);
-        songChanged();
-        showSlidingUpFrameLayout();
+        onSongChanged(MediaStoreHelper.getSong(path));
     }
 
     @Override
     public void onSongChanged(Song song) {
-        playList.clear();
-        playList.add(song);
+        playlist = null;
+        playlist = new Playlist(0);
+        playlist.addSong(song);
         songChanged();
         showSlidingUpFrameLayout();
-
     }
 
     public Song getCurrentSong() {

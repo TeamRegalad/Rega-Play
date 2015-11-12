@@ -16,11 +16,13 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
@@ -29,36 +31,32 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */
-public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     private static Timer timer;
     private final IBinder audioBind = new AudioBinder();
     private boolean songPaused;
     private MediaPlayer mediaPlayer;
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            try {
-                if (mediaPlayer.isPlaying()) {
-
-                    int progress = (mediaPlayer.getCurrentPosition() * 100) / mediaPlayer.getDuration();
-                    Integer timeValues[] = new Integer[3];
-                    timeValues[0] = mediaPlayer.getCurrentPosition();
-                    timeValues[1] = mediaPlayer.getDuration();
-                    timeValues[2] = progress;
-                    Constants.PROGRESSBAR_HANDLER.sendMessage(Constants.PROGRESSBAR_HANDLER.obtainMessage(0, timeValues));
-
-                }
-            } catch (Exception e) {
-
-            }
-        }
-    };
     private Uri songUri;
     private Long songId;
     public Song song;
     private Notification notification;
     public Boolean isPlaying = false;
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (mediaPlayer.isPlaying()) {
+
+                int progress = (mediaPlayer.getCurrentPosition() * 100) / mediaPlayer.getDuration();
+                Integer timeValues[] = new Integer[3];
+                timeValues[0] = mediaPlayer.getCurrentPosition();
+                timeValues[1] = mediaPlayer.getDuration();
+                timeValues[2] = progress;
+
+                Constants.PROGRESSBAR_HANDLER.sendMessage(Constants.PROGRESSBAR_HANDLER.obtainMessage(0, timeValues));
+            }
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -72,6 +70,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
         mediaPlayer.setOnPreparedListener(this);
+        //mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
     }
 
@@ -140,6 +139,11 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         isPlaying = false;
     }
 
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        Toast.makeText(RegaPlayApplication.getContext(), "FINISHED", Toast.LENGTH_SHORT).show();
+    }
+
     public void setSongAtTimeStamp(int value) {
         mediaPlayer.seekTo((value * mediaPlayer.getDuration()) / 100);
     }
@@ -165,6 +169,10 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         startForeground(0, notification);
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
     public class AudioBinder extends Binder {
         public AudioService getService() {
             return AudioService.this;
@@ -174,7 +182,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     private class MainTask extends TimerTask {
         public void run() {
             handler.sendEmptyMessage(0);
-            handler.postDelayed(this, 50);
         }
     }
 }

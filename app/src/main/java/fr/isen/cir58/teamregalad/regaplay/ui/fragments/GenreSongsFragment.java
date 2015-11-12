@@ -19,6 +19,7 @@ import fr.isen.cir58.teamregalad.regaplay.adapters.SongsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.GenreListActivity;
+import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
  * Created by paul on 11/6/15.
@@ -64,6 +65,8 @@ public class GenreSongsFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+
         mAdapter = new SongsListAdapter(getActivity(), data);
         mRecyclerView.setAdapter(mAdapter);
     }

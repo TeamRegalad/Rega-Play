@@ -2,11 +2,13 @@ package fr.isen.cir58.teamregalad.regaplay.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.async.SetAlbumArtAsyncTask;
+import fr.isen.cir58.teamregalad.regaplay.listeners.AddToPlaylistOnClickListener;
 
 /**
  * Created by aymeric on 10/31/15.

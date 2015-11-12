@@ -28,14 +28,13 @@ import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongChangedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.social.ShareMusicInfo;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
-import fr.isen.cir58.teamregalad.regaplay.ui.activities.GenreListActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.
  */
 
-public class PlayerFragment extends Fragment implements View.OnClickListener, OnSongChangedReceiver.OnSongChangedListener, SlidingUpPanelLayout.PanelSlideListener, SeekBar.OnSeekBarChangeListener {
+public class PlayerFragment extends Fragment implements View.OnClickListener, SlidingUpPanelLayout.PanelSlideListener, SeekBar.OnSeekBarChangeListener {
     public View rootView;
     private Button buttonPause;
     private Button buttonNext;
@@ -46,6 +45,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     private Button buttonBarPlay;
     private Button buttonBarStop;
     private TextView textViewSongName;
+    private TextView textViewPlaylist;
     private ImageView imageViewCover;
     private ImageView imageViewCoverExtended;
     private LinearLayout linearLayoutPlayer;
@@ -85,6 +85,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
+        //textViewPlaylist = (TextView) rootView.findViewById(R.id.player_textview_playlist);
         textViewArtistName = (TextView) rootView.findViewById(R.id.player_textview_artistname);
 
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_root_linearlayout);
@@ -147,6 +148,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         rootView.setVisibility(View.VISIBLE);
     }
 
+    public void updatePlaylist(String currentSong, String playlistSize){
+        //textViewPlaylist.setText(currentSong + "/" + playlistSize);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -190,7 +195,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
-            Log.d("Test", String.valueOf(progress));
+            Log.d("PlayerFragment", String.valueOf(progress));
             ((AudioActivity) getActivity()).setSongAtTimestamp(progress);
         }
     }
@@ -211,8 +216,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
 
     @Override
     public void onPanelCollapsed(View view) {
-        buttonBarPause.setVisibility(View.VISIBLE);
-        buttonBarPlay.setVisibility(View.GONE);
+        changeButtonBar();
         buttonBarStop.setVisibility(View.GONE);
 
     }
@@ -245,8 +249,4 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         return seekBar;
     }
 
-    @Override
-    public void onSongChanged(Song song) {
-        setNewSong(song);
-    }
 }

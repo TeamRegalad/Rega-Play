@@ -22,11 +22,9 @@
 
 
         <activity
-            android:name=".ui.activities.ArtistListsActivity"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.activities.ArtistListsActivity"/>
         <activity
-            android:name=".ui.activities.AlbumListActivity"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.activities.AlbumListActivity"/>
         <activity
             android:name=".ui.activities.RegaplayListsActivity"
             android:screenOrientation="portrait">
@@ -37,12 +35,10 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.FilesListActivity"
-            android:screenOrientation="portrait" />
+            android:name=".ui.activities.FilesListActivity"/>
 
         <activity
-            android:name=".ui.activities.GenreListActivity"
-            android:screenOrientation="portrait" />
+            android:name=".ui.activities.GenreListActivity" />
 
     </application>
 

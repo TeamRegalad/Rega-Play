@@ -3,7 +3,6 @@ package fr.isen.cir58.teamregalad.regaplay.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
@@ -18,11 +17,16 @@ public class OnSongClickedWithIdReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Long id = intent.getExtras().getLong(Constants.Audio.ACTION_SONG_CLICKED_ID);
-        mListener.onSongClickedWithId(id);
+        if (intent.getAction().equals(Constants.Audio.ACTION_SONG_CLICKED_WITH_ID)) {
+            if (mListener != null) {
+                Long id = intent.getExtras().getLong(Constants.Audio.ACTION_SONG_CLICKED_ID);
+                mListener.onSongClickedWithId(id);
+            }
+        }
     }
 
     public interface OnSongClickedWithIdListener {
         void onSongClickedWithId(Long id);
     }
+
 }

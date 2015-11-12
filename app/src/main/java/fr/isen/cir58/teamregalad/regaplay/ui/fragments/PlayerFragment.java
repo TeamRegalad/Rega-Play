@@ -45,6 +45,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
     private Button buttonBarPlay;
     private Button buttonBarStop;
     private TextView textViewSongName;
+    private TextView textViewPlaylist;
     private ImageView imageViewCover;
     private ImageView imageViewCoverExtended;
     private LinearLayout linearLayoutPlayer;
@@ -84,6 +85,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
         textBufferDuration = (TextView) rootView.findViewById(R.id.player_textBufferDuration);
         textDuration = (TextView) rootView.findViewById(R.id.player_textDuration);
         textViewSongName = (TextView) rootView.findViewById(R.id.player_textview_songname);
+        //textViewPlaylist = (TextView) rootView.findViewById(R.id.player_textview_playlist);
         textViewArtistName = (TextView) rootView.findViewById(R.id.player_textview_artistname);
 
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_root_linearlayout);
@@ -144,6 +146,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
         textDuration.setText(MethodsUtils.getDuration(song.getDuration()));
 
         rootView.setVisibility(View.VISIBLE);
+    }
+
+    public void updatePlaylist(String currentSong, String playlistSize){
+        //textViewPlaylist.setText(currentSong + "/" + playlistSize);
     }
 
     @Override

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/player_root_linearlayout"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center_horizontal|top"
     android:background="@color/colorPrimary"
     android:clickable="true"
@@ -13,25 +13,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/player_imageview_albumart"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher" />/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/player_textviews_layout"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/player_textview_artistname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/player_textview_songname"
-                android:ellipsize="marquee"
+                android:layout_marginTop="15dp"
+                android:ellipsize="end"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
                 android:text="@string/songs_list_fragment_item_song_name"
@@ -42,21 +47,25 @@
                 android:id="@+id/player_textview_songname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="marquee"
+                android:ellipsize="end"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
                 android:text="@string/songs_list_fragment_item_artist_name"
-                android:textSize="15sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true" />
+                android:textSize="15sp" />
 
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="82dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:id="@+id/player_buttons_layout">
             <Button
                 android:id="@+id/player_button_bar_play"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="38dp"
                 android:background="@drawable/ic_play_big"
                 android:visibility="gone" />
 
@@ -64,31 +73,26 @@
                 android:id="@+id/player_button_bar_pause"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="38dp"
-                android:background="@drawable/ic_pause_big" />
+                android:background="@drawable/ic_pause_big"/>
 
             <Button
                 android:id="@+id/player_button_bar_stop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="38dp"
                 android:background="@drawable/ic_stop_big"
                 android:visibility="gone" />
 
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
+
     <ImageView
         android:id="@+id/player_imageview_albumart_extended"
+        android:src="@drawable/defaultpic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/defaultpic" />
+        android:layout_gravity="center"/>
 
 
     <LinearLayout
@@ -100,9 +104,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="50dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -129,7 +132,6 @@
                 android:id="@+id/player_button_pause"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/ic_action_pause" />
@@ -159,7 +161,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -177,14 +178,14 @@
                 android:textColor="@color/white" />
         </LinearLayout>
 
-        <ProgressBar
+        <SeekBar
             android:id="@+id/player_progressbar"
-            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:maxHeight="1000dp"
+            android:thumbTint="#ffffff"/>
     </LinearLayout>
 
 </LinearLayout>

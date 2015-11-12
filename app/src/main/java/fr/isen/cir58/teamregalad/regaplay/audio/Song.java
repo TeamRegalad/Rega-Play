@@ -1,9 +1,12 @@
 package fr.isen.cir58.teamregalad.regaplay.audio;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */
-public class Song {
+public class Song implements Parcelable{
 
     private long ID;
     private String title;
@@ -30,6 +33,32 @@ public class Song {
         this.genre = genre;
         this.coverPath = coverPath;
     }
+
+    protected Song(Parcel in) {
+        ID = in.readLong();
+        title = in.readString();
+        path = in.readString();
+        artistID = in.readInt();
+        artist = in.readString();
+        albumID = in.readInt();
+        album = in.readString();
+        year = in.readInt();
+        duration = in.readInt();
+        genre = in.readString();
+        coverPath = in.readString();
+    }
+
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
 
     public long getID() {
         return ID;
@@ -128,5 +157,29 @@ public class Song {
                 duration + "\n" +
                 genre + "\n " +
                 path;
+    }
+
+    public String shareSongInfos() {
+        return "I'm listening to " + title + " - " + artist + " (" + album + " - " + year + ") with RegaPlay (https://github.com/TeamRegalad/Rega-Play)";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(ID);
+        parcel.writeString(title);
+        parcel.writeString(path);
+        parcel.writeInt(artistID);
+        parcel.writeString(artist);
+        parcel.writeInt(albumID);
+        parcel.writeString(album);
+        parcel.writeInt(year);
+        parcel.writeInt(duration);
+        parcel.writeString(genre);
+        parcel.writeString(coverPath);
     }
 }

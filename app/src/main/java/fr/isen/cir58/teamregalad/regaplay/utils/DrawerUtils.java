@@ -20,17 +20,17 @@ import fr.isen.cir58.teamregalad.regaplay.ui.activities.FilesListActivity;
  */
 public class DrawerUtils {
 
-    private Drawer response;
-    private Activity activity;
     final PrimaryDrawerItem audioActivity = new PrimaryDrawerItem().withName("Audio explorer").withIcon(R.drawable.ic_music_black);
     final PrimaryDrawerItem fileActivity = new PrimaryDrawerItem().withName("File explorer").withIcon(R.drawable.ic_folder_black);
     final SecondaryDrawerItem about = new SecondaryDrawerItem().withName("RegaPlay by Team Regalade").withEnabled(false);
+    private Drawer response;
+    private Activity activity;
 
     public DrawerUtils(Activity activity) {
         this.activity = activity;
     }
 
-    public void initializeDrawer(Activity activity){
+    public void initializeDrawer(Activity activity) {
 
 
         this.response = new DrawerBuilder().withActivity(activity)
@@ -49,28 +49,28 @@ public class DrawerUtils {
                 .build();
     }
 
-    public void updatedSelection(){
+    public void updatedSelection() {
         Integer selected = response.getCurrentSelection();
         System.out.println("Regaplay update selection : " + selected);
         //Toast.makeText(activity, selected, Toast.LENGTH_LONG).show();
-        if(selected == audioActivity.getIdentifier() ){
-            if(this.activity.getClass() != RegaplayListsActivity.class){
+        if (selected == audioActivity.getIdentifier()) {
+            if (this.activity.getClass() != RegaplayListsActivity.class) {
                 Intent fileIntent = new Intent(this.activity, RegaplayListsActivity.class);
                 this.activity.startActivity(fileIntent);
-                }
+            }
 
-        }else if(selected == fileActivity.getIdentifier()){
-            if(this.activity.getClass() != FilesListActivity.class){
+        } else if (selected == fileActivity.getIdentifier()) {
+            if (this.activity.getClass() != FilesListActivity.class) {
                 Intent fileIntent = new Intent(this.activity, FilesListActivity.class);
                 this.activity.startActivity(fileIntent);
             }
         }
     }
 
-    public void setSelected(int selected){
-        if(selected == 1 ){
+    public void setSelected(int selected) {
+        if (selected == 1) {
             response.setSelection(audioActivity.getIdentifier());
-        }else if(selected == 2){
+        } else if (selected == 2) {
             response.setSelection(fileActivity.getIdentifier());
         }
     }

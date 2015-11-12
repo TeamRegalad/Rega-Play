@@ -72,7 +72,7 @@ public class MediaStoreHelper implements BaseColumns {
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_DATA));
+                path = cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_PATH));
             }
 
             if (!cursor.isClosed()) {
@@ -98,7 +98,42 @@ public class MediaStoreHelper implements BaseColumns {
                 song = new Song(
                         id,
                         cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_TITLE)),
-                        cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_DATA)),
+                        cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_PATH)),
+                        cursor.getInt(cursor.getColumnIndex(MediaStoreContract.SONGS_ARTIST_ID)),
+                        cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ARTIST)),
+                        cursor.getInt(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ID)),
+                        cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM)),
+                        cursor.getInt(cursor.getColumnIndex(MediaStoreContract.SONGS_YEAR)),
+                        cursor.getInt(cursor.getColumnIndex(MediaStoreContract.SONGS_DURATION)),
+                        MediaStoreHelper.getGenre(RegaPlayApplication.getContext(), cursor.getLong(cursor.getColumnIndex(MediaStoreContract.SONGS_ID))),
+                        MediaStoreHelper.getAlbumArt(RegaPlayApplication.getContext(), cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ALBUM_KEY)))
+                );
+            }
+
+            if (!cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return song;
+    }
+
+    public static Song getSong(String path) {
+        Uri table = MediaStoreContract.TABLE_SONGS;
+        String[] projection = MediaStoreContract.SONGS_PROJECTION_FULL;
+        String selection = MediaStoreContract.SONGS_SELECTION_BY_PATH;
+        String[] selectionArgs = new String[]{path};
+        String sortOrder = null;
+
+        Song song = null;
+        Cursor cursor = RegaPlayApplication.getContext().getContentResolver().query(table, projection, selection, selectionArgs, sortOrder);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                song = new Song(
+                        cursor.getLong(cursor.getColumnIndex(MediaStoreContract.SONGS_ID)),
+                        cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_TITLE)),
+                        cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_PATH)),
                         cursor.getInt(cursor.getColumnIndex(MediaStoreContract.SONGS_ARTIST_ID)),
                         cursor.getString(cursor.getColumnIndex(MediaStoreContract.SONGS_ARTIST)),
                         cursor.getInt(cursor.getColumnIndex(MediaStoreContract.ALBUMS_ID)),

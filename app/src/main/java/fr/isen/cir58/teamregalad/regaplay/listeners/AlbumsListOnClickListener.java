@@ -29,7 +29,5 @@ public class AlbumsListOnClickListener implements View.OnClickListener {
         extras.putString("AlbumCover", albumsListViewHolder.coverPath);
         intent.putExtras(extras);
         context.startActivity(intent);
-
-
     }
 }

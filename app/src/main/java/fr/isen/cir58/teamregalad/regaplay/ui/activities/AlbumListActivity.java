@@ -13,8 +13,8 @@ import java.io.File;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.AlbumSongsFragment;
+import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.
@@ -44,12 +44,10 @@ public class AlbumListActivity extends AudioActivity {
 
         ImageView albumPicture = (ImageView) findViewById(R.id.album_list_activity_picture);
 
-        if(coverPath != null) {
+        if (coverPath != null) {
             File file = new File(coverPath);
             Glide.with(RegaPlayApplication.getContext()).load(file).into(albumPicture);
-        }
-        else
-        {
+        } else {
             Log.w("AlbumListActivity", "Cover art path is null");
         }
 
@@ -59,8 +57,8 @@ public class AlbumListActivity extends AudioActivity {
         transaction.commit();
 
         commitPlayerFragment(R.id.album_list_activity_root);
-
     }
+
 
     public String getAlbumName() {
         return albumName;

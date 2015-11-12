@@ -82,6 +82,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     public void setSong(Song song) {
         this.song = song;
         setSongId(song.getID());
+        songPaused = false;
     }
 
     public void setSongId(String path) {

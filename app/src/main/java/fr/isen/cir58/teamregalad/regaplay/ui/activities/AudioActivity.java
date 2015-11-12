@@ -218,7 +218,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     }
 
     @Override
-    public void OnSongClickedWithPath(String path) {
+    public void onSongClickedWithPath(String path) {
         playList.clear();
         Song clickedSong = MediaStoreHelper.getSong(path);
         playList.add(clickedSong);

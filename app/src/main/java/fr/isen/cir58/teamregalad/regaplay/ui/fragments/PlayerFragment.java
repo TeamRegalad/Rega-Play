@@ -104,6 +104,15 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
             buttonPlay.setVisibility(View.GONE);
         }
     }
+    public void changeButtonBar() {
+        if (((AudioActivity) getActivity()).getAudioService().isSongPaused()) {
+            buttonBarPause.setVisibility(View.GONE);
+            buttonBarPlay.setVisibility(View.VISIBLE);
+        } else {
+            buttonBarPause.setVisibility(View.VISIBLE);
+            buttonBarPlay.setVisibility(View.GONE);
+        }
+    }
 
     private void setOnclickListeners() {
         buttonPause.setOnClickListener(this);
@@ -148,6 +157,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
             case R.id.player_button_bar_play:
                 ((AudioActivity) getActivity()).playSong();
                 changeButton();
+                changeButtonBar();
                 break;
             case R.id.player_button_pause:
                 ((AudioActivity) getActivity()).pauseSong();
@@ -156,6 +166,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
             case R.id.player_button_bar_pause:
                 ((AudioActivity) getActivity()).pauseSong();
                 changeButton();
+                changeButtonBar();
                 break;
             case R.id.player_button_bar_stop:
                 ((AudioActivity) getActivity()).stopSong();

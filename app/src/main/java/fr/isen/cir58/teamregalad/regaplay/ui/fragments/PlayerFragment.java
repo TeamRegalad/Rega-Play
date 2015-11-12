@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +28,14 @@ import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongChangedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.social.ShareMusicInfo;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
+import fr.isen.cir58.teamregalad.regaplay.ui.activities.GenreListActivity;
+import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.
  */
 
-public class PlayerFragment extends Fragment implements View.OnClickListener, OnSongChangedReceiver.OnSongChangedListener, SlidingUpPanelLayout.PanelSlideListener {
+public class PlayerFragment extends Fragment implements View.OnClickListener, OnSongChangedReceiver.OnSongChangedListener, SlidingUpPanelLayout.PanelSlideListener, SeekBar.OnSeekBarChangeListener {
     public View rootView;
     private Button buttonPause;
     private Button buttonNext;
@@ -47,29 +50,11 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     private ImageView imageViewCoverExtended;
     private LinearLayout linearLayoutPlayer;
     private TextView textViewArtistName;
-    private ProgressBar progressBar;
+    private SeekBar seekBar;
     private TextView textBufferDuration;
     private TextView textDuration;
     private Song song;
 
-
-    public static String getDuration(long milliseconds) {
-        long sec = (milliseconds / 1000) % 60;
-        long min = (milliseconds / (60 * 1000)) % 60;
-        long hour = milliseconds / (60 * 60 * 1000);
-
-        String s = (sec < 10) ? "0" + sec : "" + sec;
-        String m = (min < 10) ? "0" + min : "" + min;
-        String h = "" + hour;
-
-        String time = "";
-        if (hour > 0) {
-            time = h + ":" + m + ":" + s;
-        } else {
-            time = m + ":" + s;
-        }
-        return time;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,8 +89,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
 
         linearLayoutPlayer = (LinearLayout) rootView.findViewById(R.id.player_root_linearlayout);
 
-        progressBar = (ProgressBar) rootView.findViewById(R.id.player_progressbar);
-        progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
+        seekBar = (SeekBar) rootView.findViewById(R.id.player_progressbar);
+        seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
 
         setOnclickListeners();
     }
@@ -129,6 +114,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         buttonBarPause.setOnClickListener(this);
         buttonBarPlay.setOnClickListener(this);
         buttonBarStop.setOnClickListener(this);
+        seekBar.setOnSeekBarChangeListener(this);
     }
 
     public void setNewSong(Song song) {
@@ -147,7 +133,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         } else {
             Log.w("PlayerFragment", "warning album art path is null.");
         }
-        textDuration.setText(getDuration(song.getDuration()));
+        textDuration.setText(MethodsUtils.getDuration(song.getDuration()));
 
         rootView.setVisibility(View.VISIBLE);
     }
@@ -173,7 +159,6 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
                 break;
             case R.id.player_button_bar_stop:
                 ((AudioActivity) getActivity()).stopSong();
-                rootView.setVisibility(View.GONE);
                 changeButton();
                 break;
             case R.id.player_button_previous:
@@ -189,6 +174,24 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
                 break;
 
         }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (fromUser) {
+            Log.d("Test", String.valueOf(progress));
+            ((AudioActivity) getActivity()).setSongAtTimestamp(progress);
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 
     @Override
@@ -227,8 +230,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
         return textBufferDuration;
     }
 
-    public ProgressBar getProgressBar() {
-        return progressBar;
+    public ProgressBar getSeekBar() {
+        return seekBar;
     }
 
     @Override

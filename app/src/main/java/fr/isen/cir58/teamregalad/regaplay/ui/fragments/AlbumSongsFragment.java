@@ -19,7 +19,6 @@ import fr.isen.cir58.teamregalad.regaplay.adapters.SongsListAdapter;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreContract;
 import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AlbumListActivity;
-import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 /**
  * Created by Thomas Fossati on 05/11/2015.

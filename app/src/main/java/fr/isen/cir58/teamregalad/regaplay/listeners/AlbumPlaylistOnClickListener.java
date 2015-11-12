@@ -7,7 +7,7 @@ import android.view.View;
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
-public class AlbumPlaylistOnClickListener implements View.OnClickListener{
+public class AlbumPlaylistOnClickListener implements View.OnClickListener {
     private String albumName;
 
     public AlbumPlaylistOnClickListener(String name) {

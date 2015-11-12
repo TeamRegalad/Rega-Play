@@ -2,50 +2,47 @@ package fr.isen.cir58.teamregalad.regaplay.listeners;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
 
+import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.FilesListActivity;
+import fr.isen.cir58.teamregalad.regaplay.view.FilesListViewHolder;
 
 /**
  * Created by maxime on 09/11/15.
  */
-public class FileListOnClickListener implements ListView.OnItemClickListener {
 
-    private Context c;
-    private String path;
+public class FileListOnClickListener implements View.OnClickListener {
+    FilesListViewHolder viewHolder;
 
-    public FileListOnClickListener(Context c, String path) {
-        this.c = c;
-        this.path= path;
+    public FileListOnClickListener(FilesListViewHolder viewHolder) {
+        this.viewHolder = viewHolder;
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            String filename = (String) parent.getAdapter().getItem(position);
-            if (path.endsWith(File.separator)) {
-                filename = path + filename;
-            } else {
-                filename = path + File.separator + filename;
+    public void onClick(View view) {
+        String path = viewHolder.path;
+        String filename = viewHolder.name.getText().toString();
+
+        if (new File(path).isDirectory()) {
+            Intent intent = new Intent(RegaPlayApplication.getContext(), FilesListActivity.class);
+            intent.putExtra("path", path);
+            view.getContext().startActivity(intent);
+        } else {
+
+            try{
+                FilesListActivity activity = (FilesListActivity) view.getContext();
+                activity.onSongClickedWithPath(path);
             }
-            if (new File(filename).isDirectory()) {
-                Intent intent = new Intent(v.getContext(), FilesListActivity.class);
-                intent.putExtra("path", filename);
-                c.startActivity(intent);
-            } else {
-                try{
-                    FilesListActivity activity = (FilesListActivity) this.c;
-                    activity.onSongClickedWithPath(path);
-                }
-                catch(Exception e)
-                {
-                    Toast.makeText(v.getContext(), filename + " is not a compatible file", Toast.LENGTH_LONG).show();
-                }
+            catch(Exception e)
+            {
+                Toast.makeText(RegaPlayApplication.getContext(), filename + " is not a compatible file", Toast.LENGTH_LONG).show();
             }
+        }
     }
 }
 

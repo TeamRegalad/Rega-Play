@@ -22,12 +22,11 @@ public class ArtistPlaylistClickedReceiver extends BroadcastReceiver {
         }
     }
 
-
-    public interface ArtistPlaylistClickedListener{
-        public void onArtistPlaylistClicked(String artistName);
-    }
-
     public void setListener(ArtistPlaylistClickedListener listener) {
         mlistener = listener;
+    }
+
+    public interface ArtistPlaylistClickedListener {
+        public void onArtistPlaylistClicked(String artistName);
     }
 }

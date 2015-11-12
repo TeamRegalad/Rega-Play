@@ -3,11 +3,15 @@ package fr.isen.cir58.teamregalad.regaplay.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
-public class AddToPlaylistClickedReceiver extends BroadcastReceiver{
+public class AddToPlaylistClickedReceiver extends BroadcastReceiver {
     private AddToPlaylistClickedListener mlistener;
-    public AddToPlaylistClickedReceiver(AddToPlaylistClickedListener listener){mlistener = listener;}
+
+    public AddToPlaylistClickedReceiver(AddToPlaylistClickedListener listener) {
+        mlistener = listener;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -19,7 +23,7 @@ public class AddToPlaylistClickedReceiver extends BroadcastReceiver{
         }
     }
 
-    public interface AddToPlaylistClickedListener{
+    public interface AddToPlaylistClickedListener {
         public void onAddToPlaylistClicked(long id);
     }
 }

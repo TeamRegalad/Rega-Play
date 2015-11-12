@@ -23,11 +23,11 @@ public class AlbumPlaylistClickedReceiver extends BroadcastReceiver {
 
     }
 
-    public interface AlbumPlaylistClickedListener {
-        public void onAlbumPlaylistClicked(String albumName);
-    }
-
     public void setListener(AlbumPlaylistClickedListener listener) {
         mlistener = listener;
+    }
+
+    public interface AlbumPlaylistClickedListener {
+        public void onAlbumPlaylistClicked(String albumName);
     }
 }

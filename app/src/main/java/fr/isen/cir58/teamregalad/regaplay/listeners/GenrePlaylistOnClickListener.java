@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
-import fr.isen.cir58.teamregalad.regaplay.receivers.GenrePlaylistClickedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 
 public class GenrePlaylistOnClickListener implements View.OnClickListener {
     private long genreId;
-    public GenrePlaylistOnClickListener(long id){
+
+    public GenrePlaylistOnClickListener(long id) {
         genreId = id;
     }
 

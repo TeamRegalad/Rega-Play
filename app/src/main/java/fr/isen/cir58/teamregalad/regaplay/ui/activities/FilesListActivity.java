@@ -1,9 +1,11 @@
 package fr.isen.cir58.teamregalad.regaplay.ui.activities;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.List;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.adapters.FilesListAdapter;
-import fr.isen.cir58.teamregalad.regaplay.listeners.FileListOnClickListener;
+import fr.isen.cir58.teamregalad.regaplay.external.DividerItemDecoration;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 /**
@@ -20,9 +22,10 @@ import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
  */
 public class FilesListActivity extends AudioActivity {
 
-    private String path;
     private final String DEFAULT_PATH = "/storage/";
-    private  ListView fileListView;
+    private String path;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,12 @@ public class FilesListActivity extends AudioActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.file_lists_activity_toolbar);
         setSupportActionBar(toolbar);
 
-        this.commitPlayerFragment(R.id.sliding_layout);
-        this.fileListView =(ListView) findViewById(R.id.fileListView);
+        commitPlayerFragment(R.id.files_list_activity_player_layout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.fileListView);
+        mLayoutManger = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManger);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // Initialize the Drawer menu
         DrawerUtils drawer = new DrawerUtils(this);
         drawer.initializeDrawer(this);
@@ -45,8 +52,10 @@ public class FilesListActivity extends AudioActivity {
             path = getIntent().getStringExtra("path");
         }
 
-        TextView pathText = (TextView) findViewById(R.id.pathTextView);
-        pathText.setText("Location : " + path);
+        getSupportActionBar().setTitle(path);
+
+        //TextView pathText = (TextView) findViewById(R.id.pathTextView);
+        //pathText.setText("Location : " + path);
         // Read all files sorted into the values-array
         List values = new ArrayList();
         File dir = new File(path);
@@ -62,13 +71,12 @@ public class FilesListActivity extends AudioActivity {
         Collections.sort(values);
 
         //Add to make navigation easier
-        values.add(0,"../");
+        values.add(0, "../");
 
         // Put the data into the list
         //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-        FilesListAdapter adapter = new FilesListAdapter(this, R.layout.files_list_item_fragment, values,path);
-        fileListView.setAdapter(adapter);
-        fileListView.setOnItemClickListener(new FileListOnClickListener(this, path));
+        FilesListAdapter adapter = new FilesListAdapter(path, values);
+        mRecyclerView.setAdapter(adapter);
 
     }
 }

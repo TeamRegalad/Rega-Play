@@ -32,20 +32,20 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="RegaPlay"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF" />-->
 
             </android.support.v7.widget.Toolbar>
 
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -61,18 +61,14 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="55dp"/>
-        </RelativeLayout>
+        </RelativeLayout>-->
 
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/fileListView"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="58dp"
-            android:translationZ="-1dp"
-            android:layout_alignParentBottom="true" />
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

@@ -10,13 +10,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
+import fr.isen.cir58.teamregalad.regaplay.R;
+import fr.isen.cir58.teamregalad.regaplay.RegaPlayApplication;
 import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.audio.services.AudioService;
 import fr.isen.cir58.teamregalad.regaplay.database.MediaStoreHelper;
@@ -25,6 +32,7 @@ import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithIdReceiver;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongClickedWithPathReceiver;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
+import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
 
 /**
  * Created by Thomas Fossati on 04/11/2015.
@@ -39,7 +47,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     private boolean audioBound = false;
     private ArrayList<Song> playList = new ArrayList<>();
     private Integer currentSongIndex = 0;
-    private int rootSlidingUpFrameLayoutID;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     private ServiceConnection audioConnection = new ServiceConnection() {
 
         @Override
@@ -87,9 +95,9 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
             @Override
             public void handleMessage(Message msg) {
                 Integer timeValues[] = (Integer[]) msg.obj;
-                playerFragment.getTextBufferDuration().setText(playerFragment.getDuration(timeValues[0]));
-                playerFragment.getTextDuration().setText(playerFragment.getDuration(timeValues[1]));
-                playerFragment.getProgressBar().setProgress(timeValues[2]);
+                playerFragment.getTextBufferDuration().setText(MethodsUtils.getDuration(timeValues[0]));
+                playerFragment.getTextDuration().setText(MethodsUtils.getDuration(timeValues[1]));
+                playerFragment.getSeekBar().setProgress(timeValues[2]);
             }
         };
     }
@@ -110,6 +118,17 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         unregisterReceiver(onSongChangedReceiver);
         onSongChangedReceiver = null;
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
+            stopSong();
+            hideSlidingUpFrameLayout();
+        }else {
+            super.onBackPressed();
+        }
+
     }
 
     public void pauseSong() {
@@ -148,6 +167,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         audioService.setSong(song.getID());
         sendBroadcastSongChanged(song);
         playSong();
+        showSlidingUpFrameLayout();
     }
 
     public void sendBroadcastSongChanged(Song song) {
@@ -157,6 +177,9 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
         intent.putExtras(extras);
         sendBroadcast(intent);
     }
+    public void setSongAtTimestamp(int value){
+        audioService.setSongAtTimeStamp(value);
+    }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
@@ -165,10 +188,12 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     protected void commitPlayerFragment(int containerViewId) {
         playerFragment = new PlayerFragment();
-        rootSlidingUpFrameLayoutID = containerViewId;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, playerFragment);
         transaction.commit();
+        slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        slidingUpPanelLayout.setPanelSlideListener(playerFragment);
+        hideSlidingUpFrameLayout();
     }
 
     protected void updatePlayerFragment() {
@@ -213,14 +238,14 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
     }
 
     protected void hideSlidingUpFrameLayout() {
-        FrameLayout rootSlidingUpFrameLayout = (FrameLayout) findViewById(rootSlidingUpFrameLayoutID);
-        rootSlidingUpFrameLayout.setVisibility(View.GONE);
-        rootSlidingUpFrameLayout.postInvalidate();
+       if(slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
+           slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+       }
+        slidingUpPanelLayout.setPanelHeight(0);
     }
 
     protected void showSlidingUpFrameLayout() {
-        FrameLayout rootSlidingUpFrameLayout = (FrameLayout) findViewById(rootSlidingUpFrameLayoutID);
-        rootSlidingUpFrameLayout.setVisibility(View.VISIBLE);
-        rootSlidingUpFrameLayout.postInvalidate();
+        slidingUpPanelLayout.setPanelHeight(MethodsUtils.convertDpToPixel(85, RegaPlayApplication.getContext()));
+
     }
 }

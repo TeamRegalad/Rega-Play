@@ -28,7 +28,7 @@ import fr.isen.cir58.teamregalad.regaplay.utils.Constants;
 /**
  * Created by Thomas Fossati on 26/10/2015.
  */
-public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
+public class AudioService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
 
     private static Timer timer;
     private final IBinder audioBind = new AudioBinder();
@@ -37,15 +37,19 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (mediaPlayer.isPlaying()) {
+            try {
+                if (mediaPlayer.isPlaying()) {
 
-                int progress = (mediaPlayer.getCurrentPosition() * 100) / mediaPlayer.getDuration();
-                Integer timeValues[] = new Integer[3];
-                timeValues[0] = mediaPlayer.getCurrentPosition();
-                timeValues[1] = mediaPlayer.getDuration();
-                timeValues[2] = progress;
+                    int progress = (mediaPlayer.getCurrentPosition() * 100) / mediaPlayer.getDuration();
+                    Integer timeValues[] = new Integer[3];
+                    timeValues[0] = mediaPlayer.getCurrentPosition();
+                    timeValues[1] = mediaPlayer.getDuration();
+                    timeValues[2] = progress;
+                    Constants.PROGRESSBAR_HANDLER.sendMessage(Constants.PROGRESSBAR_HANDLER.obtainMessage(0, timeValues));
 
-                Constants.PROGRESSBAR_HANDLER.sendMessage(Constants.PROGRESSBAR_HANDLER.obtainMessage(0, timeValues));
+                }
+            } catch (Exception e) {
+
             }
         }
     };
@@ -66,7 +70,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
         mediaPlayer.setOnPreparedListener(this);
-        mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
     }
 
@@ -98,7 +101,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
             try {
                 mediaPlayer.setDataSource(getApplicationContext(), songUri);
             } catch (Exception e) {
-                Log.e("AUDIO SERVICE", "Error setting data source", e);
+                Log.e("AudioService", "Error setting data source", e);
             }
             mediaPlayer.prepareAsync();
             songPaused = false;
@@ -130,9 +133,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         isPlaying = false;
     }
 
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-
+    public void setSongAtTimeStamp(int value) {
+        mediaPlayer.seekTo((value * mediaPlayer.getDuration()) / 100);
     }
 
     @Override
@@ -165,6 +167,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     private class MainTask extends TimerTask {
         public void run() {
             handler.sendEmptyMessage(0);
+            handler.postDelayed(this, 50);
         }
     }
 }

@@ -8,11 +8,14 @@ import android.widget.ImageButton;
 
 import fr.isen.cir58.teamregalad.regaplay.R;
 import fr.isen.cir58.teamregalad.regaplay.adapters.RegaplayListsAdapter;
+import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.listeners.RandomPlaylistOnClickListener;
 import fr.isen.cir58.teamregalad.regaplay.ui.fragments.PlayerFragment;
 import fr.isen.cir58.teamregalad.regaplay.utils.DrawerUtils;
 
 public class RegaplayListsActivity extends AudioActivity {
+    private Song song;
+    private int timeStopped;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,5 +69,25 @@ public class RegaplayListsActivity extends AudioActivity {
 
         commitPlayerFragment(R.id.regaplay_lists_activity_player_layout);
 
+        if (savedInstanceState != null) {
+            song = (Song) savedInstanceState.getParcelable("Song");
+            timeStopped = savedInstanceState.getInt("timeStopped");
+            //sendBroadcastSongChanged(song);
+
+        }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //getAudioService().resumeSongFromNewBinding(song, timeStopped);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable("Song", getAudioService().song);
+        outState.putInt("timeStopped", playerFragment.getSeekBar().getProgress());
+        super.onSaveInstanceState(outState);
     }
 }

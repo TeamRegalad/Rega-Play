@@ -2,8 +2,10 @@ package fr.isen.cir58.teamregalad.regaplay.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,6 +31,11 @@ public class FilesListActivity extends AudioActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.files_list_activity);
+
+        // Adding Toolbar to Main screen
+        Toolbar toolbar = (Toolbar) findViewById(R.id.file_lists_activity_toolbar);
+        setSupportActionBar(toolbar);
+
         this.commitPlayerFragment(R.id.file_lists_activity_root_layout);
         this.fileListView =(ListView) findViewById(R.id.fileListView);
         // Initialize the Drawer menu
@@ -41,6 +48,8 @@ public class FilesListActivity extends AudioActivity {
             path = getIntent().getStringExtra("path");
         }
 
+        TextView pathText = (TextView) findViewById(R.id.pathTextView);
+        pathText.setText("Location : " + path);
         // Read all files sorted into the values-array
         List values = new ArrayList();
         File dir = new File(path);
@@ -51,7 +60,6 @@ public class FilesListActivity extends AudioActivity {
                     values.add(file);
                 }
             }
-        }else{
         }
 
         Collections.sort(values);

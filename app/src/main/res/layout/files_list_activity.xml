@@ -20,6 +20,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/regaplay_lists_activity_appbar"
             android:layout_width="match_parent"
+<<<<<<< Updated upstream
             android:layout_height="wrap_content"
             android:elevation="6dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -41,22 +42,34 @@
                     android:textColor="#FFFFFF" />
 
             </android.support.v7.widget.Toolbar>
+=======
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+>>>>>>> Stashed changes
 
 
         </android.support.design.widget.AppBarLayout>
 
 
-        <ListView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fileListView"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Path"
+            android:id="@+id/pathTextView"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="58dp"
-            android:translationZ="-1dp"
-            android:layout_alignParentBottom="true" />
+            android:layout_marginTop="54dp" />
 
-
+<<<<<<< Updated upstream
     </android.support.design.widget.CoordinatorLayout>
 
     <FrameLayout
@@ -67,3 +80,14 @@
     </FrameLayout>
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+=======
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fileListView"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/pathTextView" />
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
+>>>>>>> Stashed changes

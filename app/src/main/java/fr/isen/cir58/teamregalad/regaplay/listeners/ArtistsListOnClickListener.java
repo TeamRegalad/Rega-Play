@@ -24,13 +24,10 @@ public class ArtistsListOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
         Intent intent = new Intent(context, ArtistListsActivity.class);
         Bundle extras = new Bundle();
         extras.putString("ArtistName", artistsListViewHolder.artistName.getText().toString());
         intent.putExtras(extras);
         context.startActivity(intent);
-
-
     }
 }

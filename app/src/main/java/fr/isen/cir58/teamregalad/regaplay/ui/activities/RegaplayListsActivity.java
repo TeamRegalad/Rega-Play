@@ -56,8 +56,7 @@ public class RegaplayListsActivity extends AudioActivity {
             }
         });
 
-        commitPlayerFragment(R.id.regaplay_lists_activity_root_layout);
-        showPlayerFragment();
+        commitPlayerFragment(R.id.regaplay_lists_activity_player_layout);
 
     }
 }

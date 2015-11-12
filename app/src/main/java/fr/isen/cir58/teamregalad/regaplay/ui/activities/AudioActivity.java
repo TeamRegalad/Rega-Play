@@ -132,6 +132,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     }
 
+
     public void pauseSong() {
         audioService.pauseSong();
     }

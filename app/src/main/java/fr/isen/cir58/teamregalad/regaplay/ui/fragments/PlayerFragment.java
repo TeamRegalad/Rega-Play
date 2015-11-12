@@ -28,7 +28,6 @@ import fr.isen.cir58.teamregalad.regaplay.audio.Song;
 import fr.isen.cir58.teamregalad.regaplay.receivers.OnSongChangedReceiver;
 import fr.isen.cir58.teamregalad.regaplay.social.ShareMusicInfo;
 import fr.isen.cir58.teamregalad.regaplay.ui.activities.AudioActivity;
-import fr.isen.cir58.teamregalad.regaplay.ui.activities.GenreListActivity;
 import fr.isen.cir58.teamregalad.regaplay.utils.MethodsUtils;
 
 /**
@@ -190,7 +189,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, On
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
-            Log.d("Test", String.valueOf(progress));
+            Log.d("PlayerFragment", String.valueOf(progress));
             ((AudioActivity) getActivity()).setSongAtTimestamp(progress);
         }
     }

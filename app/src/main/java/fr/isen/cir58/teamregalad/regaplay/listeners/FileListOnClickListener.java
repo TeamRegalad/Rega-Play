@@ -1,8 +1,6 @@
 package fr.isen.cir58.teamregalad.regaplay.listeners;
 
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 

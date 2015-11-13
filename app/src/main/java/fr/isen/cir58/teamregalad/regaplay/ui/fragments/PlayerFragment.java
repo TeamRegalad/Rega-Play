@@ -150,6 +150,11 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
     public void updatePlaylist(String currentSong, String playlistSize) {
         textViewPlaylist.setText(currentSong + "/" + playlistSize);
     }
+    public void displayButtonBarStop(){
+        buttonBarPause.setVisibility(View.GONE);
+        buttonBarPlay.setVisibility(View.GONE);
+        buttonBarStop.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onClick(View v) {
@@ -179,10 +184,12 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
             case R.id.player_button_previous:
                 ((AudioActivity) getActivity()).previousSong();
                 changeButton();
+                displayButtonBarStop();
                 break;
             case R.id.player_button_next:
                 ((AudioActivity) getActivity()).nextSong();
                 changeButton();
+                displayButtonBarStop();
                 break;
             case R.id.player_button_social:
                 ShareMusicInfo.shareVia(getActivity(), this.song.shareSongInfos());
@@ -221,9 +228,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Sl
 
     @Override
     public void onPanelExpanded(View view) {
-        buttonBarPause.setVisibility(View.GONE);
-        buttonBarPlay.setVisibility(View.GONE);
-        buttonBarStop.setVisibility(View.VISIBLE);
+        displayButtonBarStop();
     }
 
     @Override

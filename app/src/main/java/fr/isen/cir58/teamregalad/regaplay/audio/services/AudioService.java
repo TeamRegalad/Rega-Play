@@ -98,7 +98,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public boolean onUnbind(Intent intent) {
         mediaPlayer.stop();
-        mediaPlayer.release();
+        mediaPlayer.reset();
         return false;
     }
 

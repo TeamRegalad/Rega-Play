@@ -159,7 +159,7 @@ public class Song implements Parcelable {
     }
 
     public String shareSongInfos() {
-        return "I'm listening to " + title + " - " + artist + " (" + album + " - " + year + ") with RegaPlay (http://github.com/TeamRegalad/Rega-Play)";
+        return "I'm listening to " + title + " - " + artist + " (" + album + " - " + year + ") with RegaPlay";
     }
 
     @Override
